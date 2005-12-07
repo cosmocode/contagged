@@ -44,6 +44,8 @@
   tpl_markers();
   $smarty->assign('list',$list);
   $smarty->assign('filter',$_REQUEST['filter']);
+  $smarty->assign('marker',$_REQUEST['marker']);
+  $smarty->assign('search',$_REQUEST['search']);
   //display templates
   if($_REQUEST['export'] == 'csv'){
     header("Content-Type: text/csv");
