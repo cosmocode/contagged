@@ -11,6 +11,9 @@
       {if $dn}
         <a href="entry.php?dn={$dn|escape:url}&mode=vcf"><img src="pix/vcard.png" border="0" width="22" height="22" align="middle">{$lang.vcfexport}</a>
       {/if}
+      {if $list}
+        <a href="index.php?filter={$filter|escape:url}&export=csv"><img src="pix/csv.png" border="0" width="22" height="22" align="middle">{$lang.csvexport}</a>
+      {/if}
       {if $user}
           <a href="import.php"><img src="pix/import.png" border="0" width="22" height="22" align="middle">{$lang.vcfimport}</a> 
         {if $dn}

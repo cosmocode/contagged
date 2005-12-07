@@ -18,6 +18,13 @@
   
   $result = array_merge($result1,$result2);
 
+  // select entry template
+  if($_REQUEST['export'] == 'csv'){
+    $entrytpl = 'export_list_csv_entry.tpl';
+  }else{
+    $entrytpl = 'list_entry.tpl';
+  }
+
   $list = '';
   if(count($result)==1 && $_REQUEST[search]){
     //only one result on a search -> display page
@@ -28,22 +35,28 @@
     uksort($keys,"_namesort");
     foreach($keys as $key){
       tpl_entry($result[$key]);
-      $list .= $smarty->fetch('list_entry.tpl');
+      $list .= $smarty->fetch($entrytpl);
     }
   }
 
-  //save location in session
-  $_SESSION[ldapab][lastlocation]=$_SERVER["REQUEST_URI"];
-   
   //prepare templates
   tpl_std();
   tpl_markers();
   $smarty->assign('list',$list);
+  $smarty->assign('filter',$_REQUEST['filter']);
   //display templates
-  $smarty->display('header.tpl');
-  $smarty->display('list_filter.tpl');
-  $smarty->display('list.tpl');
-  $smarty->display('footer.tpl');
+  if($_REQUEST['export'] == 'csv'){
+    header("Content-Type: text/csv");
+    header('Content-Disposition: Attachement; filename="ldapabexport.csv"');
+    $smarty->display('export_list_csv.tpl');
+  }else{
+    //save location in session
+    $_SESSION[ldapab][lastlocation]=$_SERVER["REQUEST_URI"];
+    $smarty->display('header.tpl');
+    $smarty->display('list_filter.tpl');
+    $smarty->display('list.tpl');
+    $smarty->display('footer.tpl');
+  }
 
   //------- functions -----------//
 

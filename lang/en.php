@@ -40,6 +40,7 @@ $lang[show]           = 'Show';
 $lang['new']          = 'New';
 $lang['delete']       = 'Delete';
 $lang['copy']         = 'Copy';
+$lang[csvexport]      = 'CSV';
 $lang[vcfexport]      = 'VCard';
 $lang[vcfimport]			= 'Import';
 $lang[search]         = 'Search';
