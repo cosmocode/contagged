@@ -108,6 +108,8 @@
         $other .= '(!(sn='.chr($i).'*))';
       }
       $ldapfilter = "(&(objectClass=inetOrgPerson)$other)";
+    }elseif($filter=='*'){
+      $ldapfilter = "(objectClass=inetOrgPerson)";
     }else{
       $filter = utf8_encode($filter);
       $ldapfilter = "(&(objectClass=inetOrgPerson)(sn=$filter*))";

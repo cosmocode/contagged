@@ -28,6 +28,7 @@
   <a href="index.php?filter=y">Y</a>
   <a href="index.php?filter=z">Z</a>
   <a href="index.php?filter=other">#</a>
+  <a href="index.php?filter=*">*</a>
 </td>
 {if $conf.extended}
 <td class="filterrow" align="right">
