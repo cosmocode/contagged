@@ -1,0 +1,92 @@
+body,p,div,td {font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif; font-size: 14px;}
+a:link { text-decoration:none; color:#0033CC }
+a:visited { text-decoration:none; color:#0033CC }
+a:active { text-decoration:none; color:#0033CC }
+a:hover { text-decoration:underline; color:#FF6600 }
+
+/* IE PNG bugfix */
+img { behavior: url("templates/pngbehavior.htc"); }
+
+/* debugging style
+table {background-color:#cccc00;margin:3px}
+tr    {background-color:#99FF99;margin:3px}
+td    {background-color:#66CCFF:margin:3px}
+*/
+
+.logo {font-size:25px; font-weight:bolder}
+.logosmall {font-size:16px; font-weight:bold}
+
+.headrow {border-bottom-width:1px; border-bottom-style:solid}
+.footrow {border-top-width:1px; border-top-style:solid}
+.buttonrow {border-top-width:1px;
+            border-top-style:solid;
+            border-top-color:#cccccc;}
+.filterrow {border-bottom-width:1px;
+            border-bottom-style:solid;
+            border-bottom-color:#cccccc;}
+
+.tableborder {border-width:1px; border-style:solid}
+
+.result {border-bottom-width:1px;
+         border-bottom-style:dashed;
+         border-bottom-color:#cccccc;
+         padding-top:3px;
+         padding-top:4px;}
+
+.searchfield {border-width:1px;
+              border-style:solid;
+              border-color:#000000;
+              margin:2px;
+              font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif;
+              font-size: 12px;
+              width: 120px;}
+.searchbutton {border-width:1px;
+               border-style:solid;
+               border-color:#000000;
+               margin:2px;
+               font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif;
+               font-size: 12px;
+               width: 70px;}
+.upload      {border-width:1px;
+              border-style:solid;
+              border-color:#000000;
+              margin:2px;
+              font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif;
+              font-size: 12px;}
+               
+.photo {border-width:1px;
+        border-style:solid;
+        border-color:#000000;
+        padding:3px;
+        }
+
+.input {border-width:1px;
+        border-style:solid;
+        border-color:#000000;
+        font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif;
+        font-size: 12px;
+        width: 250px;}
+
+.inputbr {border-width:1px;
+        border-style:solid;
+        border-color:#000000;
+        font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif;
+        font-size: 12px;
+        width: 250px;
+        margin-top:3px;}
+
+
+.radio {border-width:0px;}
+
+.note {width: 350px}
+
+.ldaperror {border-width:1px;
+            border-style:solid;
+            border-color:#ff0000;
+            margin:2px;
+            font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif;
+            font-size: 12px;}
+
+code, pre {color:#008000;}
+
+.hint {font-size:10px; color:#990099;}

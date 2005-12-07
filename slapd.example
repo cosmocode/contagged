@@ -1,0 +1,111 @@
+# This is the main ldapd configuration file. See slapd.conf(5) for more
+# info on the configuration options.
+
+# Schema and objectClass definitions
+include         /etc/ldap/schema/core.schema
+include         /etc/ldap/schema/cosine.schema
+include         /etc/ldap/schema/nis.schema
+include         /etc/ldap/schema/inetorgperson.schema
+include		/etc/ldap/schema/samba.schema
+include		/etc/ldap/schema/courierimap.schema
+include		/etc/ldap/schema/phpgwaccount.schema
+include		/etc/ldap/schema/phpgwcontact.schema
+include		/etc/ldap/schema/ldapab.schema
+
+
+# Schema check allows for forcing entries to
+# match schemas for their objectClasses's
+schemacheck     on
+
+# Where the pid file is put. The init.d script
+# will not stop the server if you change this.
+pidfile         /var/run/slapd.pid
+
+# List of arguments that were passed to the server
+argsfile        /var/run/slapd.args
+
+# Where to store the replica logs
+replogfile	/var/lib/ldap/replog
+
+# Read slapd.conf(5) for possible values
+#loglevel        256
+loglevel	0
+
+#######################################################################
+# ldbm database definitions
+#######################################################################
+
+# The backend type, ldbm, is the default standard
+database        ldbm
+
+# The base of your directory
+suffix          "o=cosmocode,c=de"
+
+# Where the database file are physically stored
+directory       "/var/lib/ldap"
+
+# Indexing options
+index objectClass eq
+
+# Folgende Indizies sind im samba-LDAP-HOWTO empfohlen;
+
+## support pbb_getsampwnam()
+index uid           pres,eq
+## support pdb_getsampwrid()
+index rid           eq
+
+## uncomment these if you are storing posixAccount and
+## posixGroup entries in the directory as well
+index uidNumber     eq
+index gidNumber     eq
+index cn            eq
+index memberUid     eq
+
+# Save the time that the entry gets modified
+lastmod on
+
+# The userPassword by default can be changed
+# by the entry owning it if they are authenticated.
+# Others should not be able to see it, except the
+# admin entry below
+access to attribute=userPassword
+        by dn="cn=admin,o=cosmocode,c=de" write
+        by anonymous auth
+        by self write
+        by * none
+
+access to attribute=lmPassword
+        by dn="cn=admin,o=cosmocode,c=de" write
+        by anonymous auth
+        by self write
+        by * none
+
+access to attribute=ntPassword
+        by dn="cn=admin,o=cosmocode,c=de" write
+        by anonymous auth
+        by self write
+        by * none
+
+# private LDAP Addressbook is readable and writable for the owner only
+access	to dn="(.*,)?ou=contacts,cn=([^,]+),ou=people,(.*)$"
+        by dn="cn=$2,ou=people,$3" write
+        by * none
+
+# global LDAP Addressbook is writable for all authenticated users
+# This entry has to be _before_ any other entry that matches the contact
+# tree eg. the * entry
+access to dn.subtree="ou=contacts,o=cosmocode,c=de"
+	by users write
+	by * read
+
+# The admin dn has full write access
+access to *
+        by dn="cn=admin,o=cosmocode,c=de" write
+        by * read
+
+# For Netscape Roaming support, each user gets a roaming
+# profile for which they have write access to
+#access to dn=".*,ou=Roaming,o=morsnet"
+#        by dn="cn=admin,o=cosmocode,c=de" write
+#        by dnattr=owner write
+

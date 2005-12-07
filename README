@@ -1,0 +1,107 @@
+=== ABOUT ===
+
+LDAPab is a webbased address book for small companies. It features a public
+address book which is writable for all company staff and a personal address
+book for each staff member. LDAPab require an already setup LDAP server to
+authenticate users.
+
+=== REQUIREMENTS ===
+
+You need to have a running LDAP Server with some users (objectClass=posixUser)
+in it. It is important that you already have these users because LDAPab uses
+them to authenticate.
+
+You need a webserver (peferable Apache) with PHP4. PHP4 needs to be compiled
+with LDAP support (compiled in or as extension)
+
+=== SETUP LDAPab ===
+
+Copy the contents of the .tgz file to a directory below your webserver document
+root. Make sure the webserver is able to write to the cache directory which is
+used for the template engines cache files. A 'chmod 777 cache' will do.
+
+Open the config.php file in your favourite editor and edit the options
+according to your needs. Some knowlege about LDAP may come in handy.
+
+=== SETUP THE LDAP SERVER ===
+
+The following only describes what to do for open-ldap 2.0! If you use any
+other LDAP server you're left to our own.
+
+You need to include the inetOrgPerson schema in you slapd.conf:
+
+  include /etc/ldap/schema/inetorgperson.schema
+
+If youwant to use the extended schema (currently only for birthday support) you
+need to copy the ldapab.schema file to /etc/ldap/schema/ and include it, too.
+Be sure to enable the extended option in config.php.
+
+  include         /etc/ldap/schema/ldapab.schema
+
+To setup the access rights add the following statement to your slapd.conf. Of
+course you have to replace "o=cosmocode,c=de" with your own root DN. The first
+entry may have to adjusted also if your users aren't stored in a ou=people
+entry. Make sure you include these lines before other access control lists that
+match these parts of the ldap tree. If you are unsure have a look at the
+included slapd.example file
+
+  access  to dn="(.*,)?ou=contacts,cn=([^,]+),ou=people,(.*)$"
+          by dn="cn=$2,ou=people,$3" write
+          by * none
+
+  access to dn.subtree="ou=contacts,o=cosmocode,c=de"
+         by users write
+         by * read
+
+After this modifications you have to restart the slapd server.
+
+The last thing is to add the contacts leafs to your LDAP tree. You'll need to
+add a global contacts leaf at top.
+
+  eg: 'ou=contacts,o=cosmocode,c=de'
+  
+And a contacts leaf for every user.
+
+  eg: 'ou=contacts,cn=Joe Schmoe,ou=people,o=cosmocode,c=de'
+
+
+If you made everything correct you can point your webbrowser to the newly
+installed LDAPab and use it :-) If you encounter problems try to enable logging
+in your LDAP server to see what the problem is.
+
+=== FEEDBACK, PATCHES, SUPPORT ===
+
+This software was developed to satisfy a need in our company. We give it to the
+public because it may be helpful to other companies with the same needs.
+However this is not a supported product. We like to get feedback and patches
+but we can't promise to answer, to fix bugs or include feature wishes. However
+don't hesitate to contact us but understand that our core business has priority
+over this project.
+
+To contact us send a mail to ldapab@cosmocode.de
+
+=== KNOWN BUGS ===
+
+LDAPab was only tested with open-ldap 2.1 - there may be problems with other
+LDAP Servers.
+
+=== LICENSE ===
+
+LDAPab - An LDAP based Company Address Book
+Copyright 2004 - CosmoCode GmbH
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of
+the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+      
+See COPYING for details

@@ -1,0 +1,51 @@
+# LDAP 2 Schema
+#
+# This is a schema extension for the LDAPab Addressbook by
+# CosmoCode GmbH www.cosmocode.de
+#
+# CosmoCode owns the following MIB Block:
+# iso.org.dod.internet.private.enterprise.16331.*
+#
+# CosmoCode currently uses the following OID hierachy to organize the IDs:
+#
+# defined in cosmo4ML.schema
+# 1.3.6.1.4.1.16331.1           formel CMS (cosmo4ML prefix)
+# 1.3.6.1.4.1.16331.1.1           SNMP (not used)
+# 1.3.6.1.4.1.16331.1.2           LDAP
+# 1.3.6.1.4.1.16331.1.2.1           AttributeTypes
+# 1.3.6.1.4.1.16331.1.2.2           ObjectClasses
+#
+# defined in ldapab.schema:
+# 1.3.6.1.4.1.16331.2		LDAPab
+# 1.3.6.1.4.1.16331.2.1		  SNMP (not used)
+# 1.3.6.1.4.1.16331.2.2		LDAP
+# 1.3.6.1.4.1.16331.2.2.1           AttributeTypes
+# 1.3.6.1.4.1.16331.2.2.2           ObjectClasses
+
+
+# OID macros for ease of use:
+objectIdentifier cosmocodeOID 1.3.6.1.4.1.16331
+objectIdentifier LDAPab       cosmocodeOID:2.2
+
+
+attributetype ( 1.3.6.1.4.1.16331.2.2.1.1 NAME 'anniversary'
+                DESC 'Holds Birthdays etc.'
+                EQUALITY caseIgnoreMatch
+                ORDERING caseIgnoreOrderingMatch
+                SUBSTR caseIgnoreSubstringsMatch
+                SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+                SINGLE-VALUE )
+
+attributetype ( 1.3.6.1.4.1.16331.2.2.1.2 NAME 'marker'
+                DESC 'marking flag'
+                EQUALITY caseIgnoreMatch
+                ORDERING caseIgnoreOrderingMatch
+                SUBSTR caseIgnoreSubstringsMatch
+                SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+               )
+
+objectclass ( 1.3.6.1.4.1.16331.2.2.2.1 NAME 'contactPerson'
+	      DESC 'Contact - Addressbook entry'
+              AUXILIARY
+              MAY  ( anniversary $ marker )
+            )
