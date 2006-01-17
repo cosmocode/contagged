@@ -15,7 +15,7 @@
         <span class="logosmall">- {$lang.ldapab}</span>
       </td>
       <td align="right" valign="bottom">
-        <a href="help.php"><img src="pix/help.png" border="0" width="22" height="22" align="middle">&nbsp;{$lang.help}</a>
+        <a href="help.php"><img src="pix/help.png" border="0" width="16" height="16" align="middle">{$lang.help}</a>
       </td>
     </tr></table>
   </td>

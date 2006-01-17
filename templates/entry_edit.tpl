@@ -162,9 +162,9 @@
       {$lang.msg_addto}<br>
       <table><tr><td>
       <input type="radio" name="type" value="public" id="typepublic" class="radio" checked="checked">
-      <label for="typepublic"><img src="pix/public.png" border="0" width="22" height="22" align="middle">{$lang.publicbook}</label><br>
+      <label for="typepublic"><img src="pix/public.png" border="0" width="16" height="16" align="middle">{$lang.publicbook}</label><br>
       <input type="radio" name="type" value="private" id="typeprivate" class="radio">
-      <label for="typeprivate"><img src="pix/private.png" border="0" width="22" height="22" align="middle">{$lang.privatebook}</label>
+      <label for="typeprivate"><img src="pix/private.png" border="0" width="16" height="16" align="middle">{$lang.privatebook}</label>
       </td></tr></table>
     </td>
   </tr>

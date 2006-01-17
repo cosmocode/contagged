@@ -1,6 +1,6 @@
 <tr>
   <td class="result" width="25">
-    <img src="pix/{$entry.type}.png" border="0" width="22" height="22" align="middle" title="{$entry.type}">
+    <img src="pix/{$entry.type}.png" border="0" width="16" height="16" align="middle" title="{$entry.type}">
   </td>
   <td class="result">
     <b><a href="entry.php?dn={$entry.dn|escape:url}">{$entry.name}, {$entry.givenname}</a></b>

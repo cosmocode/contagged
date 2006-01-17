@@ -28,10 +28,10 @@
 	</td>
 	<td class="result" align="right">
 		<button name="type" value="public">
-     	<img src="pix/public.png" border="0" width="22" height="22" align="middle">{$lang.publicbook}
+     	<img src="pix/public.png" border="0" width="16" height="16" align="middle">{$lang.publicbook}
 		</button>
     <button name="type" value="private">
-     	<img src="pix/private.png" border="0" width="22" height="22" align="middle">{$lang.privatebook}
+     	<img src="pix/private.png" border="0" width="16" height="16" align="middle">{$lang.privatebook}
 		</button>
   </td>
   </form>
