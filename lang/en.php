@@ -2,7 +2,7 @@
 
 $lang[ldapab]         = 'The LDAP address book';
 
-$lang[name]           = 'Name';
+$lang[name]           = 'Last Name';
 $lang[givenname]      = 'First Name';
 $lang[title]          = 'Title';
 $lang[organization]   = 'Company';
@@ -66,4 +66,16 @@ $lang[msg_uploadvcf]  = 'Upload VCard File';
 
 $lang[err_noentries]  = 'No entries';
 $lang[err_ldap]       = 'The LDAP server returned the following errors';
+
+$lang[openxchange]    = 'Xchange Information';
+$lang[moreopenxchange]    = 'Xchange Information Cont\'d';
+$lang[instantmessenger] = 'Inst Msg';
+$lang[categories]     = 'Categories';
+$lang[birthday]       = 'Birthday';
+$lang[domain]         = 'Mail Domain';
+$lang[country]        = 'Country';
+$lang[certificate]    = 'x.509 Cert';
+$lang[timezone]       = 'Time Zone';
+$lang[position]       = 'Position';
+$lang[ipphone]        = 'IP Phone';
 ?>

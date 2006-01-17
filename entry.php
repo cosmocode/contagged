@@ -41,6 +41,9 @@
   tpl_std();
   tpl_orgs();
   tpl_markers();
+  tpl_categories();
+  tpl_timezone();
+  tpl_country();
   //display templates
   if($_REQUEST[mode]=='vcf'){
     $entry = $smarty->get_template_vars('entry');
@@ -131,6 +134,10 @@ print '</pre>';*/
       // in extended mode we have to make sure the right classes are set
       if($conf[extended]){
         ldap_store_objectclasses($dn,array('inetOrgPerson','contactPerson'));
+      }
+      // in openxchange mode we have to make sure the right classes are set
+      if ($conf[openxchange]){
+        ldap_store_objectclasses($dn,array('inetOrgPerson','OXUserObject'));
       }
       //modify entry (touches only our attributes)
       foreach (array_keys($entries) as $key){

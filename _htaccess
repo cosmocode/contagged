@@ -1,0 +1,27 @@
+#
+# Example .htaccess to use with mod_authldap
+#
+
+AuthName "LDAPab"
+AuthType basic
+
+AuthLDAPURL "ldap://ldap/ou=people,o=cosmocode,c=de?uid?one"
+
+### LDAP Bind information
+#AuthLDAPBindDN cn=NonAnon,o=cosmocode,c=de
+#AuthLDAPBindPassword secret
+
+### For LDAP group authentication
+#AuthLDAPGroupAttribute memberUid
+#AuthLDAPGroupAttributeIsDN off
+#require group cn=Users,ou=Groups,o=cosmocode,c=de
+
+### Authorize users individually
+#require user myusername
+
+### Authorize any authenticated user
+require valid-user
+
+### Require SSL for access
+#SSLRequireSSL
+

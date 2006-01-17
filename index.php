@@ -42,6 +42,9 @@
   //prepare templates
   tpl_std();
   tpl_markers();
+  tpl_categories();
+  tpl_timezone();
+  tpl_country();
   $smarty->assign('list',$list);
   $smarty->assign('filter',$_REQUEST['filter']);
   $smarty->assign('marker',$_REQUEST['marker']);
@@ -84,12 +87,16 @@
     $search = $_REQUEST['search'];
     $org    = $_REQUEST['org'];
     $marker = $_REQUEST['marker'];
+    $categories = $_REQUEST['categories'];
     $_SESSION[ldapab][filter] = $filter;
     if(empty($filter)) $filter='a';
 
     if(!empty($marker)){
       $marker = utf8_encode($marker);
       $ldapfilter = "(&(objectClass=contactPerson)(marker=$marker))";
+    }elseif(!empty($categories)){
+      $categories = utf8_encode($categories);
+      $ldapfilter = "(&(objectClass=OXUserObject)(OXUserCategories=$categories))";
     }elseif(!empty($search)){
       $search = trim($search);
       $words=preg_split('/\s+/',$search);

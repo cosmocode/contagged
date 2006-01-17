@@ -116,5 +116,8 @@
     </td>
   </tr>
 </table>
+      {if $conf.openxchange}
+        {include file="openxchange_show.tpl"}
+      {/if}
 <br><br><br>
 

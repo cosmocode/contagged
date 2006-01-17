@@ -2,7 +2,7 @@
 
 LDAPab is a webbased address book for small companies. It features a public
 address book which is writable for all company staff and a personal address
-book for each staff member. LDAPab require an already setup LDAP server to
+book for each staff member. LDAPab requires an already setup LDAP server to
 authenticate users.
 
 === REQUIREMENTS ===
@@ -18,10 +18,13 @@ with LDAP support (compiled in or as extension)
 
 Copy the contents of the .tgz file to a directory below your webserver document
 root. Make sure the webserver is able to write to the cache directory which is
-used for the template engines cache files. A 'chmod 777 cache' will do.
+used for the template engine's cache files. A 'chmod 777 cache' will do.
 
 Open the config.php file in your favourite editor and edit the options
 according to your needs. Some knowlege about LDAP may come in handy.
+
+If HTTP auth is wanted have a look at the provided _htaccess file, edit it as
+needed and rename it back to .htaccess
 
 === SETUP THE LDAP SERVER ===
 

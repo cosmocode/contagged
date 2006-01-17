@@ -13,6 +13,7 @@ function smarty_std(){
  * If it fails it redirects to login.php
  */
 function ldap_login(){
+  global $conf;
   if(!empty($_SESSION[ldapab][username])){
     //existing session! Check if valid
     if($_COOKIE[ldapabconid] != $_SESSION[ldapab][conid]){
@@ -20,6 +21,9 @@ function ldap_login(){
        header('Location: login.php?username=');
        exit;
     }
+  } elseif ($conf[httpd_auth] && !empty($_SERVER[PHP_AUTH_USER])) {
+  	$_SESSION[ldapab][username] = $_SERVER[PHP_AUTH_USER];
+  	$_SESSION[ldapab][password] = $_SERVER[PHP_AUTH_PW];
   }
 
   if(!do_ldap_bind($_SESSION[ldapab][username],
@@ -39,7 +43,7 @@ function do_ldap_bind($user,$pass,$dn=""){
   
   //create global connection to LDAP if nessessary
   if(!$LDAP_CON){
-    $LDAP_CON = ldap_connect($conf[ldapserver]);
+    $LDAP_CON = ldap_connect($conf[ldapserver],$conf[ldapport]);
     if(!$LDAP_CON){
       die("couldn't connect to LDAP server");
     }
@@ -47,7 +51,8 @@ function do_ldap_bind($user,$pass,$dn=""){
 
   if(empty($dn)){
     //anonymous bind to lookup users
-    if(!ldap_bind($LDAP_CON)){
+    //blank binddn or blank bindpw will result in anonymous bind
+    if(!ldap_bind($LDAP_CON,$conf[anonbinddn],$conf[anonbindpw])){
       die("can not bind anonymously");
     }
   
@@ -152,6 +157,17 @@ function namedentries($flip=false){
   if($conf[extended]){
     $entries[anniversary]              = 'anniversary';
   }
+  if($conf[openxchange]){
+    $entries[mailDomain]               = 'domain';
+    $entries[userCountry]              = 'country';
+    $entries[birthDay]                 = 'birthday';
+    $entries[IPPhone]                  = 'ipphone';
+    $entries[OXUserCategories]         = 'categories';
+    $entries[OXUserInstantMessenger]   = 'instantmessenger';
+    $entries[OXTimeZone]               = 'timezone';
+    $entries[OXUserPosition]           = 'position';
+    $entries[relClientCert]            = 'certificate';
+  }
 
   if($flip){
     $entries = array_reverse($entries);
@@ -189,6 +205,9 @@ function prepare_ldap_entry($in){
   $out[objectclass][] = 'inetOrgPerson';
   if($conf[extended]){
     $out[objectclass][] = 'contactPerson';
+  }
+  if($conf[openxchange]){
+    $out[objectclass][] = 'OXUserObject';
   }
 
   utf8_encode_array($out);

@@ -58,6 +58,10 @@ function tpl_entry($in){
     //handle marker special in extended mode
     $out['marker'] = $in['marker'];
   }
+  if ($conf[openxchange]){
+    //handle categories special in openxchange mode
+    $out['categories'] = $in['OXUserCategories'];
+  }
 
   //decode array
   utf8_decode_array($out);
@@ -158,6 +162,123 @@ function tpl_orgs(){
   sort($orgs,SORT_STRING);
   utf8_decode_array($orgs);
   $smarty->assign('orgs',$orgs);
+}
+
+/**
+ * assigns all categories to the template
+ */
+function tpl_categories(){
+  global $conf;
+  global $LDAP_CON;
+  global $smarty;
+
+  if(!$conf[openxchange]) return;
+
+  $categories = array();
+
+  $sr = ldap_list($LDAP_CON,$conf[publicbook],"ObjectClass=OXUserObject",array("OXUserCategories"));
+  $result1 = ldap_get_binentries($LDAP_CON, $sr);
+  //check users private addressbook
+  if(!empty($_SESSION[ldapab][binddn])){
+    $sr = @ldap_list($LDAP_CON,
+                    $conf[privatebook].','.$_SESSION[ldapab][binddn],
+                    "ObjectClass=OXUserObject",array("OXUserCategories"));
+    $result2 = ldap_get_binentries($LDAP_CON, $sr);
+  }
+  $result = array_merge($result1,$result2);
+
+  if(count($result)){
+    foreach ($result as $entry){
+      if(count($entry['OXUserCategories'])){
+        foreach($entry['OXUserCategories'] as $category){
+          array_push($categories, $category);
+        }
+      }
+    }
+  }
+  $categories = array_unique($categories);
+  sort($categories,SORT_STRING);
+ 
+  utf8_decode_array($categories);
+  $smarty->assign('categories',$categories);
+}
+
+/**
+ * assigns all timezones to the template
+ */
+function tpl_timezone(){
+  global $conf;
+  global $LDAP_CON;
+  global $smarty;
+
+  if(!$conf[openxchange]) return;
+
+  $timezone = array();
+
+  $sr = ldap_list($LDAP_CON,$conf[publicbook],"ObjectClass=OXUserObject",array("OXTimeZone"));
+  $result1 = ldap_get_binentries($LDAP_CON, $sr);
+  //check users private addressbook
+  if(!empty($_SESSION[ldapab][binddn])){
+    $sr = @ldap_list($LDAP_CON,
+                    $conf[privatebook].','.$_SESSION[ldapab][binddn],
+                    "ObjectClass=OXUserObject",array("OXTimeZone"));
+    $result2 = ldap_get_binentries($LDAP_CON, $sr);
+  }
+  $result = array_merge($result1,$result2);
+
+  if(count($result)){
+    foreach ($result as $entry){
+      if(count($entry['OXTimeZone'])){
+        foreach($entry['OXTimeZone'] as $tz){
+          array_push($timezone, $tz);
+        }
+      }
+    }
+  }
+  $timezone = array_unique($timezone);
+  sort($timezone,SORT_STRING);
+ 
+  utf8_decode_array($timezone);
+  $smarty->assign('timezone',$timezone);
+}
+
+/**
+ * assigns all countries to the template
+ */
+function tpl_country(){
+  global $conf;
+  global $LDAP_CON;
+  global $smarty;
+
+  if(!$conf[openxchange]) return;
+
+  $country = array();
+
+  $sr = ldap_list($LDAP_CON,$conf[publicbook],"ObjectClass=OXUserObject",array("userCountry"));
+  $result1 = ldap_get_binentries($LDAP_CON, $sr);
+  //check users private addressbook
+  if(!empty($_SESSION[ldapab][binddn])){
+    $sr = @ldap_list($LDAP_CON,
+                    $conf[privatebook].','.$_SESSION[ldapab][binddn],
+                    "ObjectClass=OXUserObject",array("userCountry"));
+    $result2 = ldap_get_binentries($LDAP_CON, $sr);
+  }
+  $result = array_merge($result1,$result2);
+
+  if(count($result)){
+    foreach ($result as $entry){
+      if(count($entry['userCountry'])){
+        foreach($entry['userCountry'] as $c){
+          array_push($country, $c);
+        }
+      }
+    }
+  }
+  $country = array_unique($country);
+  sort($country,SORT_STRING);
+ 
+  utf8_decode_array($country);
+  $smarty->assign('country',$country);
 }
 
 ?>

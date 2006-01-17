@@ -169,6 +169,9 @@
     </td>
   </tr>
   {/if}
+  {if $conf.openxchange}
+    {include file="openxchange_edit.tpl"}
+  {/if}
   <tr>
     <td colspan="2" align="center"><br><input type="submit" class="input" value="{$lang.submit}"></td>
   </tr>

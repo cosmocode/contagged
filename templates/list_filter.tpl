@@ -30,6 +30,17 @@
   <a href="index.php?filter=other">#</a>
   <a href="index.php?filter=*">*</a>
 </td>
+{if $conf.openxchange}
+<td class="filterrow" align="right">
+  <form method="get" action="index.php" style="display:inline">
+    <select name="categories" class="searchfield">
+      <option value="">--- {$lang.categories} ---</option>
+      {html_options values=$categories output=$categories selected=$smarty.request.categories}
+    </select>
+    <input type="submit" value="{$lang.search}" class="searchbutton">
+  </form>
+</td>
+{/if}
 {if $conf.extended}
 <td class="filterrow" align="right">
   <form method="get" action="index.php" style="display:inline">
