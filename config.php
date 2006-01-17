@@ -30,11 +30,11 @@
 
   // Should the additional schema ldapab.schema be used? (0|1)
   // Note: openxchange and extended are currently exclusive, do not use both at the same time!
-  $conf[extended]    = 0;
+  $conf[extended]    = 1;
   
   // Should we use some parts of the openxchange.schema? (0|1)
   // Note: openxchange and extended are currently exclusive, do not use both at the same time!
-  $conf[openxchange] = 1;
+  $conf[openxchange] = 0;
  
   // Should we try to login using the username and password provided by httpd? (0|1)
   $conf[httpd_auth]  = 1;

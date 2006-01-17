@@ -1,5 +1,5 @@
 <tr>
-	<form action="entry.php" method="post" target="_import_">
+	<form action="entry.php" method="post" target="_import_" accept-charset="utf-8">
   <td class="result">
     <b>{$entry.name}, {$entry.givenname}</b>
   </td>

@@ -5,7 +5,7 @@
   {$entry.givenname} {$entry.name}
 </h1>
 
-<form action="entry.php" method="post" enctype="multipart/form-data">
+<form action="entry.php" method="post" enctype="multipart/form-data" accept-charset="utf-8">
 <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
 <input type="hidden" name="dn" value="{$entry.dn|escape}" />
 <input type="hidden" name="save" value="1" />

@@ -53,7 +53,7 @@
 </td>
 {/if}
 <td class="filterrow" align="right">
-  <form method="get" action="index.php" style="display:inline">
+  <form method="get" action="index.php" style="display:inline" accept-charset="utf-8">
     <input type="text" name="search" class="searchfield" value="{$smarty.request.search}">
     <input type="submit" value="{$lang.search}" class="searchbutton">
   </form>

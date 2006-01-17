@@ -63,9 +63,6 @@ function tpl_entry($in){
     $out['categories'] = $in['OXUserCategories'];
   }
 
-  //decode array
-  utf8_decode_array($out);
-
 /*print '<pre>';
 print_r($out);
 print '</pre>';*/
@@ -126,7 +123,6 @@ function tpl_markers(){
   $markers = array_unique($markers);
   sort($markers,SORT_STRING);
  
-  utf8_decode_array($markers);
   $smarty->assign('markers',$markers);
 }
 
@@ -160,7 +156,6 @@ function tpl_orgs(){
   }
   $orgs = array_unique($orgs);
   sort($orgs,SORT_STRING);
-  utf8_decode_array($orgs);
   $smarty->assign('orgs',$orgs);
 }
 
@@ -199,7 +194,6 @@ function tpl_categories(){
   $categories = array_unique($categories);
   sort($categories,SORT_STRING);
  
-  utf8_decode_array($categories);
   $smarty->assign('categories',$categories);
 }
 
@@ -238,7 +232,6 @@ function tpl_timezone(){
   $timezone = array_unique($timezone);
   sort($timezone,SORT_STRING);
  
-  utf8_decode_array($timezone);
   $smarty->assign('timezone',$timezone);
 }
 
@@ -277,7 +270,6 @@ function tpl_country(){
   $country = array_unique($country);
   sort($country,SORT_STRING);
  
-  utf8_decode_array($country);
   $smarty->assign('country',$country);
 }
 

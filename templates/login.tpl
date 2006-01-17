@@ -1,6 +1,6 @@
 
   <br /><br /><br />
-  <form action="login.php" method="post">
+  <form action="login.php" method="post" accept-charset="utf-8">
   <table class="tableborder" align="center">
     <tr>
       <td colspan="2" align="center">{$msg}<br /><br /></td>

@@ -1,7 +1,7 @@
 <table cellspacing="0" cellpadding="0" width="100%">
 <tr>
 <td class="filterrow">
-  <form action="import.php" method="post" enctype="multipart/form-data">
+  <form action="import.php" method="post" enctype="multipart/form-data" accept-charset="utf-8">
     {$lang.msg_uploadvcf}: <input name="userfile" type="file" class="upload" />
     <input type="submit" value="{$lang.upload}" class="searchbutton"/>
   </form>

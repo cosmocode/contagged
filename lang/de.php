@@ -7,7 +7,7 @@ $lang[givenname]      = 'Vorname';
 $lang[title]          = 'Titel';
 $lang[organization]   = 'Firma';
 $lang[office]         = 'Abteilung';
-$lang[street]         = 'Straße, Nr.';
+$lang[street]         = 'StraÃŸe, Nr.';
 $lang[zip]            = 'Postleitzahl';
 $lang[location]       = 'Ort';
 $lang[phone]          = 'Telefon';
@@ -25,11 +25,11 @@ $lang[manager]        = 'Key Account';
 $lang[anniversary]    = 'Geburtstag';
 $lang[marker]         = 'Kategorie';
 
-$lang[business]       = 'Geschäftlich';
+$lang[business]       = 'GeschÃ¤ftlich';
 $lang[private]        = 'Privat';
-$lang[extended]       = 'Zusätzliche Infos';
+$lang[extended]       = 'ZusÃ¤tzliche Infos';
 
-$lang[delphoto]       = 'Vorhandenes Foto löschen';
+$lang[delphoto]       = 'Vorhandenes Foto lÃ¶schen';
 
 $lang[notloggedin]    = 'Nicht angemeldet';
 $lang[loggedinas]     = 'Angemeldet als';
@@ -38,7 +38,7 @@ $lang[logout]         = 'Abmelden';
 $lang[edit]           = 'Bearbeiten';
 $lang[show]           = 'Anzeigen';
 $lang['new']          = 'Neu';
-$lang['delete']       = 'Löschen';
+$lang['delete']       = 'LÃ¶schen';
 $lang['copy']         = 'Kopieren';
 $lang[csvexport]      = 'CSV';
 $lang[vcfexport]      = 'VCard';
@@ -46,11 +46,11 @@ $lang[vcfimport]			= 'Import';
 $lang[search]         = 'Suchen';
 $lang[submit]         = 'Absenden';
 $lang[help]           = 'Hilfe';
-$lang[select]         = 'Auswählen';
+$lang[select]         = 'AuswÃ¤hlen';
 $lang[orgs]           = 'Firmen';
 $lang[upload]         = 'Hochladen';
 
-$lang[publicbook]     = 'Öffentliches Adressbuch';
+$lang[publicbook]     = 'Ã–ffentliches Adressbuch';
 $lang[privatebook]    = 'Privates Adressbuch';
 
 
@@ -59,12 +59,12 @@ $lang[password]       = 'Passwort';
 
 $lang[msg_login]      = 'Bitte melden sie sich an!';
 $lang[msg_loginfail]  = 'Anmeldung fehlgeschlagen!';
-$lang[msg_reallydel]  = 'Eintrag wirklich löschen?';
-$lang[msg_addto]      = 'Zu welchem Adressbuch soll der Eintrag hinzugefügt werden?';
+$lang[msg_reallydel]  = 'Eintrag wirklich lÃ¶schen?';
+$lang[msg_addto]      = 'Zu welchem Adressbuch soll der Eintrag hinzugefÃ¼gt werden?';
 $lang[msg_jpegonly]   = 'Nur JPEG';
 $lang[msg_dateformat] = 'JJJJ-MM-TT';
 $lang[msg_uploadvcf]  = 'Upload VCard File';
 
-$lang[err_noentries]  = 'Keine Einträge';
+$lang[err_noentries]  = 'Keine EintrÃ¤ge';
 $lang[err_ldap]       = 'Der LDAP Server lieferte folgende Fehlermeldungen';
 ?>

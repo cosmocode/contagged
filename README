@@ -81,7 +81,8 @@ but we can't promise to answer, to fix bugs or include feature wishes. However
 don't hesitate to contact us but understand that our core business has priority
 over this project.
 
-To contact us send a mail to ldapab@cosmocode.de
+To contact us send a mail to ldapab@cosmocode.de or visit our homepage at
+http://www.cosmocode.de
 
 === KNOWN BUGS ===
 
@@ -91,7 +92,7 @@ LDAP Servers.
 === LICENSE ===
 
 LDAPab - An LDAP based Company Address Book
-Copyright 2004 - CosmoCode GmbH
+Copyright 2004 - 2006 - CosmoCode GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as

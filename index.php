@@ -57,6 +57,8 @@
   }else{
     //save location in session
     $_SESSION[ldapab][lastlocation]=$_SERVER["REQUEST_URI"];
+
+    header('Content-Type: text/html; charset=utf-8');
     $smarty->display('header.tpl');
     $smarty->display('list_filter.tpl');
     $smarty->display('list.tpl');
@@ -92,22 +94,18 @@
     if(empty($filter)) $filter='a';
 
     if(!empty($marker)){
-      $marker = utf8_encode($marker);
       $ldapfilter = "(&(objectClass=contactPerson)(marker=$marker))";
     }elseif(!empty($categories)){
-      $categories = utf8_encode($categories);
       $ldapfilter = "(&(objectClass=OXUserObject)(OXUserCategories=$categories))";
     }elseif(!empty($search)){
       $search = trim($search);
       $words=preg_split('/\s+/',$search);
       $filter='';
       foreach($words as $word){
-        $word = utf8_encode($word);
         $filter .= "(|(|(sn=*$word*)(givenName=*$word*))(o=*$word*))";
       }
       $ldapfilter = "(&(objectClass=inetOrgPerson)$filter)";
     }elseif(!empty($org)){
-      $org = utf8_encode($org);
       $ldapfilter = "(&(objectClass=inetOrgPerson)(o=$org))";
     }elseif($filter=='other'){
       $other='';
@@ -118,7 +116,6 @@
     }elseif($filter=='*'){
       $ldapfilter = "(objectClass=inetOrgPerson)";
     }else{
-      $filter = utf8_encode($filter);
       $ldapfilter = "(&(objectClass=inetOrgPerson)(sn=$filter*))";
     }
     return $ldapfilter;

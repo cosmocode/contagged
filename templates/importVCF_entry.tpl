@@ -1,5 +1,5 @@
 <tr>
-	<form action="entry.php" method="post" target="_blank">
+	<form action="entry.php" method="post" target="_blank" accept-charset="utf-8">
   <td class="result">
     <b>{$entry.name}, {$entry.givenname}</b>
   </td>

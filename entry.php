@@ -49,9 +49,10 @@
     $entry = $smarty->get_template_vars('entry');
     $filename = $entry[givenname].'_'.$entry[name].'.vcf';
     header("Content-Disposition: attachment; filename=\"$filename\"");
-    header("Content-type: text/x-vcard; name=\"$filename\"");
+    header("Content-type: text/x-vcard; name=\"$filename\"; charset=utf-8");
     $smarty->display($template);
   }else{
+    header('Content-Type: text/html; charset=utf-8');
     $smarty->display('header.tpl');
     $smarty->display($template);
     $smarty->display('footer.tpl');

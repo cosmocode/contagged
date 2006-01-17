@@ -210,8 +210,6 @@ function prepare_ldap_entry($in){
     $out[objectclass][] = 'OXUserObject';
   }
 
-  utf8_encode_array($out);
-
   return clear_array($out);
 }
 
@@ -335,6 +333,8 @@ function array_unique_renumber($somearray){
  * Decodes UTF8 recursivly for the given array
  */
 function utf8_decode_array(&$array) {
+  trigger_error('deprecated utf8_decode_array called',E_USER_WARNING);
+
   foreach (array_keys($array) as $key) {
     if($key === 'dn') continue;
     if($key === 'jpegPhoto') continue;
@@ -350,6 +350,8 @@ function utf8_decode_array(&$array) {
  * Encodes the given array to UTF8 recursively
  */
 function utf8_encode_array(&$array) {
+  trigger_error('deprecated utf8_encode_array called',E_USER_WARNING);
+
   foreach (array_keys($array) as $key) {
     if($key === 'dn') continue;
     if($key === 'jpegPhoto') continue;
