@@ -23,7 +23,7 @@ $lang[mail]           = 'E-Mail';
 $lang[manager]        = 'Key Account';
 
 $lang[anniversary]    = 'Birthday';
-$lang[marker]         = 'Category';
+$lang[marker]         = 'Tags';
 
 $lang[business]       = 'Business';
 $lang[private]        = 'Private';
@@ -55,6 +55,7 @@ $lang[privatebook]    = 'Private Addressbook';
 
 $lang[username]       = 'Username';
 $lang[password]       = 'Password';
+$lang[remember]       = 'Stay logged in on this computer';
 
 $lang[msg_login]      = 'Please log in!';
 $lang[msg_loginfail]  = 'Log in failed!';

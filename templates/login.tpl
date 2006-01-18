@@ -14,6 +14,12 @@
       <td><input name="password" type="password" class="input" /></td>
     </tr>
     <tr>
+      <td colspan="2" align="left">
+        <input type="checkbox" name="remember" value="1" id="remember" />
+        <label for="remember">{$lang.remember}</label>
+      </td>
+    </tr>
+    <tr>
       <td colspan="2" align="center"><input type="submit" class="input" value="login" /></td>
     </tr>
   </table>

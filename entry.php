@@ -19,7 +19,10 @@
 
   //save data if asked for
   if($_SESSION[ldapab][username] && $_REQUEST[save]){
+    // prepare special data
     $_REQUEST[entry][jpegPhoto][]=_getUploadData();
+    $_REQUEST[entry][marker] = explode(',',$_REQUEST[entry][markers]);
+    $_REQUEST[entry][marker] = array_map('trim',$_REQUEST[entry][marker]);
     $dn = _saveData();
   }
 
@@ -54,6 +57,7 @@
   }else{
     header('Content-Type: text/html; charset=utf-8');
     $smarty->display('header.tpl');
+    $smarty->display('list_filter.tpl');
     $smarty->display($template);
     $smarty->display('footer.tpl');
   }

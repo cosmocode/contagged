@@ -44,13 +44,13 @@
 {if $conf.extended}
 <td class="filterrow" align="right">
   <form method="get" action="index.php" style="display:inline">
-    <select name="marker" class="searchfield">
-      <option value="">--- {$lang.marker} ---</option>
-      {html_options values=$markers output=$markers selected=$smarty.request.marker}
-    </select>
+    {$lang.marker}:
+    <input name="marker" class="searchfield" type="text" id="taglookup" value="{$smarty.request.marker|escape}"/>
     <input type="submit" value="{$lang.search}" class="searchbutton">
   </form>
 </td>
+<div id="tagresult" class="autocomplete"></div>
+
 {/if}
 <td class="filterrow" align="right">
   <form method="get" action="index.php" style="display:inline" accept-charset="utf-8">

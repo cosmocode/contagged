@@ -57,6 +57,7 @@ function tpl_entry($in){
   if ($conf[extended]){
     //handle marker special in extended mode
     $out['marker'] = $in['marker'];
+    if(is_array($in['marker'])) $out['markers'] = join(', ',$in['marker']);
   }
   if ($conf[openxchange]){
     //handle categories special in openxchange mode

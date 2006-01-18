@@ -14,21 +14,29 @@ function smarty_std(){
  */
 function ldap_login(){
   global $conf;
-  if(!empty($_SESSION[ldapab][username])){
-    //existing session! Check if valid
-    if($_COOKIE[ldapabconid] != $_SESSION[ldapab][conid]){
+  if(!empty($_SESSION['ldapab']['username'])){
+    // existing session! Check if valid
+    if($_COOKIE['ldapabconid'] != $_SESSION['ldapab']['conid']){
       //session hijacking detected
        header('Location: login.php?username=');
        exit;
     }
-  } elseif ($conf[httpd_auth] && !empty($_SERVER[PHP_AUTH_USER])) {
-  	$_SESSION[ldapab][username] = $_SERVER[PHP_AUTH_USER];
-  	$_SESSION[ldapab][password] = $_SERVER[PHP_AUTH_PW];
+  } elseif ($conf['httpd_auth'] && !empty($_SERVER['PHP_AUTH_USER'])) {
+    // use HTTP auth if wanted and possible
+  	$_SESSION['ldapab']['username'] = $_SERVER['PHP_AUTH_USER'];
+  	$_SESSION['ldapab']['password'] = $_SERVER['PHP_AUTH_PW'];
+  } elseif ($_COOKIE['ldapabauth']) {
+    // check persistent cookie
+    $cookie = base64_decode($_COOKIE['ldapabauth']);
+    $cookie = x_Decrypt($cookie,get_cookie_secret());
+    list($u,$p) = unserialize($cookie);
+    $_SESSION['ldapab']['username'] = $u;
+    $_SESSION['ldapab']['password'] = $p;
   }
 
-  if(!do_ldap_bind($_SESSION[ldapab][username],
-                   $_SESSION[ldapab][password],
-                   $_SESSION[ldapab][binddn])){
+  if(!do_ldap_bind($_SESSION['ldapab']['username'],
+                   $_SESSION['ldapab']['password'],
+                   $_SESSION['ldapab']['binddn'])){
     header('Location: login.php?username=');
     exit;
   }
@@ -53,7 +61,7 @@ function do_ldap_bind($user,$pass,$dn=""){
     //anonymous bind to lookup users
     //blank binddn or blank bindpw will result in anonymous bind
     if(!ldap_bind($LDAP_CON,$conf[anonbinddn],$conf[anonbindpw])){
-      die("can not bind anonymously");
+      die("can not bind for user lookup");
     }
   
     //when no user was given stay connected anonymous
@@ -85,15 +93,45 @@ function do_ldap_bind($user,$pass,$dn=""){
 }
 
 /**
- * saves user data to Session
+ * saves user data to Session and cookies
  */
 function set_session($user,$pass,$dn){
+  global $conf;
+
   $rand = rand();
   $_SESSION[ldapab][username]=$user;
   $_SESSION[ldapab][binddn]  =$dn;
   $_SESSION[ldapab][password]=$pass;
   $_SESSION[ldapab][conid]   =$rand;
   setcookie('ldapabconid',$rand,time()+60*60*24);
+
+  // (re)set the persistant auth cookie
+  if($user == ''){
+    setcookie('ldapabauth','',time()+60*60*24*365);
+  }elseif($_REQUEST['remember']){
+    $cookie = serialize(array($user,$pass));
+    $cookie = x_Encrypt($cookie,get_cookie_secret());
+    $cookie = base64_encode($cookie);
+    setcookie('ldapabauth',$cookie,time()+60*60*24*365);
+  }
+}
+
+/**
+ * Creates a random string to encrypt persistant auth
+ * cookies the string is stored inside the cache dir
+ */
+function get_cookie_secret(){
+  $file = dirname(__FILE__).'/cache/.htcookiesecret.php';
+  if(@file_exists($file)){
+    return md5(trim(file($file)));
+  }
+
+  $secret = '<?php #'.(rand()*time()).'?>';
+  if(!$fh = fopen($file,'w')) die("Couldn't write to $file");
+  if(fwrite($fh, $secret) === FALSE) die("Couldn't write to $file");
+  fclose($fh);
+
+  return md5($secret);
 }
 
 /**
@@ -315,6 +353,52 @@ function ldap_store_objectclasses($dn,$classes){
 }
 
 /**
+ * escape parenthesises in given string
+ */
+function ldap_filterescape($string){
+  return strtr($string,array('('=>'\(', ')'=>'\)'));
+}
+
+/**
+ * Queries public and private addressbooks, combining the
+ * results
+ *
+ * @todo This function should be used where ever possible, replacing
+ *       lots of duplicate code
+ */
+function ldap_queryabooks($filter,$types){
+  global $conf;
+  global $LDAP_CON;
+
+  // make sure $types is an array
+  if(!is_array($types)){
+    $types = explode(',',$types);
+    $types = array_map('trim',$types);
+  }
+
+  $results = array();
+  $result1 = array();
+  $result2 = array();
+
+  // public addressbook
+  $sr      = ldap_list($LDAP_CON,$conf['publicbook'],
+                       $filter,$types);
+  $result1 = ldap_get_binentries($LDAP_CON, $sr);
+  ldap_free_result($sr);
+
+  // private addressbook
+  if(!empty($_SESSION['ldapab']['binddn'])){
+    $sr      = @ldap_list($LDAP_CON,$conf['privatebook'].
+                          ','.$_SESSION['ldapab']['binddn'],
+                          $filter,$types);
+    $result2 = ldap_get_binentries($LDAP_CON, $sr);
+  }
+
+  // return merged results
+  return array_merge($result1,$result2);
+}
+
+/**
  * Makes array unique and renumbers the entries
  *
  * @author <kay_rules@yahoo.com>
@@ -330,7 +414,39 @@ function array_unique_renumber($somearray){
 }
 
 /**
+ * Simple XOR encryption
+ *
+ * @author Dustin Schneider
+ * @link http://www.phpbuilder.com/tips/item.php?id=68
+ */
+function x_Encrypt($string, $key){
+    for($i=0; $i<strlen($string); $i++){
+        for($j=0; $j<strlen($key); $j++){
+            $string[$i] = $string[$i]^$key[$j];
+        }
+    }
+    return $string;
+}
+
+/**
+ * Simple XOR decryption
+ *
+ * @author Dustin Schneider
+ * @link http://www.phpbuilder.com/tips/item.php?id=68
+ */
+function x_Decrypt($string, $key){
+    for($i=0; $i<strlen($string); $i++){
+        for($j=0; $j<strlen($key); $j++){
+            $string[$i] = $key[$j]^$string[$i];
+        }
+    }
+    return $string;
+}
+
+/**
  * Decodes UTF8 recursivly for the given array
+ *
+ * @deprecated
  */
 function utf8_decode_array(&$array) {
   trigger_error('deprecated utf8_decode_array called',E_USER_WARNING);
@@ -348,6 +464,8 @@ function utf8_decode_array(&$array) {
 
 /**
  * Encodes the given array to UTF8 recursively
+ *
+ * @deprecated
  */
 function utf8_encode_array(&$array) {
   trigger_error('deprecated utf8_encode_array called',E_USER_WARNING);
@@ -362,5 +480,6 @@ function utf8_encode_array(&$array) {
     }
   }
 }
+
 
 ?>

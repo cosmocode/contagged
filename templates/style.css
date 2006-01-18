@@ -90,3 +90,25 @@ td    {background-color:#66CCFF:margin:3px}
 code, pre {color:#008000;}
 
 .hint {font-size:10px; color:#990099;}
+
+/* Autocompletion */
+div.autocomplete {
+  background-color: #fff;
+  border: 1px solid #000;
+  font-size: 80%;
+}
+
+div.autocomplete ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+div.autocomplete li {
+  margin: 1px, 2px, 0, 2px;
+}
+
+div.autocomplete li.selected {
+  background-color: #03c;
+  color: #fff;
+}

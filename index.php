@@ -41,7 +41,7 @@
 
   //prepare templates
   tpl_std();
-  tpl_markers();
+  tpl_markers(); //FIXME not needed anymore!?
   tpl_categories();
   tpl_timezone();
   tpl_country();
@@ -85,16 +85,22 @@
   function _makeldapfilter(){
     //handle given filter
 
-    $filter = $_REQUEST['filter'];
-    $search = $_REQUEST['search'];
-    $org    = $_REQUEST['org'];
-    $marker = $_REQUEST['marker'];
-    $categories = $_REQUEST['categories'];
-    $_SESSION[ldapab][filter] = $filter;
+    $filter = ldap_filterescape($_REQUEST['filter']);
+    $search = ldap_filterescape($_REQUEST['search']);
+    $org    = ldap_filterescape($_REQUEST['org']);
+    $marker = ldap_filterescape($_REQUEST['marker']);
+    $categories = ldap_filterescape($_REQUEST['categories']);
+    $_SESSION[ldapab][filter] = $_REQUEST['filter'];
     if(empty($filter)) $filter='a';
 
     if(!empty($marker)){
-      $ldapfilter = "(&(objectClass=contactPerson)(marker=$marker))";
+      $ldapfilter = '(&(objectClass=contactPerson)';
+      $marker = explode(',',$marker);
+      foreach($marker as $m){
+        $m = trim($m);
+        $ldapfilter .= "(marker=$m)";
+      }
+      $ldapfilter .= ')';
     }elseif(!empty($categories)){
       $ldapfilter = "(&(objectClass=OXUserObject)(OXUserCategories=$categories))";
     }elseif(!empty($search)){
