@@ -112,3 +112,23 @@ div.autocomplete li.selected {
   background-color: #03c;
   color: #fff;
 }
+
+div#nedit_editor textarea{
+  border-width:1px;
+  border-style:solid;
+  border-color:#000000;
+  margin:2px;
+  font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif;
+  font-size: 12px;
+  width: 60%;
+  height: 10em;
+}
+
+div#nedit_editor input {
+  border-width:1px;
+  border-style:solid;
+  border-color:#000000;
+  margin:2px;
+  font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif;
+  font-size: 12px;
+}

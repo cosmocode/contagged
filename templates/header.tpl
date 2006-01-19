@@ -6,6 +6,7 @@
 
   <script src="js/prototype.js" type="text/javascript"></script>
   <script src="js/scriptaculous.js" type="text/javascript"></script>
+  <script src="js/formatDate.js" type="text/javascript"></script>
   <script src="js/gui.js" type="text/javascript"></script>
 
 </head>

@@ -55,10 +55,9 @@
           {/if}
         </table>
       </dd></dl>
-      {if $conf.extended}
-        {include file="extended_show.tpl"}
-      {/if}
     </td>
+
+
     <td valign="top" width="50%">
       <b>{$lang.private}</b>
       <dl><dd>
@@ -92,14 +91,6 @@
         </table>
       </dd></dl>
 
-      {if $entry.note}      
-      <b>{$lang.note}</b>
-      <dl><dd>
-        {$entry.note|nl2br}
-      </dd></dl>
-      {/if}
-
-
       {if $managername}
       <b>{$lang.manager}</b>
       <dl><dd>
@@ -113,11 +104,28 @@
       </dd></dl>
       {/if}
               
+      {if $conf.extended}
+        {include file="extended_show.tpl"}
+      {/if}
     </td>
   </tr>
 </table>
-      {if $conf.openxchange}
-        {include file="openxchange_show.tpl"}
-      {/if}
+
+<hr noshade="noshade" size="1" />
+<b>{$lang.note}</b>
+
+ <img src="pix/phone.png" width="16" height="16" onclick="nedit_showEditor('call','{$entry.dn}');" />
+ <img src="pix/email.png" width="16" height="16" onclick="nedit_showEditor('mail','{$entry.dn}');" />
+ <img src="pix/arrow_right.png" width="16" height="16" onclick="nedit_showEditor('todo','{$entry.dn}');" />
+ <img src="pix/note.png" width="16" height="16" onclick="nedit_showEditor('note','{$entry.dn}');" />
+
+<dl><dd id="nedit_insert">
+  {$entry.note|noteparser}
+</dd></dl>
+
+{if $conf.openxchange}
+  {include file="openxchange_show.tpl"}
+{/if}
+
 <br><br><br>
 
