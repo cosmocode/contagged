@@ -3,7 +3,7 @@
   {$entry.givenname} {$entry.name}
 </h1>
 {if $entry.photo != ''}
-  <img src="img.php?dn={$entry.dn|escape:url}" align="right" class="photo">
+  <a href="img.php?dn={$entry.dn|escape:url}"><img src="img.php?dn={$entry.dn|escape:url}" align="right" class="photo" width="130" /></a>
 {/if}
 
 {include file="ldaperror.tpl"}
@@ -114,10 +114,12 @@
 <hr noshade="noshade" size="1" />
 <b>{$lang.note}</b>
 
+{if $user}
  <img src="pix/phone.png" width="16" height="16" onclick="nedit_showEditor('call','{$entry.dn}');" />
  <img src="pix/email.png" width="16" height="16" onclick="nedit_showEditor('mail','{$entry.dn}');" />
  <img src="pix/arrow_right.png" width="16" height="16" onclick="nedit_showEditor('todo','{$entry.dn}');" />
  <img src="pix/note.png" width="16" height="16" onclick="nedit_showEditor('note','{$entry.dn}');" />
+{/if}
 
 <dl><dd id="nedit_insert">
   {$entry.note|noteparser}
