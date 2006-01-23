@@ -1,8 +1,8 @@
 <table width="100%">
 {foreach from=$orgs item=org}
   <tr>
-    <td class="result" width="25">
-      <img src="pix/org.png" border="0" width="22" height="22" align="middle">
+    <td class="result" width="20">
+      <img src="pix/cog.png" border="0" width="16" height="16" align="middle" />
     </td>
     <td class="result">
       <a href="index.php?org={$org|escape:url}">{$org}</a><br>

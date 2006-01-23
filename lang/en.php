@@ -24,6 +24,7 @@ $lang[manager]        = 'Key Account';
 
 $lang[anniversary]    = 'Birthday';
 $lang[marker]         = 'Tags';
+$lang[tagcloud]       = 'All used tags, sorted alphabetically. Frequently used tags are shown bigger.';
 
 $lang[business]       = 'Business';
 $lang[private]        = 'Private';

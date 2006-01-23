@@ -41,10 +41,11 @@
   </form>
 </td>
 {/if}
+
 {if $conf.extended}
 <td class="filterrow" align="right">
   <form method="get" action="index.php" style="display:inline">
-    {$lang.marker}:
+    <a href="tags.php">{$lang.marker}</a>:
     <input name="marker" class="searchfield" type="text" id="taglookup" value="{$smarty.request.marker|escape}"/>
     <input type="submit" value="{$lang.search}" class="searchbutton">
   </form>
