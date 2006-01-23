@@ -23,6 +23,7 @@
     $_REQUEST[entry][jpegPhoto][]=_getUploadData();
     $_REQUEST[entry][marker] = explode(',',$_REQUEST[entry][markers]);
     $_REQUEST[entry][marker] = array_map('trim',$_REQUEST[entry][marker]);
+    unset($_REQUEST[entry][markers]);
     $dn = _saveData();
   }
 
@@ -125,9 +126,11 @@ print '</pre>';*/
     $entry[cn]          = $entry[givenname].' '.$entry[name];;
     $entry = prepare_ldap_entry($entry);
 
-/*print '<pre>';
+/*
+print '<pre>';
 print_r($entry);
-print '</pre>';*/
+print '</pre>';
+*/
 
     if(empty($dn)){
       //new entry
