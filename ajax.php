@@ -1,0 +1,72 @@
+<?
+require_once('init.php');
+ldap_login();
+
+header('Content-Type: text/html; charset=utf-8');
+
+if($_REQUEST['taglookup']){
+  ajax_taglookup($_REQUEST['taglookup']);
+}elseif($_REQUEST['addnote']){
+  ajax_addnote($_REQUEST['addnote'],$_REQUEST['note']);
+}
+
+/**
+ * Add a note to the existing notes
+ */
+function ajax_addnote($dn,$note){
+  global $conf;
+  global $LDAP_CON;
+
+  // fetch the existing note
+  $result = ldap_search($LDAP_CON,$dn,'(objectClass=inetOrgPerson)',array('description'));
+  if(ldap_count_entries($LDAP_CON,$result)){
+    $result = ldap_get_binentries($LDAP_CON, $result);
+  }
+  $note = $note."\n\n".$result[0]['description'][0];
+  $note = preg_replace("!\n\n\n+!","\n\n",$note);
+
+  $entry['description'] = $note;
+  ldap_modify($LDAP_CON,$dn,$entry);
+
+
+  require_once(dirname(__FILE__).'/smarty/plugins/modifier.noteparser.php');
+  print smarty_modifier_noteparser($note);
+}
+
+/**
+ * Find all tags (markers) starting with the given
+ * string
+ */
+function ajax_taglookup($tag){
+  global $conf;
+  global $LDAP_CON;
+  if(!$conf[extended]) return;
+
+  $search = ldap_filterescape($tag);
+  $filter = "(&(objectClass=contactPerson)(marker=$search*))";
+  $result = ldap_queryabooks($filter,'marker');
+
+  if(!count($result)) return;
+
+  $tags = array();
+  foreach ($result as $entry){
+    if(count($entry['marker'])){
+      foreach($entry['marker'] as $marker){
+        if(preg_match('/^'.preg_quote($tag,'/').'/i',$marker)){
+          array_push($tags, strtolower($marker));
+        }
+      }
+    }
+  }
+
+  $tags = array_unique($tags);
+  sort($tags,SORT_STRING);
+
+  print '<ul>';
+  foreach($tags as $out){
+    print '<li>'.htmlspecialchars($out).'</li>';
+  }
+  print '</ul>';
+}
+
+?>
