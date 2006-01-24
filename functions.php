@@ -16,10 +16,10 @@ function ldap_login(){
   global $conf;
   if(!empty($_SESSION['ldapab']['username'])){
     // existing session! Check if valid
-    if($_COOKIE['ldapabconid'] != $_SESSION['ldapab']['conid']){
+    if($_SESSION['ldapab']['browserid'] != auth_browseruid()){
       //session hijacking detected
-       header('Location: login.php?username=');
-       exit;
+      header('Location: login.php?username=');
+      exit;
     }
   } elseif ($conf['httpd_auth'] && !empty($_SERVER['PHP_AUTH_USER'])) {
     // use HTTP auth if wanted and possible
@@ -93,17 +93,38 @@ function do_ldap_bind($user,$pass,$dn=""){
 }
 
 /**
+ * Builds a pseudo UID from browser and IP data
+ *
+ * This is neither unique nor unfakable - still it adds some
+ * security. Using the first part of the IP makes sure
+ * proxy farms like AOLs are stil okay.
+ *
+ * @author  Andreas Gohr <andi@splitbrain.org>
+ *
+ * @return  string  a MD5 sum of various browser headers
+ */
+function auth_browseruid(){
+  $uid  = '';
+  $uid .= $_SERVER['HTTP_USER_AGENT'];
+  $uid .= $_SERVER['HTTP_ACCEPT_ENCODING'];
+  $uid .= $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+  $uid .= $_SERVER['HTTP_ACCEPT_CHARSET'];
+  $uid .= substr($_SERVER['REMOTE_ADDR'],0,strpos($_SERVER['REMOTE_ADDR'],'.'));
+  return md5($uid);
+}
+
+
+/**
  * saves user data to Session and cookies
  */
 function set_session($user,$pass,$dn){
   global $conf;
 
   $rand = rand();
-  $_SESSION[ldapab][username]=$user;
-  $_SESSION[ldapab][binddn]  =$dn;
-  $_SESSION[ldapab][password]=$pass;
-  $_SESSION[ldapab][conid]   =$rand;
-  setcookie('ldapabconid',$rand,time()+60*60*24);
+  $_SESSION[ldapab][username]  = $user;
+  $_SESSION[ldapab][binddn]    = $dn;
+  $_SESSION[ldapab][password]  = $pass;
+  $_SESSION[ldapab][browserid] = auth_browseruid();
 
   // (re)set the persistant auth cookie
   if($user == ''){
