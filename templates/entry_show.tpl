@@ -114,13 +114,13 @@
 <b>{$lang.note}</b>
 
 {if $user}
- <img src="pix/phone.png" width="16" height="16" onclick="nedit_showEditor('call','{$entry.dn}','{$user|escape:javascript}');" />
- <img src="pix/email.png" width="16" height="16" onclick="nedit_showEditor('mail','{$entry.dn}','{$user|escape:javascript}');" />
- <img src="pix/arrow_right.png" width="16" height="16" onclick="nedit_showEditor('todo','{$entry.dn}','{$user|escape:javascript}');" />
- <img src="pix/note.png" width="16" height="16" onclick="nedit_showEditor('note','{$entry.dn}','{$user|escape:javascript}');" />
+ <img src="pix/phone.png" width="16" height="16" onclick="nedit_showEditor('call','{$entry.dn}','{$user|escape:javascript}');" class="click" />
+ <img src="pix/email.png" width="16" height="16" onclick="nedit_showEditor('mail','{$entry.dn}','{$user|escape:javascript}');" class="click" />
+ <img src="pix/arrow_right.png" width="16" height="16" onclick="nedit_showEditor('todo','{$entry.dn}','{$user|escape:javascript}');" class="click" />
+ <img src="pix/note.png" width="16" height="16" onclick="nedit_showEditor('note','{$entry.dn}','{$user|escape:javascript}');" class="click" />
 {/if}
 
-<dl><dd id="nedit_insert">
+<dl class="notes"><dd id="nedit_insert">
   {$entry.note|noteparser}
 </dd></dl>
 

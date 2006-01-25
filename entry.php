@@ -23,6 +23,7 @@
     $_REQUEST[entry][jpegPhoto][]=_getUploadData();
     $_REQUEST[entry][marker] = explode(',',$_REQUEST[entry][markers]);
     $_REQUEST[entry][marker] = array_map('trim',$_REQUEST[entry][marker]);
+    $_REQUEST[entry][marker] = array_unique($_REQUEST[entry][marker]);
     unset($_REQUEST[entry][markers]);
     $dn = _saveData();
   }

@@ -14,7 +14,18 @@ div#toolbar ul {
 }
 
 div#toolbar li.sep {
-  height: 1em;
+  margin: 0.5em 2px;
+  border-bottom: 1px solid #ccc;
+}
+
+div#toolbar img {
+  padding: 2px;
+  margin: 1px 0;
+  border: 1px solid #fff;
+}
+
+div#toolbar img:hover {
+  border: 1px solid #ccc;
 }
 
 /* top row */

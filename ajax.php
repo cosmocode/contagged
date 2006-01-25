@@ -8,6 +8,8 @@ if($_REQUEST['taglookup']){
   ajax_taglookup($_REQUEST['taglookup']);
 }elseif($_REQUEST['addnote']){
   ajax_addnote($_REQUEST['addnote'],$_REQUEST['note']);
+}elseif($_REQUEST['settags']){
+  ajax_settags($_REQUEST['settags'],$_REQUEST['tags']);
 }
 
 /**
@@ -31,6 +33,30 @@ function ajax_addnote($dn,$note){
 
   require_once(dirname(__FILE__).'/smarty/plugins/modifier.noteparser.php');
   print smarty_modifier_noteparser($note);
+}
+
+/**
+ * Sett tags for a contact
+ */
+function ajax_settags($dn,$tags){
+  global $conf;
+  global $LDAP_CON;
+  if(!$conf[extended]) return;
+
+  $tags = explode(',',$tags);
+  $tags = array_map('trim',$tags);
+  $tags = array_unique($tags);
+
+  $entry['marker'] = $tags;
+  ldap_modify($LDAP_CON,$dn,$entry);
+
+  foreach ($tags as $tag){
+    print '<a href="index.php?marker=';
+    print rawurlencode($tag);
+    print '" class="tag">';
+    print htmlspecialchars($tag);
+    print '</a> ';
+  }
 }
 
 /**

@@ -117,23 +117,22 @@ div.autocomplete li.selected {
 }
 
 div#nedit_editor textarea{
-  border-width:1px;
-  border-style:solid;
-  border-color:#000000;
-  margin:2px;
-  font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif;
-  font-size: 12px;
   width: 60%;
+  border: 1px solid #000;
+  margin: 2px;
+  float: left;
   height: 10em;
 }
 
-div#nedit_editor input {
-  border-width:1px;
-  border-style:solid;
-  border-color:#000000;
-  margin:2px;
-  font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif;
-  font-size: 12px;
+div#tedit_editor textarea{
+  width: 90%;
+  border: 1px solid #000;
+  margin: 2px;
+  float: left;
+}
+
+img.click {
+  cursor: pointer;
 }
 
 /* TagCloud */
