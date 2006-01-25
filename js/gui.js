@@ -21,7 +21,7 @@ NoteEditor.prototype = {
  * Create the editor component
  */
 
-function nedit_showEditor(type,dn){
+function nedit_showEditor(type,dn,name){
   // if the editor already exists cancel it
   if($('nedit_editor') !== null){
     nedit_cleanUp();
@@ -41,7 +41,7 @@ function nedit_showEditor(type,dn){
   }
 
   var dt = new Date();
-  editor += '//'+dt.formatDate('j. M y H:i')+'//: ';
+  editor += '//'+dt.formatDate('j. M y H:i')+' '+name+'//: ';
   editor += '</textarea><br />';
 
   editor += '<input id="nedit_save" type="button" value="SAVE" />';

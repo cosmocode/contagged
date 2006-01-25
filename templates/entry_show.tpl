@@ -1,3 +1,5 @@
+{include file="header.tpl"}
+
 <h1>
   <img src="pix/{$entry.type}.png" border="0" width="22" height="22" align="middle" title="{$entry.type}">
   {$entry.givenname} {$entry.name}
@@ -5,9 +7,6 @@
 {if $entry.photo != ''}
   <a href="img.php?dn={$entry.dn|escape:url}"><img src="img.php?dn={$entry.dn|escape:url}" align="right" class="photo" width="130" /></a>
 {/if}
-
-{include file="ldaperror.tpl"}
-
 
 <table width="100%">
   <tr>
@@ -115,10 +114,10 @@
 <b>{$lang.note}</b>
 
 {if $user}
- <img src="pix/phone.png" width="16" height="16" onclick="nedit_showEditor('call','{$entry.dn}');" />
- <img src="pix/email.png" width="16" height="16" onclick="nedit_showEditor('mail','{$entry.dn}');" />
- <img src="pix/arrow_right.png" width="16" height="16" onclick="nedit_showEditor('todo','{$entry.dn}');" />
- <img src="pix/note.png" width="16" height="16" onclick="nedit_showEditor('note','{$entry.dn}');" />
+ <img src="pix/phone.png" width="16" height="16" onclick="nedit_showEditor('call','{$entry.dn}','{$user|escape:javascript}');" />
+ <img src="pix/email.png" width="16" height="16" onclick="nedit_showEditor('mail','{$entry.dn}','{$user|escape:javascript}');" />
+ <img src="pix/arrow_right.png" width="16" height="16" onclick="nedit_showEditor('todo','{$entry.dn}','{$user|escape:javascript}');" />
+ <img src="pix/note.png" width="16" height="16" onclick="nedit_showEditor('note','{$entry.dn}','{$user|escape:javascript}');" />
 {/if}
 
 <dl><dd id="nedit_insert">
@@ -129,5 +128,4 @@
   {include file="openxchange_show.tpl"}
 {/if}
 
-<br><br><br>
-
+{include file="footer.tpl"}

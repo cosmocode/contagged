@@ -1,3 +1,5 @@
+{include file="header.tpl"}
+
 <h1>
   {if $entry.type != ''}
   <img src="pix/{$entry.type}.png" border="0" width="22" height="22" align="middle" title="{$entry.type}">
@@ -9,8 +11,6 @@
 <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
 <input type="hidden" name="dn" value="{$entry.dn|escape}" />
 <input type="hidden" name="save" value="1" />
-
-{include file="ldaperror.tpl"}
 
 <table width="100%">
   <tr>
@@ -179,4 +179,4 @@
 
 </form>
 
-<br>
+{include file="footer.tpl"}

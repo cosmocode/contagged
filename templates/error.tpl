@@ -1,10 +1,7 @@
+{include file="header.tpl"}
 
 <h1>An error occured</h1>
 
-{include file="ldaperror.tpl"}
+<div class="error">{$error}</div>
 
-<table class="tableborder">
-<tr>
-  <td>{$error}</td>
-</tr>
-</table>
+{include file="footer.tpl"}

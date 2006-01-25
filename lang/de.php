@@ -66,6 +66,7 @@ $lang[msg_addto]      = 'Zu welchem Adressbuch soll der Eintrag hinzugefügt wer
 $lang[msg_jpegonly]   = 'Nur JPEG';
 $lang[msg_dateformat] = 'JJJJ-MM-TT';
 $lang[msg_uploadvcf]  = 'Upload VCard File';
+$lang[msg_tagsep]     = 'Durch Komma getrennt';
 
 $lang[err_noentries]  = 'Keine Einträge';
 $lang[err_ldap]       = 'Der LDAP Server lieferte folgende Fehlermeldungen';

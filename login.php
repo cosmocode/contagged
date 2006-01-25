@@ -21,7 +21,5 @@
   $smarty->assign('msg',$msg);
   //display templates
   header('Content-Type: text/html; charset=utf-8');
-  $smarty->display('header.tpl');
   $smarty->display('login.tpl');
-  $smarty->display('footer.tpl');
 ?>

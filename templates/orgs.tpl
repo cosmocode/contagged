@@ -1,3 +1,5 @@
+{include file="header.tpl"}
+
 <table width="100%">
 {foreach from=$orgs item=org}
   <tr>
@@ -16,3 +18,5 @@
   </tr>
 {/foreach}
 </table>
+
+{include file="footer.tpl"}

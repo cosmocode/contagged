@@ -1,3 +1,4 @@
+{include file="header.tpl"}
 
 <h2>Adding LDAP-Access to your Mailclient</h2>
 
@@ -21,7 +22,7 @@
 <h3>Private Addressbook</h3>
 
 {if $binddn}
-<p>To access your persanal addressdata use these settings:</p>
+<p>To access your personal address data use these settings:</p>
 <dl>
   <dt>LDAP-Server</dt>
   <dd><code>{$conf.ldapserver}</code></dd>
@@ -39,5 +40,4 @@
 <p>Login to see this data</p>
 {/if}
 
-
-<br><br>
+{include file="footer.tpl"}

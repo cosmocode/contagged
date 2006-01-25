@@ -1,0 +1,64 @@
+
+/* left side toolbar */
+
+div#toolbar {
+  float: left;
+  width: 2em;
+  text-align: center;
+}
+
+div#toolbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+div#toolbar li.sep {
+  height: 1em;
+}
+
+/* top row */
+
+div#filterrow {
+  padding: 0 0 0 3em;
+  border-bottom: 1px solid #ccc;
+}
+
+div#filterrow form {
+  display: inline;
+}
+
+div#filterrow div.x, div#filterrow ul.x, div#filterrow ul.x li {
+  display: inline;
+}
+
+div#filterrow ul.x {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+}
+
+div#filterrow div {
+  margin-left: 1em;
+}
+
+/* bottom row */
+
+div#footrow {
+  clear: left;
+  text-align: right;
+  padding: 0 1em 0 0;
+  border-top: 1px solid #ccc;
+}
+
+/* content */
+
+div#content {
+  margin-left: 2em;
+  padding: 0.5em 1em 2em 1em;
+  border-left: 1px solid #ccc;
+  min-height: 10em;
+  height: auto !important;
+  height: 10em;
+}

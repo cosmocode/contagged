@@ -1,3 +1,5 @@
+{include file="header.tpl"}
+
 
   <br /><br /><br />
   <form action="login.php" method="post" accept-charset="utf-8">
@@ -25,3 +27,5 @@
   </table>
   </form>
   <br /><br /><br />
+
+{include file="footer.tpl"}

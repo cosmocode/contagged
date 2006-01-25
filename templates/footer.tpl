@@ -1,8 +1,29 @@
+  </div>
+
+  <div id="footrow">
+    {if $user == ''}
+      {$lang.notloggedin}
+      &nbsp;&nbsp;&nbsp;
+      <a href="login.php"><img src="pix/key.png" border="0" width="16" height="16" align="middle" /> {$lang.login}</a>
+    {else}
+      {$lang.loggedinas} <b>{$user}</b>
+      &nbsp;&nbsp;&nbsp;
+      <a href="login.php?username="><img src="pix/key_go.png" border="0" width="16" height="16" align="middle" /> {$lang.logout}</a>
+    {/if}
+  </div>
+</div>
+
+</body>
+</html>
+
+
+<!--
+
   </td>
 </tr>
 
 <tr>
-  <td class="buttonrow" align="right">
+  <td class="buttonrow" align="right" colspan="2">
     <table width="100%"><tr>
       <td align="left">
         <a href="orgs.php"><img src="pix/book_open.png" border="0" width="16" height="16" align="middle" />{$lang.orgs}</a>
@@ -32,7 +53,7 @@
   </td>
 </tr>
 <tr>
-  <td class="footrow">
+  <td class="footrow" colspan="2">
     {if $user == ''}
       <a href="login.php"><img src="pix/key.png" border="0" width="16" height="16" align="middle" /> {$lang.login}</a>&nbsp;&nbsp;&nbsp;
       {$lang.notloggedin}
@@ -43,3 +64,4 @@
   </td>
 </tr>
 </table>
+-->

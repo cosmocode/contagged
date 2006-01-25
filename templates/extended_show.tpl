@@ -13,7 +13,7 @@
       <td valign="top" align="right">{$lang.marker}:</td>
       <td>
         {foreach from=$entry.marker item=marker}
-          <a href="index.php?marker={$marker|escape:url}">{$marker}</a> 
+          <a href="index.php?marker={$marker|escape:url}" class="tag">{$marker}</a> 
         {/foreach}
       </td>
     </tr>

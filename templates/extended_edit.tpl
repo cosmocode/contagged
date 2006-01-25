@@ -8,9 +8,9 @@
   </tr>
 
   <tr>
-    <td align="right" valign="top" nowrap="nowrap">{$lang.marker}:</td>
+    <td align="right" valign="top" nowrap="nowrap">{$lang.marker}:<br><span class="hint">({$lang.msg_tagsep})</span></td>
     <td>
-      <input type="text" class="input" name="entry[markers]" value="{$entry.markers|escape}" id="tageditlookup"><div id="tageditresult" class="autocomplete"></div>
+      <textarea class="input" name="entry[markers]" id="tageditlookup">{$entry.markers|escape}</textarea><div id="tageditresult" class="autocomplete"></div>
     </td>
 
   </tr>

@@ -1,4 +1,5 @@
-<br><br>
+{include file="header.tpl"}
+
 <table cellspacing="0" cellpadding="0" width="100%" align="center">
   {if $list == ''}
     <tr>
@@ -11,4 +12,5 @@
     {$list}
   {/if}
 </table>
-<br><br><br>
+
+{include file="footer.tpl"}

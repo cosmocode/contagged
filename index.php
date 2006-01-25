@@ -59,10 +59,7 @@
     $_SESSION[ldapab][lastlocation]=$_SERVER["REQUEST_URI"];
 
     header('Content-Type: text/html; charset=utf-8');
-    $smarty->display('header.tpl');
-    $smarty->display('list_filter.tpl');
     $smarty->display('list.tpl');
-    $smarty->display('footer.tpl');
   }
 
   //------- functions -----------//

@@ -21,9 +21,10 @@ td    {background-color:#66CCFF:margin:3px}
 .buttonrow {border-top-width:1px;
             border-top-style:solid;
             border-top-color:#cccccc;}
-.filterrow {border-bottom-width:1px;
+
+/*.filterrow {border-bottom-width:1px;
             border-bottom-style:solid;
-            border-bottom-color:#cccccc;}
+            border-bottom-color:#cccccc;}*/
 
 .tableborder {border-width:1px; border-style:solid}
 
@@ -96,6 +97,8 @@ div.autocomplete {
   background-color: #fff;
   border: 1px solid #000;
   font-size: 80%;
+  margin: 0;
+  display: block;
 }
 
 div.autocomplete ul {
@@ -156,3 +159,7 @@ a.tc18 { font-size: 280%; }
 a.tc19 { font-size: 290%; }
 a.tc20 { font-size: 300%; }
 
+a.tag {
+  background: url(../pix/tag_blue.png) left center no-repeat;
+  padding-left: 18px;
+}

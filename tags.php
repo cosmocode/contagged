@@ -7,10 +7,7 @@
   $smarty->assign('tagcloud',tag_cloud());
   //display templates
   header('Content-Type: text/html; charset=utf-8');
-  $smarty->display('header.tpl');
-  $smarty->display('list_filter.tpl');
   $smarty->display('tags.tpl');
-  $smarty->display('footer.tpl');
 
   function tag_cloud(){
     global $conf;
