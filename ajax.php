@@ -46,9 +46,10 @@ function ajax_settags($dn,$tags){
   $tags = explode(',',$tags);
   $tags = array_map('trim',$tags);
   $tags = array_unique($tags);
+  $tags = array_diff($tags, array('')); //strip empty ones
 
   $entry['marker'] = $tags;
-  ldap_modify($LDAP_CON,$dn,$entry);
+  ldap_mod_replace($LDAP_CON,$dn,$entry);
 
   foreach ($tags as $tag){
     print '<a href="index.php?marker=';
