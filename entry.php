@@ -20,11 +20,19 @@
   //save data if asked for
   if($_SESSION[ldapab][username] && $_REQUEST[save]){
     // prepare special data
-    $_REQUEST[entry][jpegPhoto][]=_getUploadData();
-    $_REQUEST[entry][marker] = explode(',',$_REQUEST[entry][markers]);
-    $_REQUEST[entry][marker] = array_map('trim',$_REQUEST[entry][marker]);
-    $_REQUEST[entry][marker] = array_unique($_REQUEST[entry][marker]);
-    unset($_REQUEST[entry][markers]);
+    $_REQUEST['entry']['jpegPhoto'][]=_getUploadData();
+    $_REQUEST['entry']['marker'] = explode(',',$_REQUEST['entry']['markers']);
+    $_REQUEST['entry']['marker'] = array_map('trim',$_REQUEST['entry']['marker']);
+    $_REQUEST['entry']['marker'] = array_unique($_REQUEST['entry']['marker']);
+    $_REQUEST['entry']['marker'] = array_filter($_REQUEST['entry']['marker']);
+    sort($_REQUEST['entry']['marker']);
+    unset($_REQUEST['entry']['markers']);
+    
+    $_REQUEST['entry']['mail'] = array_map('trim',$_REQUEST['entry']['mail']);
+    $_REQUEST['entry']['mail'] = array_unique($_REQUEST['entry']['mail']);
+    $_REQUEST['entry']['mail'] = array_filter($_REQUEST['entry']['mail']);
+    sort($_REQUEST['entry']['mail']);
+    
     $dn = _saveData();
   }
 
