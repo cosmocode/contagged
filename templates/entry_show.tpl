@@ -1,14 +1,14 @@
 {include file="header.tpl"}
 
-<h1>
-  <img src="pix/{$entry.type}.png" border="0" width="22" height="22" align="middle" title="{$entry.type}">
-  {$entry.givenname} {$entry.name}
-</h1>
 {if $entry.photo != ''}
   <a href="img.php?dn={$entry.dn|escape:url}"><img src="img.php?dn={$entry.dn|escape:url}" align="right" class="photo" width="130" /></a>
 {/if}
+<h1>
+  <img src="pix/{$entry.type}.png" border="0" width="22" height="22" align="middle" title="{$entry.type}" />
+  {$entry.givenname} {$entry.name}
+</h1>
 
-<table width="100%">
+<table width="100%" {if $user}ondblclick="window.location.href='entry.php?dn={$entry.dn|escape:url}&mode=edit'"{/if}>
   <tr>
     <td valign="top" width="50%">
       <b>{$lang.business}</b>
