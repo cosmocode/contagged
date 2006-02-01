@@ -137,6 +137,11 @@ function init(){
   if($('tageditlookup') !== null)
     new Ajax.Autocompleter('tageditlookup','tageditresult', 'ajax.php', {paramName: 'taglookup', tokens: ','});
 
+  if($('searchfield') !== null)
+    $('searchfield').focus();
+
+  if($('firstfield') !== null)
+    $('firstfield').focus();
 }
 
 Event.observe(window, 'load', init, false);

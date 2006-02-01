@@ -21,7 +21,7 @@
         </tr>
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.name}:</td>
-          <td><input type="text" class="input" name="entry[name]" value="{$entry.name|escape}"></td>
+          <td><input type="text" class="input" name="entry[name]" value="{$entry.name|escape}" id="firstfield"></td>
         </tr>
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.givenname}:</td>

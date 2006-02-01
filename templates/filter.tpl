@@ -56,7 +56,7 @@
 
 <div class="search x">
   <form method="get" action="index.php" accept-charset="utf-8">
-    <input type="text" name="search" class="searchfield"
+    <input type="text" name="search" class="searchfield" id="searchfield"
      value="{$smarty.request.search|escape}" />
     <input type="submit" value="{$lang.search}" class="searchbutton" />
   </form>
