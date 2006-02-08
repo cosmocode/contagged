@@ -35,11 +35,12 @@ You need to include the inetOrgPerson schema in you slapd.conf:
 
   include /etc/ldap/schema/inetorgperson.schema
 
-If youwant to use the extended schema (currently only for birthday support) you
-need to copy the ldapab.schema file to /etc/ldap/schema/ and include it, too.
-Be sure to enable the extended option in config.php.
+If youwant to use the extended schema (needed for tagging and birthday support)
+you need to copy the ldapab.schema file to /etc/ldap/schema/ and include it, too.
 
   include         /etc/ldap/schema/ldapab.schema
+
+Be sure to enable the extended option in config.php.
 
 To setup the access rights add the following statement to your slapd.conf. Of
 course you have to replace "o=cosmocode,c=de" with your own root DN. The first

@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>LDAPab - {$lang.ldapab}</title>
+  <title>ConTagged - {$lang.ldapab}</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
   <link rel="stylesheet" type="text/css" href="templates/layout.css" />
@@ -23,7 +23,7 @@
 <div id="ldapab">
 
   <div id="titlerow">
-    <a href="{$home}" class="logo">LDAPab</a>
+    <a href="{$home}" class="logo">ConTagged</a>
     <span class="logosmall">- {$lang.ldapab}</span>
   </div>
 
