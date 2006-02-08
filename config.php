@@ -37,11 +37,8 @@
   $conf[openxchange] = 0;
  
   // Should we try to login using the username and password provided by httpd? (0|1)
-  $conf[httpd_auth]  = 1;
+  $conf[httpd_auth]  = 0;
  
-  // Should the additional schema ldapab.schema be used? (0|1)
-  $conf[extended]    = 1;
-
   // Dateformat for birthdays when using extended schema
   // see http://www.php.net/manual/en/function.strftime.php
   #$conf[dateformat]  = '%Y/%m/%d';
