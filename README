@@ -1,9 +1,9 @@
 === ABOUT ===
 
-LDAPab is a webbased address book for small companies. It features a public
+ConTagged is a webbased address book for small companies. It features a public
 address book which is writable for all company staff and a personal address
-book for each staff member. LDAPab requires an already setup LDAP server to
-authenticate users.
+book for each staff member. ConTagged requires an already setup LDAP server to
+authenticate users and store it's data.
 
 === REQUIREMENTS ===
 
@@ -70,8 +70,8 @@ And a contacts leaf for every user.
 
 
 If you made everything correct you can point your webbrowser to the newly
-installed LDAPab and use it :-) If you encounter problems try to enable logging
-in your LDAP server to see what the problem is.
+installed ConTagged and use it :-) If you encounter problems try to enable
+logging in your LDAP server to see what the problem is.
 
 === FEEDBACK, PATCHES, SUPPORT ===
 
@@ -87,12 +87,12 @@ http://www.cosmocode.de
 
 === KNOWN BUGS ===
 
-LDAPab was only tested with open-ldap 2.1 - there may be problems with other
+ConTagged was only tested with open-ldap 2.1 - there may be problems with other
 LDAP Servers.
 
 === LICENSE ===
 
-LDAPab - An LDAP based Company Address Book
+ConTagged - An LDAP based Company Address Book
 Copyright 2004 - 2006 - CosmoCode GmbH
 
 This program is free software; you can redistribute it and/or

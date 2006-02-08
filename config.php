@@ -20,7 +20,7 @@
   $conf[anonbindpw]  = '';
 
   // Which language to use (see lang directory)
-  $conf[lang]        = 'de';
+  $conf[lang]        = 'en';
 
   // Where to store public contacts?
   $conf[publicbook]  = 'ou=contacts, '.$conf[ldaprootdn];
