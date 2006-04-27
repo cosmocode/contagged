@@ -5,7 +5,7 @@
  */
 function smarty_std(){
   global $smarty;
-  $smarty->assign('USER',$_SESSION[ldapab][username]);
+  $smarty->assign('USER',$_SESSION['ldapab']['username']);
 }
 
 /**
@@ -49,9 +49,13 @@ function do_ldap_bind($user,$pass,$dn=""){
   global $conf;
   global $LDAP_CON;
   
-  //create global connection to LDAP if nessessary
+  //create global connection to LDAP if necessary
   if(!$LDAP_CON){
-    $LDAP_CON = ldap_connect($conf[ldapserver],$conf[ldapport]);
+    if (!empty($conf['ldapurl'])){
+      $LDAP_CON = ldap_connect($conf['ldapurl']);
+    }else{
+      $LDAP_CON = ldap_connect($conf['ldapserver'],$conf['ldapport']);
+    }
     if(!$LDAP_CON){
       die("couldn't connect to LDAP server");
     }
@@ -60,7 +64,7 @@ function do_ldap_bind($user,$pass,$dn=""){
   if(empty($dn)){
     //anonymous bind to lookup users
     //blank binddn or blank bindpw will result in anonymous bind
-    if(!ldap_bind($LDAP_CON,$conf[anonbinddn],$conf[anonbindpw])){
+    if(!ldap_bind($LDAP_CON,$conf['anonbinddn'],$conf['anonbindpw'])){
       die("can not bind for user lookup");
     }
   
@@ -71,8 +75,8 @@ function do_ldap_bind($user,$pass,$dn=""){
     }
 
     //get dn for given user
-    $filter = str_replace('%u',$user,$conf[userfilter]);
-    $sr = ldap_search($LDAP_CON, $conf[usertree], $filter);;
+    $filter = str_replace('%u',$user,$conf['userfilter']);
+    $sr = ldap_search($LDAP_CON, $conf['usertree'], $filter);;
     $result = ldap_get_entries($LDAP_CON, $sr);
     if($result['count'] != 1){
       set_session('','','');
@@ -121,10 +125,10 @@ function set_session($user,$pass,$dn){
   global $conf;
 
   $rand = rand();
-  $_SESSION[ldapab][username]  = $user;
-  $_SESSION[ldapab][binddn]    = $dn;
-  $_SESSION[ldapab][password]  = $pass;
-  $_SESSION[ldapab][browserid] = auth_browseruid();
+  $_SESSION['ldapab']['username']  = $user;
+  $_SESSION['ldapab']['binddn']    = $dn;
+  $_SESSION['ldapab']['password']  = $pass;
+  $_SESSION['ldapab']['browserid'] = auth_browseruid();
 
   // (re)set the persistant auth cookie
   if($user == ''){
@@ -192,40 +196,40 @@ function ldap_get_binentries($conn,$srchRslt){
 function namedentries($flip=false){
   global $conf;
 
-  $entries[dn]                         = 'dn';
-  $entries[sn]                         = 'name';
-  $entries[givenName]                  = 'givenname';
-  $entries[title]                      = 'title';
-  $entries[o]                          = 'organization';
-  $entries[physicalDeliveryOfficeName] = 'office';
-  $entries[postalAddress]              = 'street';
-  $entries[postalCode]                 = 'zip';
-  $entries[l]                          = 'location';
-  $entries[telephoneNumber]            = 'phone';
-  $entries[facsimileTelephoneNumber]   = 'fax';
-  $entries[mobile]                     = 'mobile';
-  $entries[pager]                      = 'pager';
-  $entries[homePhone]                  = 'homephone';
-  $entries[homePostalAddress]          = 'homestreet';
-  $entries[jpegPhoto]                  = 'photo';
-  $entries[labeledURI]                 = 'url';
-  $entries[description]                = 'note';
-  $entries[manager]                    = 'manager';
-  $entries[cn]                         = 'displayname';
+  $entries['dn']                         = 'dn';
+  $entries['sn']                         = 'name';
+  $entries['givenName']                  = 'givenname';
+  $entries['title']                      = 'title';
+  $entries['o']                          = 'organization';
+  $entries['physicalDeliveryOfficeName'] = 'office';
+  $entries['postalAddress']              = 'street';
+  $entries['postalCode']                 = 'zip';
+  $entries['l']                          = 'location';
+  $entries['telephoneNumber']            = 'phone';
+  $entries['facsimileTelephoneNumber']   = 'fax';
+  $entries['mobile']                     = 'mobile';
+  $entries['pager']                      = 'pager';
+  $entries['homePhone']                  = 'homephone';
+  $entries['homePostalAddress']          = 'homestreet';
+  $entries['jpegPhoto']                  = 'photo';
+  $entries['labeledURI']                 = 'url';
+  $entries['description']                = 'note';
+  $entries['manager']                    = 'manager';
+  $entries['cn']                         = 'displayname';
 
-  if($conf[extended]){
-    $entries[anniversary]              = 'anniversary';
+  if($conf['extended']){
+    $entries['anniversary']              = 'anniversary';
   }
-  if($conf[openxchange]){
-    $entries[mailDomain]               = 'domain';
-    $entries[userCountry]              = 'country';
-    $entries[birthDay]                 = 'birthday';
-    $entries[IPPhone]                  = 'ipphone';
-    $entries[OXUserCategories]         = 'categories';
-    $entries[OXUserInstantMessenger]   = 'instantmessenger';
-    $entries[OXTimeZone]               = 'timezone';
-    $entries[OXUserPosition]           = 'position';
-    $entries[relClientCert]            = 'certificate';
+  if($conf['openxchange']){
+    $entries['mailDomain']               = 'domain';
+    $entries['userCountry']              = 'country';
+    $entries['birthDay']                 = 'birthday';
+    $entries['IPPhone']                  = 'ipphone';
+    $entries['OXUserCategories']         = 'categories';
+    $entries['OXUserInstantMessenger']   = 'instantmessenger';
+    $entries['OXTimeZone']               = 'timezone';
+    $entries['OXUserPosition']           = 'position';
+    $entries['relClientCert']            = 'certificate';
   }
 
   if($flip){
@@ -242,8 +246,8 @@ function prepare_ldap_entry($in){
   global $conf;
 
   //check dateformat
-  if(!preg_match('/\d\d\d\d-\d\d-\d\d/',$in[anniversary])){
-    $in[anniversary]='';
+  if(!preg_match('/\d\d\d\d-\d\d-\d\d/',$in['anniversary'])){
+    $in['anniversary']='';
   }
 
   $entries = namedentries(true);
@@ -261,12 +265,12 @@ function prepare_ldap_entry($in){
   }
 
   //standard Objectclass
-  $out[objectclass][] = 'inetOrgPerson';
-  if($conf[extended]){
-    $out[objectclass][] = 'contactPerson';
+  $out['objectclass'][] = 'inetOrgPerson';
+  if($conf['extended']){
+    $out['objectclass'][] = 'contactPerson';
   }
-  if($conf[openxchange]){
-    $out[objectclass][] = 'OXUserObject';
+  if($conf['openxchange']){
+    $out['objectclass'][] = 'OXUserObject';
   }
 
   return clear_array($out);
@@ -330,12 +334,12 @@ function get_users(){
   global $conf;
   global $LDAP_CON;
 
-  $sr = ldap_list($LDAP_CON,$conf[usertree],"ObjectClass=inetOrgPerson");
+  $sr = ldap_list($LDAP_CON,$conf['usertree'],"ObjectClass=inetOrgPerson");
   $result = ldap_get_binentries($LDAP_CON, $sr);
   if(count($result)){
     foreach ($result as $entry){
-      if(!empty($entry[sn][0])){
-        $users[$entry[dn]] = $entry[givenName][0]." ".$entry[sn][0];
+      if(!empty($entry['sn'][0])){
+        $users[$entry['dn']] = $entry['givenName'][0]." ".$entry['sn'][0];
       }
     }
   }
@@ -361,9 +365,9 @@ function ldap_store_objectclasses($dn,$classes){
 
   $sr     = ldap_search($LDAP_CON,$dn,"objectClass=*",array('objectClass'));
   $result = ldap_get_binentries($LDAP_CON, $sr);
-  $set    = $result[0][objectClass];
-  $set    = array_unique_renumber(array_merge($set,$classes));
-  $add[objectClass] = $set;
+  $set    = $result[0]['objectClass'];
+  $set    = array_unique_renumber(array_merge((array)$set,(array)$classes));
+  $add['objectClass'] = $set;
 
   $r = @ldap_mod_replace($LDAP_CON,$dn,$add);
   tpl_ldaperror();
@@ -416,7 +420,7 @@ function ldap_queryabooks($filter,$types){
   }
 
   // return merged results
-  return array_merge($result1,$result2);
+  return array_merge((array)$result1,(array)$result2);
 }
 
 /**

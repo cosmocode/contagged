@@ -3,7 +3,7 @@
   require_once('Contact_Vcard_Parse.php');
   ldap_login();
 
-  if(! $_SESSION[ldapab][username] ){
+  if(! $_SESSION['ldapab']['username'] ){
     header("Location: login.php");
     exit;
   }

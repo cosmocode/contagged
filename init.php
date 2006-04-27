@@ -1,6 +1,6 @@
 <?
   require_once('config.php');
-  require_once('lang/'.$conf[lang].'.php');
+  require_once('lang/'.$conf['lang'].'.php');
   require_once('functions.php');
   require_once('template.php');
   require_once('smarty/Smarty.class.php');
@@ -35,5 +35,5 @@
   $smarty->compile_dir   = './cache';
   $smarty->use_sub_dirs  = 0;
   $smarty->template_dir  = './templates';
-  $smarty->force_compile = $conf[smartycompile];
+  $smarty->force_compile = $conf['smartycompile'];
 ?>

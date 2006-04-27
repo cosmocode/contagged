@@ -2,7 +2,7 @@
   require_once('init.php');
   ldap_login();
 
-  $dn = $_REQUEST[dn];
+  $dn = $_REQUEST['dn'];
 
   $sr = ldap_search($LDAP_CON,$dn,'(objectClass=inetOrgPerson)',array('jpegPhoto'));
   if(!ldap_count_entries($LDAP_CON,$sr)){

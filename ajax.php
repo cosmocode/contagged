@@ -41,7 +41,7 @@ function ajax_addnote($dn,$note){
 function ajax_settags($dn,$tags){
   global $conf;
   global $LDAP_CON;
-  if(!$conf[extended]) return;
+  if(!$conf['extended']) return;
 
   $tags = explode(',',$tags);
   $tags = array_map('trim',$tags);
@@ -67,7 +67,7 @@ function ajax_settags($dn,$tags){
 function ajax_taglookup($tag){
   global $conf;
   global $LDAP_CON;
-  if(!$conf[extended]) return;
+  if(!$conf['extended']) return;
 
   $search = ldap_filterescape($tag);
   $filter = "(&(objectClass=contactPerson)(marker=$search*))";

@@ -4,7 +4,7 @@
   require_once('xml.php');
   ldap_login();
 
-  if(! $_SESSION[ldapab][username] ){
+  if(! $_SESSION['ldapab']['username'] ){
     header("Location: login.php");
     exit;
   }

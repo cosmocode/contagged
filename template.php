@@ -8,16 +8,23 @@ function tpl_std(){
   global $lang;
   global $conf;
 
-  $smarty->assign('user',$_SESSION[ldapab][username]);
-  $smarty->assign('binddn',$_SESSION[ldapab][binddn]);
-  if(!empty($_SESSION[ldapab][lastlocation])){
-    $smarty->assign('home',$_SESSION[ldapab][lastlocation]);
+  if(empty($_SESSION['ldapab']['username'])){
+    $_SESSION['ldapab']['username'] = '';
+  }
+  if(empty($_SESSION['ldapab']['binddn'])){
+    $_SESSION['ldapab']['binddn'] = '';
+  }
+
+  $smarty->assign('user',$_SESSION['ldapab']['username']);
+  $smarty->assign('binddn',$_SESSION['ldapab']['binddn']);
+  if(!empty($_SESSION['ldapab']['lastlocation'])){
+    $smarty->assign('home',$_SESSION['ldapab']['lastlocation']);
   }else{
      $smarty->assign('home','index.php');
   }
   $smarty->assign('conf',$conf);
   $smarty->assign('lang',$lang);
-  $smarty->assign('dfexample',$dfexample);
+  //$smarty->assign('dfexample',$dfexample);
 }
 
 /**
@@ -43,23 +50,23 @@ function tpl_entry($in){
 
   //set the type
   $out['dn']        = normalize_dn($out['dn']);
-  $conf[publicbook] = normalize_dn($conf[publicbook]);
+  $conf['publicbook'] = normalize_dn($conf['publicbook']);
   if($out['dn']){
-    if(strstr($out['dn'],$conf[publicbook])){
-      $out[type] = 'public';
+    if(strstr($out['dn'],$conf['publicbook'])){
+      $out['type'] = 'public';
     }else{
-      $out[type] = 'private';
+      $out['type'] = 'private';
     }
   }
 
   //mail entries are handled special
   $out['mail'] = $in['mail'];
-  if ($conf[extended]){
+  if ($conf['extended']){
     //handle marker special in extended mode
     $out['marker'] = $in['marker'];
     if(is_array($in['marker'])) $out['markers'] = join(', ',$in['marker']);
   }
-  if ($conf[openxchange]){
+  if ($conf['openxchange']){
     //handle categories special in openxchange mode
     $out['categories'] = $in['OXUserCategories'];
   }
@@ -97,20 +104,20 @@ function tpl_markers(){
   global $LDAP_CON;
   global $smarty;
 
-  if(!$conf[extended]) return;
+  if(!$conf['extended']) return;
 
   $markers = array();
 
-  $sr = ldap_list($LDAP_CON,$conf[publicbook],"ObjectClass=inetOrgPerson",array("marker"));
+  $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=inetOrgPerson",array("marker"));
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
-  if(!empty($_SESSION[ldapab][binddn])){
+  if(!empty($_SESSION['ldapab']['binddn'])){
     $sr = @ldap_list($LDAP_CON,
-                    $conf[privatebook].','.$_SESSION[ldapab][binddn],
+                    $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     "ObjectClass=inetOrgPerson",array("marker"));
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
   }
-  $result = array_merge($result1,$result2);
+  $result = array_merge((array)$result1,(array)$result2);
 
   if(count($result)){
     foreach ($result as $entry){
@@ -137,21 +144,21 @@ function tpl_orgs(){
 
   $orgs = array();
 
-  $sr = ldap_list($LDAP_CON,$conf[publicbook],"ObjectClass=inetOrgPerson",array("o"));
+  $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=inetOrgPerson",array("o"));
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
-  if(!empty($_SESSION[ldapab][binddn])){
+  if(!empty($_SESSION['ldapab']['binddn'])){
     $sr = @ldap_list($LDAP_CON,
-                    $conf[privatebook].','.$_SESSION[ldapab][binddn],
+                    $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     "ObjectClass=inetOrgPerson",array("o"));
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
   }
-  $result = array_merge($result1,$result2);
+  $result = array_merge((array)$result1,(array)$result2);
 
   if(count($result)){
     foreach ($result as $entry){
-      if(!empty($entry[o][0])){
-        array_push($orgs, $entry[o][0]);
+      if(!empty($entry['o'][0])){
+        array_push($orgs, $entry['o'][0]);
       }
     }
   }
@@ -168,20 +175,20 @@ function tpl_categories(){
   global $LDAP_CON;
   global $smarty;
 
-  if(!$conf[openxchange]) return;
+  if(!$conf['openxchange']) return;
 
   $categories = array();
 
-  $sr = ldap_list($LDAP_CON,$conf[publicbook],"ObjectClass=OXUserObject",array("OXUserCategories"));
+  $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=OXUserObject",array("OXUserCategories"));
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
-  if(!empty($_SESSION[ldapab][binddn])){
+  if(!empty($_SESSION['ldapab']['binddn'])){
     $sr = @ldap_list($LDAP_CON,
-                    $conf[privatebook].','.$_SESSION[ldapab][binddn],
+                    $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     "ObjectClass=OXUserObject",array("OXUserCategories"));
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
   }
-  $result = array_merge($result1,$result2);
+  $result = array_merge((array)$result1,(array)$result2);
 
   if(count($result)){
     foreach ($result as $entry){
@@ -206,20 +213,20 @@ function tpl_timezone(){
   global $LDAP_CON;
   global $smarty;
 
-  if(!$conf[openxchange]) return;
+  if(!$conf['openxchange']) return;
 
   $timezone = array();
 
-  $sr = ldap_list($LDAP_CON,$conf[publicbook],"ObjectClass=OXUserObject",array("OXTimeZone"));
+  $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=OXUserObject",array("OXTimeZone"));
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
-  if(!empty($_SESSION[ldapab][binddn])){
+  if(!empty($_SESSION['ldapab']['binddn'])){
     $sr = @ldap_list($LDAP_CON,
-                    $conf[privatebook].','.$_SESSION[ldapab][binddn],
+                    $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     "ObjectClass=OXUserObject",array("OXTimeZone"));
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
   }
-  $result = array_merge($result1,$result2);
+  $result = array_merge((array)$result1,(array)$result2);
 
   if(count($result)){
     foreach ($result as $entry){
@@ -244,20 +251,20 @@ function tpl_country(){
   global $LDAP_CON;
   global $smarty;
 
-  if(!$conf[openxchange]) return;
+  if(!$conf['openxchange']) return;
 
   $country = array();
 
-  $sr = ldap_list($LDAP_CON,$conf[publicbook],"ObjectClass=OXUserObject",array("userCountry"));
+  $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=OXUserObject",array("userCountry"));
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
-  if(!empty($_SESSION[ldapab][binddn])){
+  if(!empty($_SESSION['ldapab']['binddn'])){
     $sr = @ldap_list($LDAP_CON,
-                    $conf[privatebook].','.$_SESSION[ldapab][binddn],
+                    $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     "ObjectClass=OXUserObject",array("userCountry"));
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
   }
-  $result = array_merge($result1,$result2);
+  $result = array_merge((array)$result1,(array)$result2);
 
   if(count($result)){
     foreach ($result as $entry){

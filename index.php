@@ -6,17 +6,17 @@
   $ldapfilter = _makeldapfilter();
 
   //check public addressbook
-  $sr = ldap_list($LDAP_CON,$conf[publicbook],$ldapfilter);
+  $sr = ldap_list($LDAP_CON,$conf['publicbook'],$ldapfilter);
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
-  if(!empty($_SESSION[ldapab][binddn])){
+  if(!empty($_SESSION['ldapab']['binddn'])){
     $sr = @ldap_list($LDAP_CON,
-                    $conf[privatebook].','.$_SESSION[ldapab][binddn],
+                    $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     $ldapfilter);
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
   }
   
-  $result = array_merge($result1,$result2);
+  $result = array_merge((array)$result1,(array)$result2);
 
   // select entry template
   if($_REQUEST['export'] == 'csv'){
@@ -26,9 +26,9 @@
   }
 
   $list = '';
-  if(count($result)==1 && $_REQUEST[search]){
+  if(count($result)==1 && $_REQUEST['search']){
     //only one result on a search -> display page
-    header("Location: entry.php?dn=".$result[0][dn]);
+    header("Location: entry.php?dn=".$result[0]['dn']);
     exit;
   }elseif(count($result)){
     $keys = array_keys($result);
@@ -56,7 +56,7 @@
     $smarty->display('export_list_csv.tpl');
   }else{
     //save location in session
-    $_SESSION[ldapab][lastlocation]=$_SERVER["REQUEST_URI"];
+    $_SESSION['ldapab']['lastlocation']=$_SERVER["REQUEST_URI"];
 
     header('Content-Type: text/html; charset=utf-8');
     $smarty->display('list.tpl');
@@ -70,8 +70,8 @@
    */
   function _namesort($a,$b){
     global $result;
-    $x = $result[$a][sn][0].$result[$a][givenName][0];
-    $y = $result[$b][sn][0].$result[$b][givenName][0];
+    $x = $result[$a]['sn'][0].$result[$a]['givenName'][0];
+    $y = $result[$b]['sn'][0].$result[$b]['givenName'][0];
     return(strcasecmp($x,$y));
   }
 
@@ -87,7 +87,7 @@
     $org    = ldap_filterescape($_REQUEST['org']);
     $marker = ldap_filterescape($_REQUEST['marker']);
     $categories = ldap_filterescape($_REQUEST['categories']);
-    $_SESSION[ldapab][filter] = $_REQUEST['filter'];
+    $_SESSION['ldapab']['filter'] = $_REQUEST['filter'];
     if(empty($filter)) $filter='a';
 
     if(!empty($marker)){

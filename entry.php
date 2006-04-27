@@ -5,20 +5,20 @@
   $users = get_users();
 
   //select template to use
-  if( $_SESSION[ldapab][username] &&
-     ($_REQUEST[mode]=='edit' || $_REQUEST[mode]=='copy')){
+  if( $_SESSION['ldapab']['username'] &&
+     ($_REQUEST['mode']=='edit' || $_REQUEST['mode']=='copy')){
     $template='entry_edit.tpl';
-  }elseif($_REQUEST[mode]=='vcf'){
+  }elseif($_REQUEST['mode']=='vcf'){
     $template='entry_vcf.tpl';
   }else{
     $template='entry_show.tpl';
   }
 
-  $dn = $_REQUEST[dn];
+  $dn = $_REQUEST['dn'];
   #$dn = 'cn=bar foo, ou=contacts, o=cosmocode, c=de';
 
   //save data if asked for
-  if($_SESSION[ldapab][username] && $_REQUEST[save]){
+  if($_SESSION['ldapab']['username'] && $_REQUEST['save']){
     // prepare special data
     $_REQUEST['entry']['jpegPhoto'][]=_getUploadData();
     $_REQUEST['entry']['marker'] = explode(',',$_REQUEST['entry']['markers']);
@@ -37,11 +37,11 @@
   }
 
   if(empty($dn)){
-    if(!$_REQUEST[mode]=='edit'){
+    if(!$_REQUEST['mode']=='edit'){
       $smarty->assign('error','No dn was given');
       $template = 'error.tpl';
     }
-  }elseif($_REQUEST[del]){
+  }elseif($_REQUEST['del']){
     _delEntry($dn);
   }elseif(!_fetchData($dn)){
     $smarty->assign('error',"The requested entry '$dn' was not found");
@@ -58,9 +58,9 @@
   tpl_timezone();
   tpl_country();
   //display templates
-  if($_REQUEST[mode]=='vcf'){
+  if($_REQUEST['mode']=='vcf'){
     $entry = $smarty->get_template_vars('entry');
-    $filename = $entry[givenname].'_'.$entry[name].'.vcf';
+    $filename = $entry['givenname'].'_'.$entry['name'].'.vcf';
     header("Content-Disposition: attachment; filename=\"$filename\"");
     header("Content-type: text/x-vcard; name=\"$filename\"; charset=utf-8");
     $smarty->display($template);
@@ -89,8 +89,8 @@
     $entry  = $result[0];
 
     //remove dn from entry when copy
-    if($_REQUEST[mode] == 'copy'){
-      $entry[dn]='';
+    if($_REQUEST['mode'] == 'copy'){
+      $entry['dn']='';
     }
 
     //assign entry to template:
@@ -101,12 +101,12 @@ print_r($entry);
 print '</pre>';*/
 
     // make username from dn for manager:
-    $smarty->assign('managername',$users[$entry[manager][0]]);
+    $smarty->assign('managername',$users[$entry['manager'][0]]);
     return true;
   }
 
   /**
-   * saves the data from $_REQUEST[entry] to the LDAP directory
+   * saves the data from $_REQUEST['entry'] to the LDAP directory
    *
    * returns given or constructed dn
    */
@@ -115,21 +115,21 @@ print '</pre>';*/
     global $conf;
     $entries = namedentries();
     $entries['mail']='mail';  //special field mail isn't in entries so we add it here
-    if($conf[extended]){
+    if($conf['extended']){
       $entries['marker']='marker'; //same for marker inextended schema
     }
 
-    $entry = $_REQUEST[entry];
-    $dn    = $_REQUEST[dn];
+    $entry = $_REQUEST['entry'];
+    $dn    = $_REQUEST['dn'];
     //construct new dn
     $now    = time();
     $newdn  = 'uid='.$now;
-    if($_REQUEST[type] == 'private'){
-      $newdn .= ', '.$conf[privatebook].', '.$_SESSION[ldapab][binddn];
+    if($_REQUEST['type'] == 'private'){
+      $newdn .= ', '.$conf['privatebook'].', '.$_SESSION['ldapab']['binddn'];
     }else{
-      $newdn .= ', '.$conf[publicbook];
+      $newdn .= ', '.$conf['publicbook'];
     }
-    $entry[cn]          = $entry[givenname].' '.$entry[name];;
+    $entry['cn']          = $entry['givenname'].' '.$entry['name'];;
     $entry = prepare_ldap_entry($entry);
 
 /*
@@ -140,17 +140,17 @@ print '</pre>';
 
     if(empty($dn)){
       //new entry
-      $entry[uid][] = $now;
+      $entry['uid'][] = $now;
       $r = ldap_add($LDAP_CON,$newdn,$entry);
       tpl_ldaperror();
       return $newdn;
     }else{
       // in extended mode we have to make sure the right classes are set
-      if($conf[extended]){
+      if($conf['extended']){
         ldap_store_objectclasses($dn,array('inetOrgPerson','contactPerson'));
       }
       // in openxchange mode we have to make sure the right classes are set
-      if ($conf[openxchange]){
+      if ($conf['openxchange']){
         ldap_store_objectclasses($dn,array('inetOrgPerson','OXUserObject'));
       }
       //modify entry (touches only our attributes)
@@ -191,14 +191,14 @@ print '</pre>';
    * gets the binary data from an uploaded file
    */
   function _getUploadData(){
-    $file = $_FILES[photoupload];
+    $file = $_FILES['photoupload'];
 
-    if (is_uploaded_file($file[tmp_name])) {
-      if(preg_match('=image/p?jpe?g=',$file[type])){
-        $fh = fopen($file[tmp_name],'r');
-        $data = fread($fh,$file[size]);
+    if (is_uploaded_file($file['tmp_name'])) {
+      if(preg_match('=image/p?jpe?g=',$file['type'])){
+        $fh = fopen($file['tmp_name'],'r');
+        $data = fread($fh,$file['size']);
         fclose($fh);
-        unlink($file[tmp_name]);
+        unlink($file['tmp_name']);
         return $data;
       }
     }

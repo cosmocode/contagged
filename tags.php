@@ -12,7 +12,7 @@
   function tag_cloud(){
     global $conf;
     global $LDAP_CON;
-    if(!$conf[extended]) return;
+    if(!$conf['extended']) return;
     
     $result = ldap_queryabooks('(objectClass=contactPerson)','marker');
 
