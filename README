@@ -11,8 +11,8 @@ You need to have a running LDAP Server with some users (objectClass=posixUser)
 in it. It is important that you already have these users because LDAPab uses
 them to authenticate.
 
-You need a webserver (peferable Apache) with PHP4. PHP4 needs to be compiled
-with LDAP support (compiled in or as extension)
+You need a webserver (peferable Apache) with PHP (4.3 or higher). PHP needs to
+be compiled with LDAP support (compiled in or as extension)
 
 === SETUP LDAPab ===
 

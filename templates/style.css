@@ -54,7 +54,7 @@ td    {background-color:#66CCFF:margin:3px}
               margin:2px;
               font-family:Lucida,Helvetica,Verdana,Arial,Sans-Serif;
               font-size: 12px;}
-               
+
 .photo {
   margin-top: 1em;
   border-width:1px;
@@ -140,27 +140,13 @@ h1 img {
 }
 
 /* TagCloud */
-a.tc0  { font-size: 80%; }
-a.tc1  { font-size: 100%; }
-a.tc2  { font-size: 120%; }
-a.tc3  { font-size: 130%; }
-a.tc4  { font-size: 140%; }
-a.tc5  { font-size: 150%; }
-a.tc6  { font-size: 160%; }
-a.tc7  { font-size: 170%; }
-a.tc8  { font-size: 180%; }
-a.tc9  { font-size: 190%; }
-a.tc10 { font-size: 200%; }
-a.tc11 { font-size: 210%; }
-a.tc12 { font-size: 220%; }
-a.tc13 { font-size: 230%; }
-a.tc14 { font-size: 240%; }
-a.tc15 { font-size: 250%; }
-a.tc16 { font-size: 260%; }
-a.tc17 { font-size: 270%; }
-a.tc18 { font-size: 280%; }
-a.tc19 { font-size: 290%; }
-a.tc20 { font-size: 300%; }
+a.cloud_0 {font-size: 90%; }
+a.cloud_1 {font-size: 110%; }
+a.cloud_2 {font-size: 140%; }
+a.cloud_3 {font-size: 150%; }
+a.cloud_4 {font-size: 160%; }
+a.cloud_5 {font-size: 180%; }
+a.cloud_6 {font-size: 200%; }
 
 a.tag {
   background: url(../pix/tag_blue.png) left center no-repeat;

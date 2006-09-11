@@ -13,10 +13,11 @@
     global $conf;
     global $LDAP_CON;
     if(!$conf['extended']) return;
-    
+
     $result = ldap_queryabooks('(objectClass=contactPerson)','marker');
 
     $max = 0;
+    $min = 999999999;
     $tags = array();
     foreach ($result as $entry){
       if(!empty($entry['marker']) && count($entry['marker'])){
@@ -25,20 +26,42 @@
           if (empty($tags[$marker])) { $tags[$marker]=0; }
           $tags[$marker] += 1;
           if($tags[$marker] > $max) $max = $tags[$marker];
+          if($tags[$marker] < $min) $min = $tags[$marker];
         }
       }
     }
     ksort($tags);
+    tag_cloud_weight(&$tags,$min,$max,6);
 
     $out = '';
     foreach($tags as $tag => $cnt){
-      $pct = round($cnt * 20 / $max); // percents from 0 to 20
-
-      $out .= '<a href="index.php?marker='.rawurlencode($tag).'" class="tc'.$pct.'">';
+      $out .= '<a href="index.php?marker='.rawurlencode($tag).'" class="cloud_'.$cnt.'">';
       $out .= htmlspecialchars($tag).'</a> ';
     }
 
     return $out;
   }
 
-?>
+  /**
+   * Calculate weights for a nicer tagcloud distribution
+   */
+  function tag_cloud_weight(&$tags,$min,$max,$levels){
+    // calculate tresholds
+    $tresholds = array();
+    for($i=0; $i<=$levels; $i++){
+        $tresholds[$i] = pow($max - $min + 1, $i/$levels);
+    }
+
+    // assign weights
+    foreach($tags as $tag => $cnt){
+        foreach($tresholds as $tresh => $val){
+            if($cnt <= $val){
+                $tags[$tag] = $tresh;
+                break;
+            }
+            $tags[$tag] = $levels;
+        }
+    }
+  }
+
+
