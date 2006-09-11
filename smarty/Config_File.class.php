@@ -17,21 +17,16 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * You may contact the author of Config_File by e-mail at:
- * {@link andrei@php.net}
- *
- * The latest version of Config_File can be obtained from:
- * http://smarty.php.net/
- *
  * @link http://smarty.php.net/
- * @version 2.6.0
- * @copyright Copyright: 2001-2003 ispi of Lincoln, Inc.
+ * @version 2.6.14
+ * @copyright Copyright: 2001-2005 New Digital Group, Inc.
  * @author Andrei Zmievski <andrei@php.net>
  * @access public
  * @package Smarty
  */
 
-/* $Id: Config_File.class.php,v 1.1.1.1 2004/01/13 16:02:46 gohr Exp $ */
+/* $Id: Config_File.class.php,v 1.84 2006/01/18 19:02:52 mohrt Exp $ */
+
 /**
  * Config file reading class
  * @package Smarty
@@ -110,7 +105,7 @@ class Config_File {
      * @param string $var_name (optional) variable to get info for
      * @return string|array a value or array of values
      */
-    function &get($file_name, $section_name = NULL, $var_name = NULL)
+    function get($file_name, $section_name = NULL, $var_name = NULL)
     {
         if (empty($file_name)) {
             $this->_trigger_error_msg('Empty config file name');
@@ -245,75 +240,104 @@ class Config_File {
             return false;
         }
 
-        $contents = fread($fp, filesize($config_file));
+        $contents = ($size = filesize($config_file)) ? fread($fp, $size) : '';
         fclose($fp);
 
-        if($this->fix_newlines) {
-            // fix mac/dos formatted newlines
-            $contents = preg_replace('!\r\n?!',"\n",$contents);
-        }
-
-        $config_data = array();
-
-        /* replace all multi-line values by placeholders */
-        if (preg_match_all('/"""(.*)"""/Us', $contents, $match)) {
-            $_triple_quotes = $match[1];
-            $_i = 0;
-            $contents = preg_replace('/""".*"""/Use', '"\x1b\x1b\x1b".$_i++."\x1b\x1b\x1b"', $contents);
-        } else {
-            $_triple_quotes = null;
-        }
-
-        /* Get global variables first. */
-        if ($contents{0} != '[' && preg_match("/^(.*?)(\n\[|\Z)/s", $contents, $match))
-            $config_data["vars"] = $this->_parse_config_block($match[1], $_triple_quotes);
-
-        /* Get section variables. */
-        $config_data["sections"] = array();
-        preg_match_all("/^\[(.*?)\]/m", $contents, $match);
-        foreach ($match[1] as $section) {
-            if ($section{0} == '.' && !$this->read_hidden)
-                continue;
-            if (preg_match("/\[".preg_quote($section, '/')."\](.*?)(\n\[|\Z)/s", $contents, $match))
-                if ($section{0} == '.')
-                    $section = substr($section, 1);
-                $config_data["sections"][$section]["vars"] = $this->_parse_config_block($match[1], $_triple_quotes);
-        }
-
-        $this->_config_data[$config_file] = $config_data;
-
+        $this->_config_data[$config_file] = $this->parse_contents($contents);
         return true;
     }
 
-    /**#@+ @access private */
     /**
-     * @var string $config_block
+     * Store the contents of a file manually.
+     *
+     * @param string $config_file file name of the related contents
+     * @param string $contents the file-contents to parse
      */
-    function _parse_config_block($config_block, $triple_quotes)
+    function set_file_contents($config_file, $contents)
     {
-        $vars = array();
-
-        /* First we grab the multi-line values. */
-        if (preg_match_all("/^([^=\n]+)=\s*\x1b\x1b\x1b(\d+)\x1b\x1b\x1b\s*$/ms", $config_block, $match, PREG_SET_ORDER)) {
-            for ($i = 0; $i < count($match); $i++) {
-                $this->_set_config_var($vars, trim($match[$i][1]), $triple_quotes[$match[$i][2]], false);
-            }
-            $config_block = preg_replace("/^[^=\n]+=\s*\x1b\x1b\x1b\d+\x1b\x1b\x1b\s*$/ms", "", $config_block);
-        }
-
-
-        $config_lines = preg_split("/\n+/", $config_block);
-
-        foreach ($config_lines as $line) {
-            if (preg_match("/^\s*(\.?\w+)\s*=(.*)/", $line, $match)) {
-                $var_value = preg_replace('/^([\'"])(.*)\1$/', '\2', trim($match[2]));
-                $this->_set_config_var($vars, trim($match[1]), $var_value, $this->booleanize);
-            }
-        }
-
-        return $vars;
+        $this->_config_data[$config_file] = $this->parse_contents($contents);
+        return true;
     }
 
+    /**
+     * parse the source of a configuration file manually.
+     *
+     * @param string $contents the file-contents to parse
+     */
+    function parse_contents($contents)
+    {
+        if($this->fix_newlines) {
+            // fix mac/dos formatted newlines
+            $contents = preg_replace('!\r\n?!', "\n", $contents);
+        }
+
+        $config_data = array();
+        $config_data['sections'] = array();
+        $config_data['vars'] = array();
+
+        /* reference to fill with data */
+        $vars =& $config_data['vars'];
+
+        /* parse file line by line */
+        preg_match_all('!^.*\r?\n?!m', $contents, $match);
+        $lines = $match[0];
+        for ($i=0, $count=count($lines); $i<$count; $i++) {
+            $line = $lines[$i];
+            if (empty($line)) continue;
+
+            if ( substr($line, 0, 1) == '[' && preg_match('!^\[(.*?)\]!', $line, $match) ) {
+                /* section found */
+                if (substr($match[1], 0, 1) == '.') {
+                    /* hidden section */
+                    if ($this->read_hidden) {
+                        $section_name = substr($match[1], 1);
+                    } else {
+                        /* break reference to $vars to ignore hidden section */
+                        unset($vars);
+                        $vars = array();
+                        continue;
+                    }
+                } else {                    
+                    $section_name = $match[1];
+                }
+                if (!isset($config_data['sections'][$section_name]))
+                    $config_data['sections'][$section_name] = array('vars' => array());
+                $vars =& $config_data['sections'][$section_name]['vars'];
+                continue;
+            }
+
+            if (preg_match('/^\s*(\.?\w+)\s*=\s*(.*)/s', $line, $match)) {
+                /* variable found */
+                $var_name = rtrim($match[1]);
+                if (strpos($match[2], '"""') === 0) {
+                    /* handle multiline-value */
+                    $lines[$i] = substr($match[2], 3);
+                    $var_value = '';
+                    while ($i<$count) {
+                        if (($pos = strpos($lines[$i], '"""')) === false) {
+                            $var_value .= $lines[$i++];
+                        } else {
+                            /* end of multiline-value */
+                            $var_value .= substr($lines[$i], 0, $pos);
+                            break;
+                        }
+                    }
+                    $booleanize = false;
+
+                } else {
+                    /* handle simple value */
+                    $var_value = preg_replace('/^([\'"])(.*)\1$/', '\2', rtrim($match[2]));
+                    $booleanize = $this->booleanize;
+
+                }
+                $this->_set_config_var($vars, $var_name, $var_value, $booleanize);
+            }
+            /* else unparsable line / means it is a comment / means ignore it */
+        }
+        return $config_data;
+    }
+
+    /**#@+ @access private */
     /**
      * @param array &$container
      * @param string $var_name
@@ -323,7 +347,7 @@ class Config_File {
      */
     function _set_config_var(&$container, $var_name, $var_value, $booleanize)
     {
-        if ($var_name{0} == '.') {
+        if (substr($var_name, 0, 1) == '.') {
             if (!$this->read_hidden)
                 return;
             else

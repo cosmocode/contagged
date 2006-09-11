@@ -17,7 +17,7 @@
  * Date:     September 25th, 2002
  * @link http://smarty.php.net/manual/en/language.modifier.strip.php
  *          strip (Smarty online manual)
- * @author   Monte Ohrt <monte@ispi.net>
+ * @author   Monte Ohrt <monte at ohrt dot com>
  * @version  1.0
  * @param string
  * @param string
@@ -25,7 +25,7 @@
  */
 function smarty_modifier_strip($text, $replace = ' ')
 {
-	return preg_replace('!\s+!', $replace, $text);
+    return preg_replace('!\s+!', $replace, $text);
 }
 
 /* vim: set expandtab: */

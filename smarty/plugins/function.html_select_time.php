@@ -14,6 +14,8 @@
  * Purpose:  Prints the dropdowns for time selection
  * @link http://smarty.php.net/manual/en/language.function.html.select.time.php {html_select_time}
  *          (Smarty online manual)
+ * @author Roberto Berto <roberto@berto.net>
+ * @credits Monte Ohrt <monte AT ohrt DOT com>
  * @param array
  * @param Smarty
  * @return string
@@ -44,7 +46,36 @@ function smarty_function_html_select_time($params, &$smarty)
     $second_extra       = null;
     $meridian_extra     = null;
 
-    extract($params);
+    foreach ($params as $_key=>$_value) {
+        switch ($_key) {
+            case 'prefix':
+            case 'time':
+            case 'field_array':
+            case 'all_extra':
+            case 'hour_extra':
+            case 'minute_extra':
+            case 'second_extra':
+            case 'meridian_extra':
+                $$_key = (string)$_value;
+                break;
+
+            case 'display_hours':
+            case 'display_minutes':
+            case 'display_seconds':
+            case 'display_meridian':
+            case 'use_24_hours':
+                $$_key = (bool)$_value;
+                break;
+
+            case 'minute_interval':
+            case 'second_interval':
+                $$_key = (int)$_value;
+                break;
+
+            default:
+                $smarty->trigger_error("[html_select_time] unknown parameter $_key", E_USER_WARNING);
+        }
+    }
 
     $time = smarty_make_timestamp($time);
 

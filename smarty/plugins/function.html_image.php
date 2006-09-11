@@ -15,17 +15,17 @@
  * Purpose:  format HTML tags for the image<br>
  * Input:<br>
  *         - file = file (and path) of image (required)
- *         - border = border width (optional, default 0)
  *         - height = image height (optional, default actual height)
- *         - image =image width (optional, default actual width)
+ *         - width = image width (optional, default actual width)
  *         - basedir = base directory for absolute paths, default
  *                     is environment variable DOCUMENT_ROOT
+ *         - path_prefix = prefix for path output (optional, default empty)
  *
- * Examples: {html_image file="images/masthead.gif"}
- * Output:   <img src="images/masthead.gif" border=0 width=400 height=23>
+ * Examples: {html_image file="/images/masthead.gif"}
+ * Output:   <img src="/images/masthead.gif" width=400 height=23>
  * @link http://smarty.php.net/manual/en/language.function.html.image.php {html_image}
  *      (Smarty online manual)
- * @author   Monte Ohrt <monte@ispi.net>
+ * @author   Monte Ohrt <monte at ohrt dot com>
  * @author credits to Duda <duda@big.hu> - wrote first image function
  *           in repository, helped with lots of functionality
  * @version  1.0
@@ -40,27 +40,21 @@ function smarty_function_html_image($params, &$smarty)
     
     $alt = '';
     $file = '';
-    $border = 0;
     $height = '';
     $width = '';
     $extra = '';
     $prefix = '';
     $suffix = '';
-    $basedir = isset($GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'])
-        ? $GLOBALS['HTTP_SERVER_VARS']['DOCUMENT_ROOT'] : '';
-    if(strstr($GLOBALS['HTTP_SERVER_VARS']['HTTP_USER_AGENT'], 'Mac')) {
-        $dpi_default = 72;
-    } else {
-        $dpi_default = 96;
-    }
-
+    $path_prefix = '';
+    $server_vars = ($smarty->request_use_auto_globals) ? $_SERVER : $GLOBALS['HTTP_SERVER_VARS'];
+    $basedir = isset($server_vars['DOCUMENT_ROOT']) ? $server_vars['DOCUMENT_ROOT'] : '';
     foreach($params as $_key => $_val) {
         switch($_key) {
             case 'file':
-            case 'border':
             case 'height':
             case 'width':
             case 'dpi':
+            case 'path_prefix':
             case 'basedir':
                 $$_key = $_val;
                 break;
@@ -99,7 +93,7 @@ function smarty_function_html_image($params, &$smarty)
     } else {
         $_image_path = $file;
     }
-
+    
     if(!isset($params['width']) || !isset($params['height'])) {
         if(!$_image_data = @getimagesize($_image_path)) {
             if(!file_exists($_image_path)) {
@@ -113,13 +107,13 @@ function smarty_function_html_image($params, &$smarty)
                 return;
             }
         }
-        $_params = array('resource_type' => 'file', 'resource_name' => $_image_path);
-        require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.is_secure.php');
-        if(!$smarty->security && !smarty_core_is_secure($_params, $smarty)) {
+        if ($smarty->security &&
+            ($_params = array('resource_type' => 'file', 'resource_name' => $_image_path)) &&
+            (require_once(SMARTY_CORE_DIR . 'core.is_secure.php')) &&
+            (!smarty_core_is_secure($_params, $smarty)) ) {
             $smarty->trigger_error("html_image: (secure) '$_image_path' not in secure directory", E_USER_NOTICE);
-            return;
-        }
-
+        }        
+        
         if(!isset($params['width'])) {
             $width = $_image_data[0];
         }
@@ -130,12 +124,17 @@ function smarty_function_html_image($params, &$smarty)
     }
 
     if(isset($params['dpi'])) {
+        if(strstr($server_vars['HTTP_USER_AGENT'], 'Mac')) {
+            $dpi_default = 72;
+        } else {
+            $dpi_default = 96;
+        }
         $_resize = $dpi_default/$params['dpi'];
         $width = round($width * $_resize);
         $height = round($height * $_resize);
     }
 
-    return $prefix . '<img src="'.$file.'" alt="'.$alt.'" border="'.$border.'" width="'.$width.'" height="'.$height.'"'.$extra.' />' . $suffix;
+    return $prefix . '<img src="'.$path_prefix.$file.'" alt="'.$alt.'" width="'.$width.'" height="'.$height.'"'.$extra.' />' . $suffix;
 }
 
 /* vim: set expandtab: */

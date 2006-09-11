@@ -14,8 +14,12 @@
  */
 function smarty_core_assemble_plugin_filepath($params, &$smarty)
 {
+    static $_filepaths_cache = array();
 
     $_plugin_filename = $params['type'] . '.' . $params['name'] . '.php';
+    if (isset($_filepaths_cache[$_plugin_filename])) {
+        return $_filepaths_cache[$_plugin_filename];
+    }
     $_return = false;
 
     foreach ((array)$smarty->plugins_dir as $_plugin_dir) {
@@ -46,14 +50,15 @@ function smarty_core_assemble_plugin_filepath($params, &$smarty)
                 $_plugin_filepath = $_plugin_dir . DIRECTORY_SEPARATOR . $_plugin_filename;
 
                 $_params = array('file_path' => $_plugin_filepath);
-                require_once(SMARTY_DIR . 'core' . DIRECTORY_SEPARATOR . 'core.get_include_path.php');
+                require_once(SMARTY_CORE_DIR . 'core.get_include_path.php');
                 if(smarty_core_get_include_path($_params, $smarty)) {
-                    return $_params['new_file_path'];
+                    $_return = $_params['new_file_path'];
+                    break;
                 }
             }
         }
     }
-
+    $_filepaths_cache[$_plugin_filename] = $_return;
     return $_return;
 }
 

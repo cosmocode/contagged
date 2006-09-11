@@ -33,7 +33,7 @@
  * {table loop=$data cols=4 tr_attr='"bgcolor=red"'}
  * {table loop=$data cols=4 tr_attr=$colors}
  * </pre>
- * @author   Monte Ohrt <monte@ispi.net>
+ * @author   Monte Ohrt <monte at ohrt dot com>
  * @version  1.0
  * @link http://smarty.php.net/manual/en/language.function.html.table.php {html_table}
  *          (Smarty online manual)
@@ -53,11 +53,35 @@ function smarty_function_html_table($params, &$smarty)
     $hdir = 'right';
     $inner = 'cols';
 
-    extract($params);
-
-    if (!isset($loop)) {
+    if (!isset($params['loop'])) {
         $smarty->trigger_error("html_table: missing 'loop' parameter");
         return;
+    }
+
+    foreach ($params as $_key=>$_value) {
+        switch ($_key) {
+            case 'loop':
+                $$_key = (array)$_value;
+                break;
+
+            case 'cols':
+            case 'rows':
+                $$_key = (int)$_value;
+                break;
+
+            case 'table_attr':
+            case 'trailpad':
+            case 'hdir':
+            case 'vdir':
+            case 'inner':
+                $$_key = (string)$_value;
+                break;
+
+            case 'tr_attr':
+            case 'td_attr':
+                $$_key = $_value;
+                break;
+        }
     }
 
     $loop_count = count($loop);
@@ -91,7 +115,7 @@ function smarty_function_html_table($params, &$smarty)
             }
         }
         $output .= "</tr>\n";
-    }            
+    }
     $output .= "</table>\n";
     
     return $output;

@@ -14,7 +14,7 @@
  * Date:     Feb 26, 2003
  * Purpose:  Converts plaintext notes to richer HTML (very simple)
  * Example:  {$entry.note|noteparser}
- * @author	 Andreas Gohr <gohr@cosmocode.de>
+ * @author   Andreas Gohr <gohr@cosmocode.de>
  * @param string
  * @return string
  */
