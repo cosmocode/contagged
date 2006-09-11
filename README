@@ -49,8 +49,8 @@ entry. Make sure you include these lines before other access control lists that
 match these parts of the ldap tree. If you are unsure have a look at the
 included slapd.example file
 
-  access  to dn="(.*,)?ou=contacts,cn=([^,]+),ou=people,(.*)$"
-          by dn="cn=$2,ou=people,$3" write
+  access  to dn.regex="(.*,)?ou=contacts,cn=([^,]+),ou=people,(.*)$"
+          by dn.regex="cn=$2,ou=people,$3" write
           by * none
 
   access to dn.subtree="ou=contacts,o=cosmocode,c=de"
@@ -63,7 +63,7 @@ The last thing is to add the contacts leafs to your LDAP tree. You'll need to
 add a global contacts leaf at top.
 
   eg: 'ou=contacts,o=cosmocode,c=de'
-  
+
 And a contacts leaf for every user.
 
   eg: 'ou=contacts,cn=Joe Schmoe,ou=people,o=cosmocode,c=de'
@@ -108,5 +108,5 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-      
+
 See COPYING for details

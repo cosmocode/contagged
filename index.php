@@ -62,7 +62,7 @@
       exit();
     } else {
       header("Content-Type: text/csv");
-      header('Content-Disposition: Attachement; filename="ldapabexport.csv"');
+      header('Content-Disposition: Attachement; filename="contagged_export.csv"');
       $smarty->display('export_list_csv.tpl');
     }
   }else{

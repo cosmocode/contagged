@@ -1,4 +1,9 @@
-<?
+<?php
+/**
+ * German language file
+ *
+ * @author Andreas Gohr <gohr@cosmocode.de>
+ */
 
 $lang['ldapab']         = 'Das LDAP Adressbuch';
 
@@ -43,7 +48,7 @@ $lang['delete']         = 'Löschen';
 $lang['copy']           = 'Kopieren';
 $lang['csvexport']      = 'CSV';
 $lang['vcfexport']      = 'VCard';
-$lang['vcfimport']			= 'Import';
+$lang['vcfimport']      = 'Import';
 $lang['search']         = 'Suchen';
 $lang['submit']         = 'Absenden';
 $lang['help']           = 'Hilfe';
@@ -70,4 +75,5 @@ $lang['msg_tagsep']     = 'Durch Komma getrennt';
 
 $lang['err_noentries']  = 'Keine Einträge';
 $lang['err_ldap']       = 'Der LDAP Server lieferte folgende Fehlermeldungen';
-?>
+
+

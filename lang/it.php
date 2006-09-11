@@ -1,4 +1,9 @@
-<?
+<?php
+/**
+ * Italian language file
+ *
+ * @author Simone Piccardi <piccardi@truelite.it>
+ */ 
 
 $lang['ldapab']           = 'The LDAP address book';
 
@@ -81,4 +86,4 @@ $lang['certificate']      = 'Certificato x.509';
 $lang['timezone']         = 'Fuso orario';
 $lang['position']         = 'Posizione';
 $lang['ipphone']          = 'Telefono IP';
-?>
+

@@ -1,4 +1,9 @@
-<?
+<?php
+/**
+ * English language file
+ *
+ * @author Andreas Gohr <gohr@cosmocode.de>
+ */
 
 $lang['ldapab']           = 'The LDAP address book';
 
