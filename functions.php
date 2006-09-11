@@ -23,8 +23,8 @@ function ldap_login(){
     }
   } elseif ($conf['httpd_auth'] && !empty($_SERVER['PHP_AUTH_USER'])) {
     // use HTTP auth if wanted and possible
-  	$_SESSION['ldapab']['username'] = $_SERVER['PHP_AUTH_USER'];
-  	$_SESSION['ldapab']['password'] = $_SERVER['PHP_AUTH_PW'];
+    $_SESSION['ldapab']['username'] = $_SERVER['PHP_AUTH_USER'];
+    $_SESSION['ldapab']['password'] = $_SERVER['PHP_AUTH_PW'];
   } elseif ($_COOKIE['ldapabauth']) {
     // check persistent cookie
     $cookie = base64_decode($_COOKIE['ldapabauth']);
@@ -48,7 +48,7 @@ function ldap_login(){
 function do_ldap_bind($user,$pass,$dn=""){
   global $conf;
   global $LDAP_CON;
-  
+
   //create global connection to LDAP if necessary
   if(!$LDAP_CON){
     if (!empty($conf['ldapurl'])){
@@ -61,13 +61,15 @@ function do_ldap_bind($user,$pass,$dn=""){
     }
   }
 
+  if($conf['ldapv3']) ldap_set_option($LDAP_CON, LDAP_OPT_PROTOCOL_VERSION, 3);
+
   if(empty($dn)){
     //anonymous bind to lookup users
     //blank binddn or blank bindpw will result in anonymous bind
     if(!ldap_bind($LDAP_CON,$conf['anonbinddn'],$conf['anonbindpw'])){
       die("can not bind for user lookup");
     }
-  
+
     //when no user was given stay connected anonymous
     if(empty($user)){
       set_session('','','');
@@ -343,7 +345,7 @@ function get_users(){
       }
     }
   }
-  return $users; 
+  return $users;
 }
 
 /**

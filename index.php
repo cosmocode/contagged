@@ -51,9 +51,15 @@
   $smarty->assign('search',$_REQUEST['search']);
   //display templates
   if($_REQUEST['export'] == 'csv'){
-    header("Content-Type: text/csv");
-    header('Content-Disposition: Attachement; filename="ldapabexport.csv"');
-    $smarty->display('export_list_csv.tpl');
+    if ($conf['userlogreq'] == 1 && $user == '')
+    {
+      header("HTTP/1.1 401 ACCESS DENIED");
+      exit();
+    } else {
+      header("Content-Type: text/csv");
+      header('Content-Disposition: Attachement; filename="ldapabexport.csv"');
+      $smarty->display('export_list_csv.tpl');
+    }
   }else{
     //save location in session
     $_SESSION['ldapab']['lastlocation']=$_SERVER["REQUEST_URI"];
