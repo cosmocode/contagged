@@ -35,11 +35,11 @@ function tpl_entry($in){
   global $smarty;
   global $conf;
   $entries = namedentries();
-
+  $out=array();
 
   //handle named entries
   foreach(array_keys($entries) as $key){
-    if($in[$key]){
+    if(!empty($in[$key])){
       if(is_array($in[$key])){
         $out[$entries[$key]] = $in[$key][0];
       }else{
@@ -49,7 +49,8 @@ function tpl_entry($in){
   }
 
   //set the type
-  $out['dn']        = normalize_dn($out['dn']);
+  if (empty($out['dn'])) { $out['dn']=''; }
+  $out['dn']          = normalize_dn($out['dn']);
   $conf['publicbook'] = normalize_dn($conf['publicbook']);
   if($out['dn']){
     if(strstr($out['dn'],$conf['publicbook'])){
@@ -59,15 +60,17 @@ function tpl_entry($in){
     }
   }
 
-  //mail entries are handled special
+  //mail entries are handled specially
+  if (empty($in['mail'])) { $in['mail']=''; }
   $out['mail'] = $in['mail'];
   if ($conf['extended']){
-    //handle marker special in extended mode
+    //handle marker specially in extended mode
+    if (empty($in['marker'])) { $in['marker']=''; }
     $out['marker'] = $in['marker'];
     if(is_array($in['marker'])) $out['markers'] = join(', ',$in['marker']);
   }
   if ($conf['openxchange']){
-    //handle categories special in openxchange mode
+    //handle categories specially in openxchange mode
     $out['categories'] = $in['OXUserCategories'];
   }
 
@@ -116,12 +119,14 @@ function tpl_markers(){
                     $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     "ObjectClass=inetOrgPerson",array("marker"));
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
+  }else{
+    $result2 = '';
   }
   $result = array_merge((array)$result1,(array)$result2);
 
   if(count($result)){
     foreach ($result as $entry){
-      if(count($entry['marker'])){
+      if(!empty($entry['marker']) && count($entry['marker'])){
         foreach($entry['marker'] as $marker){
           array_push($markers, $marker);
         }

@@ -14,12 +14,14 @@
                     $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     $ldapfilter);
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
+  }else{
+    $result2 = '';
   }
   
   $result = array_merge((array)$result1,(array)$result2);
 
   // select entry template
-  if($_REQUEST['export'] == 'csv'){
+  if(!empty($_REQUEST['export']) && $_REQUEST['export'] == 'csv'){
     $entrytpl = 'export_list_csv_entry.tpl';
   }else{
     $entrytpl = 'list_entry.tpl';
@@ -45,12 +47,15 @@
   tpl_categories();
   tpl_timezone();
   tpl_country();
+  if (empty($_REQUEST['filter'])) $_REQUEST['filter']='';
+  if (empty($_REQUEST['marker'])) $_REQUEST['marker']='';
+  if (empty($_REQUEST['search'])) $_REQUEST['search']='';
   $smarty->assign('list',$list);
   $smarty->assign('filter',$_REQUEST['filter']);
   $smarty->assign('marker',$_REQUEST['marker']);
   $smarty->assign('search',$_REQUEST['search']);
   //display templates
-  if($_REQUEST['export'] == 'csv'){
+  if(!empty($_REQUEST['export']) && $_REQUEST['export'] == 'csv'){
     if ($conf['userlogreq'] == 1 && $user == '')
     {
       header("HTTP/1.1 401 ACCESS DENIED");
@@ -76,6 +81,8 @@
    */
   function _namesort($a,$b){
     global $result;
+    if (empty($result[$a]['givenName'])) { $result[$a]['givenName']=''; }
+    if (empty($result[$b]['givenName'])) { $result[$b]['givenName']=''; }
     $x = $result[$a]['sn'][0].$result[$a]['givenName'][0];
     $y = $result[$b]['sn'][0].$result[$b]['givenName'][0];
     return(strcasecmp($x,$y));
@@ -88,6 +95,11 @@
   function _makeldapfilter(){
     //handle given filter
 
+    if (empty($_REQUEST['filter'])) { $_REQUEST['filter']=''; }
+    if (empty($_REQUEST['search'])) { $_REQUEST['search']=''; }
+    if (empty($_REQUEST['org'])) { $_REQUEST['org']=''; }
+    if (empty($_REQUEST['marker'])) { $_REQUEST['marker']=''; }
+    if (empty($_REQUEST['categories'])) { $_REQUEST['categories']=''; }
     $filter = ldap_filterescape($_REQUEST['filter']);
     $search = ldap_filterescape($_REQUEST['search']);
     $org    = ldap_filterescape($_REQUEST['org']);

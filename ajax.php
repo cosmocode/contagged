@@ -4,11 +4,11 @@ ldap_login();
 
 header('Content-Type: text/html; charset=utf-8');
 
-if($_REQUEST['taglookup']){
+if(!empty($_REQUEST['taglookup'])){
   ajax_taglookup($_REQUEST['taglookup']);
-}elseif($_REQUEST['addnote']){
+}elseif(!empty($_REQUEST['addnote'])){
   ajax_addnote($_REQUEST['addnote'],$_REQUEST['note']);
-}elseif($_REQUEST['settags']){
+}elseif(!empty($_REQUEST['settags'])){
   ajax_settags($_REQUEST['settags'],$_REQUEST['tags']);
 }
 

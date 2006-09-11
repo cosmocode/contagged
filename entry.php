@@ -5,6 +5,7 @@
   $users = get_users();
 
   //select template to use
+  if (empty($_REQUEST['mode'])) { $_REQUEST['mode']='show'; }
   if( $_SESSION['ldapab']['username'] &&
      ($_REQUEST['mode']=='edit' || $_REQUEST['mode']=='copy')){
     $template='entry_edit.tpl';
@@ -14,11 +15,15 @@
     $template='entry_show.tpl';
   }
 
-  $dn = $_REQUEST['dn'];
-  #$dn = 'cn=bar foo, ou=contacts, o=cosmocode, c=de';
+  if (empty($_REQUEST['dn'])) {
+    $dn = "";
+  }else{
+    $dn = $_REQUEST['dn'];
+    #$dn = 'cn=bar foo, ou=contacts, o=cosmocode, c=de';
+  }
 
   //save data if asked for
-  if($_SESSION['ldapab']['username'] && $_REQUEST['save']){
+  if($_SESSION['ldapab']['username'] && !empty($_REQUEST['save']) && $_REQUEST['save']){
     // prepare special data
     $_REQUEST['entry']['jpegPhoto'][]=_getUploadData();
     $_REQUEST['entry']['marker'] = explode(',',$_REQUEST['entry']['markers']);
@@ -41,7 +46,7 @@
       $smarty->assign('error','No dn was given');
       $template = 'error.tpl';
     }
-  }elseif($_REQUEST['del']){
+  }elseif(!empty($_REQUEST['del']) && $_REQUEST['del']){
     _delEntry($dn);
   }elseif(!_fetchData($dn)){
     $smarty->assign('error',"The requested entry '$dn' was not found");
@@ -89,7 +94,7 @@
     $entry  = $result[0];
 
     //remove dn from entry when copy
-    if($_REQUEST['mode'] == 'copy'){
+    if(!empty($_REQUEST['mode']) && $_REQUEST['mode'] == 'copy'){
       $entry['dn']='';
     }
 
@@ -101,6 +106,8 @@ print_r($entry);
 print '</pre>';*/
 
     // make username from dn for manager:
+    if (empty($entry['manager'])) { $entry['manager']=array(""); }
+    if (empty($users[$entry['manager'][0]])) { $users[$entry['manager'][0]]=''; }
     $smarty->assign('managername',$users[$entry['manager'][0]]);
     return true;
   }
@@ -116,7 +123,7 @@ print '</pre>';*/
     $entries = namedentries();
     $entries['mail']='mail';  //special field mail isn't in entries so we add it here
     if($conf['extended']){
-      $entries['marker']='marker'; //same for marker inextended schema
+      $entries['marker']='marker'; //same for marker in extended schema
     }
 
     $entry = $_REQUEST['entry'];
@@ -124,6 +131,7 @@ print '</pre>';*/
     //construct new dn
     $now    = time();
     $newdn  = 'uid='.$now;
+    if (empty($_REQUEST['type'])) { $_REQUEST['type']='public'; }
     if($_REQUEST['type'] == 'private'){
       $newdn .= ', '.$conf['privatebook'].', '.$_SESSION['ldapab']['binddn'];
     }else{
@@ -158,6 +166,7 @@ print '</pre>';
         if($key == 'dn'){
           continue;
         }elseif(empty($entry[$key])){
+          if (empty($_REQUEST['delphoto'])) { $_REQUEST['delphoto']=0; }
           if($key == 'jpegPhoto' && !$_REQUEST['delphoto']){
             continue;
           }

@@ -3,6 +3,7 @@
 
   $msg = $lang['msg_login'];
   if(isset($_REQUEST['username'])){
+    if (empty($_REQUEST['password'])) { $_REQUEST['password']=''; }
     if (do_ldap_bind($_REQUEST['username'],$_REQUEST['password'])){
       //forward to next page
       if(!empty($_SESSION['ldapab']['lastlocation'])){

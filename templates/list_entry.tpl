@@ -1,3 +1,4 @@
+{if $entry.type}
 <tr>
   <td class="result" width="25">
     <img src="pix/{$entry.type}.png" border="0" width="16" height="16" align="middle" title="{$entry.type}">
@@ -22,4 +23,4 @@
     {/if}
   </td>
 </tr>
-
+{/if}

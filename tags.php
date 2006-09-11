@@ -19,9 +19,10 @@
     $max = 0;
     $tags = array();
     foreach ($result as $entry){
-      if(count($entry['marker'])){
+      if(!empty($entry['marker']) && count($entry['marker'])){
         foreach($entry['marker'] as $marker){
           $marker = strtolower($marker);
+          if (empty($tags[$marker])) { $tags[$marker]=0; }
           $tags[$marker] += 1;
           if($tags[$marker] > $max) $max = $tags[$marker];
         }

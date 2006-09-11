@@ -25,7 +25,7 @@ function ldap_login(){
     // use HTTP auth if wanted and possible
     $_SESSION['ldapab']['username'] = $_SERVER['PHP_AUTH_USER'];
     $_SESSION['ldapab']['password'] = $_SERVER['PHP_AUTH_PW'];
-  } elseif ($_COOKIE['ldapabauth']) {
+  } elseif (!empty($_COOKIE['ldapabauth'])) {
     // check persistent cookie
     $cookie = base64_decode($_COOKIE['ldapabauth']);
     $cookie = x_Decrypt($cookie,get_cookie_secret());
@@ -34,7 +34,8 @@ function ldap_login(){
     $_SESSION['ldapab']['password'] = $p;
   }
 
-  if(!do_ldap_bind($_SESSION['ldapab']['username'],
+  if(empty($_SESSION['ldapab']) ||
+     !do_ldap_bind($_SESSION['ldapab']['username'],
                    $_SESSION['ldapab']['password'],
                    $_SESSION['ldapab']['binddn'])){
     header('Location: login.php?username=');
@@ -111,6 +112,10 @@ function do_ldap_bind($user,$pass,$dn=""){
  */
 function auth_browseruid(){
   $uid  = '';
+  if (empty($_SERVER['HTTP_USER_AGENT']))      { $_SERVER['HTTP_USER_AGENT']='USER_AGENT'; }
+  if (empty($_SERVER['HTTP_ACCEPT_ENCODING'])) { $_SERVER['HTTP_ACCEPT_ENCODING']='ACCEPT_ENCODING'; }
+  if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) { $_SERVER['HTTP_ACCEPT_LANGUAGE']='ACCEPT_LANGUAGE'; }
+  if (empty($_SERVER['HTTP_ACCEPT_CHARSET']))  { $_SERVER['HTTP_ACCEPT_CHARSET']='ACCEPT_CHARSET'; }
   $uid .= $_SERVER['HTTP_USER_AGENT'];
   $uid .= $_SERVER['HTTP_ACCEPT_ENCODING'];
   $uid .= $_SERVER['HTTP_ACCEPT_LANGUAGE'];
@@ -132,10 +137,10 @@ function set_session($user,$pass,$dn){
   $_SESSION['ldapab']['password']  = $pass;
   $_SESSION['ldapab']['browserid'] = auth_browseruid();
 
-  // (re)set the persistant auth cookie
+  // (re)set the persistent auth cookie
   if($user == ''){
     setcookie('ldapabauth','',time()+60*60*24*365);
-  }elseif($_REQUEST['remember']){
+  }elseif(!empty($_REQUEST['remember'])){
     $cookie = serialize(array($user,$pass));
     $cookie = x_Encrypt($cookie,get_cookie_secret());
     $cookie = base64_encode($cookie);
@@ -144,8 +149,8 @@ function set_session($user,$pass,$dn){
 }
 
 /**
- * Creates a random string to encrypt persistant auth
- * cookies the string is stored inside the cache dir
+ * Creates a random string to encrypt persistent auth
+ * cookies; the string is stored inside the cache dir
  */
 function get_cookie_secret(){
   $file = dirname(__FILE__).'/cache/.htcookiesecret.php';
@@ -338,6 +343,7 @@ function get_users(){
 
   $sr = ldap_list($LDAP_CON,$conf['usertree'],"ObjectClass=inetOrgPerson");
   $result = ldap_get_binentries($LDAP_CON, $sr);
+  $users = array();
   if(count($result)){
     foreach ($result as $entry){
       if(!empty($entry['sn'][0])){
