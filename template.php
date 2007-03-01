@@ -147,23 +147,25 @@ function tpl_orgs(){
   global $LDAP_CON;
   global $smarty;
 
+  $f_entries = namedentries(true);
+  
   $orgs = array();
 
-  $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=inetOrgPerson",array("o"));
+  $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=inetOrgPerson",array($f_entries['organization']));
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
   if(!empty($_SESSION['ldapab']['binddn'])){
     $sr = @ldap_list($LDAP_CON,
                     $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
-                    "ObjectClass=inetOrgPerson",array("o"));
+                    "ObjectClass=inetOrgPerson",array($f_entries['organization']));
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
   }
   $result = array_merge((array)$result1,(array)$result2);
 
   if(count($result)){
     foreach ($result as $entry){
-      if(!empty($entry['o'][0])){
-        array_push($orgs, $entry['o'][0]);
+      if(!empty($entry[$f_entries['organization']][0])){
+        array_push($orgs, $entry[$f_entries['organization']][0]);
       }
     }
   }

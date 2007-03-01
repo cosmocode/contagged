@@ -93,6 +93,9 @@
    * Creates an LDAP filter from given request variables search or filter
    */
   function _makeldapfilter(){
+
+    $f_entries = namedentries(true);
+
     //handle given filter
 
     if (empty($_REQUEST['filter'])) { $_REQUEST['filter']=''; }
@@ -123,11 +126,11 @@
       $words=preg_split('/\s+/',$search);
       $filter='';
       foreach($words as $word){
-        $filter .= "(|(|(sn=*$word*)(givenName=*$word*))(o=*$word*))";
+        $filter .= "(|(|(sn=*$word*)(givenName=*$word*))(".$f_entries['organization']."=*$word*))";
       }
       $ldapfilter = "(&(objectClass=inetOrgPerson)$filter)";
     }elseif(!empty($org)){
-      $ldapfilter = "(&(objectClass=inetOrgPerson)(o=$org))";
+      $ldapfilter = "(&(objectClass=inetOrgPerson)(".$f_entries['organization']."=$org))";
     }elseif($filter=='other'){
       $other='';
       for ($i=ord('a');$i<=ord('z');$i++){
