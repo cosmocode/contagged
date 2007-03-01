@@ -7,6 +7,7 @@ function tpl_std(){
   global $smarty;
   global $lang;
   global $conf;
+  global $FIELDS;
 
   if(empty($_SESSION['ldapab']['username'])){
     $_SESSION['ldapab']['username'] = '';
@@ -24,7 +25,7 @@ function tpl_std(){
   }
   $smarty->assign('conf',$conf);
   $smarty->assign('lang',$lang);
-  //$smarty->assign('dfexample',$dfexample);
+  $smarty->assign('fields',$FIELDS);
 }
 
 /**
@@ -34,49 +35,51 @@ function tpl_std(){
 function tpl_entry($in){
   global $smarty;
   global $conf;
-  $entries = namedentries();
+  global $RFIELDS;
+
   $out=array();
 
-  //handle named entries
-  foreach(array_keys($entries) as $key){
-    if(!empty($in[$key])){
-      if(is_array($in[$key])){
-        $out[$entries[$key]] = $in[$key][0];
-      }else{
-        $out[$entries[$key]] = $in[$key];
-      }
+  // handle named entries
+  foreach($RFIELDS as $key => $name){
+    if(empty($in[$key])) continue;
+
+    // keep arrays for starred fields
+    if($name{0} == '*'){
+        $name  = substr($name,1);
+        if(is_array($in[$key])){
+            $out[$name] = $in[$key];
+        }else{
+            $out[$name] = array($in[$key]);
+        }
+    }else{
+        if(is_array($in[$key])){
+            $out[$name] = $in[$key][0];
+        }else{
+            $out[$name] = $in[$key];
+        }
     }
   }
 
-  //set the type
+  // set the type
   if (empty($out['dn'])) { $out['dn']=''; }
   $out['dn']          = normalize_dn($out['dn']);
   $conf['publicbook'] = normalize_dn($conf['publicbook']);
   if($out['dn']){
-    if(strstr($out['dn'],$conf['publicbook'])){
-      $out['type'] = 'public';
-    }else{
-      $out['type'] = 'private';
-    }
+      if(strstr($out['dn'],$conf['publicbook'])){
+          $out['type'] = 'public';
+      }else{
+          $out['type'] = 'private';
+      }
   }
 
-  //mail entries are handled specially
-  if (empty($in['mail'])) { $in['mail']=''; }
-  $out['mail'] = $in['mail'];
-  if ($conf['extended']){
-    //handle marker specially in extended mode
-    if (empty($in['marker'])) { $in['marker']=''; }
-    $out['marker'] = $in['marker'];
-    if(is_array($in['marker'])) $out['markers'] = join(', ',$in['marker']);
-  }
-  if ($conf['openxchange']){
-    //handle categories specially in openxchange mode
-    $out['categories'] = $in['OXUserCategories'];
-  }
+  // join marker field to markers
+  if(is_array($out['marker'])) $out['markers'] = join(', ',$out['marker']);
 
-/*print '<pre>';
+/*
+print '<pre>';
 print_r($out);
-print '</pre>';*/
+print '</pre>';
+*/
 
   $smarty->assign('entry',$out);
 }
@@ -135,7 +138,7 @@ function tpl_markers(){
   }
   $markers = array_unique($markers);
   sort($markers,SORT_STRING);
- 
+
   $smarty->assign('markers',$markers);
 }
 
@@ -146,31 +149,30 @@ function tpl_orgs(){
   global $conf;
   global $LDAP_CON;
   global $smarty;
+  global $FIELDS;
 
-  $f_entries = namedentries(true);
-  
   $orgs = array();
 
-  $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=inetOrgPerson",array($f_entries['organization']));
+  $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=inetOrgPerson",array($FIELDS['organization']));
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
   if(!empty($_SESSION['ldapab']['binddn'])){
     $sr = @ldap_list($LDAP_CON,
                     $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
-                    "ObjectClass=inetOrgPerson",array($f_entries['organization']));
+                    "ObjectClass=inetOrgPerson",array($FIELDS['organization']));
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
   }
   $result = array_merge((array)$result1,(array)$result2);
 
   if(count($result)){
     foreach ($result as $entry){
-      if(!empty($entry[$f_entries['organization']][0])){
-        array_push($orgs, $entry[$f_entries['organization']][0]);
+      if(!empty($entry[$FIELDS['organization']][0])){
+        array_push($orgs, $entry[$FIELDS['organization']][0]);
       }
     }
   }
   $orgs = array_unique($orgs);
-  sort($orgs,SORT_STRING);
+  natcasesort($orgs);
   $smarty->assign('orgs',$orgs);
 }
 
@@ -208,7 +210,7 @@ function tpl_categories(){
   }
   $categories = array_unique($categories);
   sort($categories,SORT_STRING);
- 
+
   $smarty->assign('categories',$categories);
 }
 
@@ -246,7 +248,7 @@ function tpl_timezone(){
   }
   $timezone = array_unique($timezone);
   sort($timezone,SORT_STRING);
- 
+
   $smarty->assign('timezone',$timezone);
 }
 
@@ -284,7 +286,7 @@ function tpl_country(){
   }
   $country = array_unique($country);
   sort($country,SORT_STRING);
- 
+
   $smarty->assign('country',$country);
 }
 

@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * assigns some standard variables to smarty templates
@@ -196,54 +196,13 @@ function ldap_get_binentries($conn,$srchRslt){
   return $data;
 }
 
+
 /**
  * loads ldap names and their cleartext meanings from
  * entries.conf file and returns it as hash
  */
 function namedentries($flip=false){
-  global $conf;
-
-  $entries['dn']                         = 'dn';
-  $entries['sn']                         = 'name';
-  $entries['givenName']                  = 'givenname';
-  $entries['title']                      = 'title';
-  $entries['o']                          = 'organization';
-  $entries['physicalDeliveryOfficeName'] = 'office';
-  $entries['postalAddress']              = 'street';
-  $entries['postalCode']                 = 'zip';
-  $entries['l']                          = 'location';
-  $entries['telephoneNumber']            = 'phone';
-  $entries['facsimileTelephoneNumber']   = 'fax';
-  $entries['mobile']                     = 'mobile';
-  $entries['pager']                      = 'pager';
-  $entries['homePhone']                  = 'homephone';
-  $entries['homePostalAddress']          = 'homestreet';
-  $entries['jpegPhoto']                  = 'photo';
-  $entries['labeledURI']                 = 'url';
-  $entries['description']                = 'note';
-  $entries['manager']                    = 'manager';
-  $entries['cn']                         = 'displayname';
-
-  if($conf['extended']){
-    $entries['anniversary']              = 'anniversary';
-  }
-  if($conf['openxchange']){
-    $entries['mailDomain']               = 'domain';
-    $entries['userCountry']              = 'country';
-    $entries['birthDay']                 = 'birthday';
-    $entries['IPPhone']                  = 'ipphone';
-    $entries['OXUserCategories']         = 'categories';
-    $entries['OXUserInstantMessenger']   = 'instantmessenger';
-    $entries['OXTimeZone']               = 'timezone';
-    $entries['OXUserPosition']           = 'position';
-    $entries['relClientCert']            = 'certificate';
-  }
-
-  if($flip){
-    $entries = array_reverse($entries);
-    $entries = array_flip($entries);
-  }
-  return $entries;
+    trigger_error('deprecated namedentries called',E_USER_WARNING);
 }
 
 /**
@@ -251,34 +210,37 @@ function namedentries($flip=false){
  */
 function prepare_ldap_entry($in){
   global $conf;
+  global $FIELDS;
+  global $OCLASSES;
 
-  //check dateformat
-  if(!preg_match('/\d\d\d\d-\d\d-\d\d/',$in['anniversary'])){
-    $in['anniversary']='';
-  }
+  //check dateformats
+  if(!preg_match('/\d\d\d\d-\d\d-\d\d/',$in['anniversary'])) $in['anniversary']='';
+  if(!preg_match('/\d\d\d\d-\d\d-\d\d/',$in['birthday'])) $in['birthday']='';
 
-  $entries = namedentries(true);
-  foreach(array_keys($in) as $key){
-    if(empty($entries[$key])){
-      $keyname=$key;
+  // we map all internal names to the configured LDAP attributes here
+  foreach($in as $key => $value){
+    if($FIELDS[$key]){
+        // normal mapped field
+        $out[$FIELDS[$key]][] = $value;
+    }elseif($FIELDS["*$key"]){
+        // mapped multi field
+        if(is_array($value)){
+            $out[$FIELDS["*$key"]] = $value;
+        }else{
+            $out[$FIELDS["*$key"]][] = $value; //shouldn't happen, but to be sure
+        }
     }else{
-      $keyname=$entries[$key];
-    }
-    if(is_array($in[$key])){
-      $out[$keyname] = $in[$key];
-    }else{
-      $out[$keyname][] = $in[$key];
+        // no mapping found - assume it to be a LDAP attribute (shouldn't happen)
+        if(is_array($value)){
+            $out[$key] = $value;
+        }else{
+            $out[$key][] = $value;
+        }
     }
   }
 
-  //standard Objectclass
-  $out['objectclass'][] = 'inetOrgPerson';
-  if($conf['extended']){
-    $out['objectclass'][] = 'contactPerson';
-  }
-  if($conf['openxchange']){
-    $out['objectclass'][] = 'OXUserObject';
-  }
+  // add the Objectclasses
+  $out['objectclass'] = $OCLASSES;
 
   return clear_array($out);
 }

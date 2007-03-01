@@ -1,5 +1,6 @@
 <?
   require_once('config.php');
+  require_once('fields.php');
   require_once('lang/'.$conf['lang'].'.php');
   require_once('functions.php');
   require_once('template.php');
@@ -8,7 +9,7 @@
   //init session
   session_name("ldapab");
   session_start();
-  
+
   //kill magic quotes
   if (get_magic_quotes_gpc()) {
     if (!empty($_GET))    remove_magic_quotes($_GET);
@@ -27,8 +28,8 @@
       }else {
         $array[$key] = stripslashes($array[$key]);
       }
-    } 
-  } 
+    }
+  }
 
   //prepare SMARTY object
   $smarty = new Smarty;

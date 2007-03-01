@@ -12,16 +12,17 @@
   function tag_cloud(){
     global $conf;
     global $LDAP_CON;
+    global $FIELDS;
     if(!$conf['extended']) return;
 
-    $result = ldap_queryabooks('(objectClass=contactPerson)','marker');
+    $result = ldap_queryabooks('(objectClass=inetOrgPerson)',$FIELDS['*marker']);
 
     $max = 0;
     $min = 999999999;
     $tags = array();
     foreach ($result as $entry){
-      if(!empty($entry['marker']) && count($entry['marker'])){
-        foreach($entry['marker'] as $marker){
+      if(!empty($entry[$FIELDS['*marker']]) && count($entry[$FIELDS['*marker']])){
+        foreach($entry[$FIELDS['*marker']] as $marker){
           $marker = strtolower($marker);
           if (empty($tags[$marker])) { $tags[$marker]=0; }
           $tags[$marker] += 1;

@@ -17,7 +17,7 @@
   }else{
     $result2 = '';
   }
-  
+
   $result = array_merge((array)$result1,(array)$result2);
 
   // select entry template
@@ -81,10 +81,11 @@
    */
   function _namesort($a,$b){
     global $result;
-    if (empty($result[$a]['givenName'])) { $result[$a]['givenName']=''; }
-    if (empty($result[$b]['givenName'])) { $result[$b]['givenName']=''; }
-    $x = $result[$a]['sn'][0].$result[$a]['givenName'][0];
-    $y = $result[$b]['sn'][0].$result[$b]['givenName'][0];
+    global $FIELDS;
+    if (empty($result[$a][$FIELDS['givenname']])) { $result[$a][$FIELDS['givenname']]=''; }
+    if (empty($result[$b][$FIELDS['givenname']])) { $result[$b][$FIELDS['givenname']]=''; }
+    $x = $result[$a][$FIELDS['name']][0].$result[$a][$FIELDS['givenname']][0];
+    $y = $result[$b][$FIELDS['name']][0].$result[$b][$FIELDS['givenname']][0];
     return(strcasecmp($x,$y));
   }
 
@@ -93,8 +94,7 @@
    * Creates an LDAP filter from given request variables search or filter
    */
   function _makeldapfilter(){
-
-    $f_entries = namedentries(true);
+    global $FIELDS;
 
     //handle given filter
 
@@ -102,45 +102,49 @@
     if (empty($_REQUEST['search'])) { $_REQUEST['search']=''; }
     if (empty($_REQUEST['org'])) { $_REQUEST['org']=''; }
     if (empty($_REQUEST['marker'])) { $_REQUEST['marker']=''; }
-    if (empty($_REQUEST['categories'])) { $_REQUEST['categories']=''; }
     $filter = ldap_filterescape($_REQUEST['filter']);
     $search = ldap_filterescape($_REQUEST['search']);
     $org    = ldap_filterescape($_REQUEST['org']);
     $marker = ldap_filterescape($_REQUEST['marker']);
-    $categories = ldap_filterescape($_REQUEST['categories']);
     $_SESSION['ldapab']['filter'] = $_REQUEST['filter'];
     if(empty($filter)) $filter='a';
 
     if(!empty($marker)){
+      // Search by tag
       $ldapfilter = '(&(objectClass=contactPerson)';
       $marker = explode(',',$marker);
       foreach($marker as $m){
         $m = trim($m);
-        $ldapfilter .= "(marker=$m)";
+        $ldapfilter .= '('.$FIELDS['*marker'].'='.$m.')';
       }
       $ldapfilter .= ')';
-    }elseif(!empty($categories)){
-      $ldapfilter = "(&(objectClass=OXUserObject)(OXUserCategories=$categories))";
     }elseif(!empty($search)){
+      // Search name and organization
       $search = trim($search);
       $words=preg_split('/\s+/',$search);
       $filter='';
       foreach($words as $word){
-        $filter .= "(|(|(sn=*$word*)(givenName=*$word*))(".$f_entries['organization']."=*$word*))";
+        $filter .= '(|(|('.$FIELDS['name'].'=*'.$word.'*)('.
+                   $FIELDS['givenname'].'=*'.$word.'*))('.
+                   $FIELDS['organization'].'=*'.$word.'*))';
       }
       $ldapfilter = "(&(objectClass=inetOrgPerson)$filter)";
     }elseif(!empty($org)){
-      $ldapfilter = "(&(objectClass=inetOrgPerson)(".$f_entries['organization']."=$org))";
+      // List organization members
+      $ldapfilter = '(&(objectClass=inetOrgPerson)('.$FIELDS['organization']."=$org))";
     }elseif($filter=='other'){
+      // Alphabetic listing of last names
       $other='';
       for ($i=ord('a');$i<=ord('z');$i++){
-        $other .= '(!(sn='.chr($i).'*))';
+        $other .= '(!('.$FIELDS['name'].'='.chr($i).'*))';
       }
       $ldapfilter = "(&(objectClass=inetOrgPerson)$other)";
     }elseif($filter=='*'){
+      // List all
       $ldapfilter = "(objectClass=inetOrgPerson)";
     }else{
-      $ldapfilter = "(&(objectClass=inetOrgPerson)(sn=$filter*))";
+      // Search by last name start
+      $ldapfilter = '(&(objectClass=inetOrgPerson)('.$FIELDS['name']."=$filter*))";
     }
     return $ldapfilter;
   }

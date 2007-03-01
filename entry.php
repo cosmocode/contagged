@@ -25,19 +25,19 @@
   //save data if asked for
   if($_SESSION['ldapab']['username'] && !empty($_REQUEST['save']) && $_REQUEST['save']){
     // prepare special data
-    $_REQUEST['entry']['jpegPhoto'][]=_getUploadData();
+    $_REQUEST['entry']['photo']  = _getUploadData();
     $_REQUEST['entry']['marker'] = explode(',',$_REQUEST['entry']['markers']);
-    $_REQUEST['entry']['marker'] = array_map('trim',$_REQUEST['entry']['marker']);
-    $_REQUEST['entry']['marker'] = array_unique($_REQUEST['entry']['marker']);
-    $_REQUEST['entry']['marker'] = array_filter($_REQUEST['entry']['marker']);
-    sort($_REQUEST['entry']['marker']);
     unset($_REQUEST['entry']['markers']);
-    
-    $_REQUEST['entry']['mail'] = array_map('trim',$_REQUEST['entry']['mail']);
-    $_REQUEST['entry']['mail'] = array_unique($_REQUEST['entry']['mail']);
-    $_REQUEST['entry']['mail'] = array_filter($_REQUEST['entry']['mail']);
-    sort($_REQUEST['entry']['mail']);
-    
+
+    foreach(array_keys($_REQUEST['entry']) as $field){
+        if($FIELDS['*'.$field]){
+            // entry has to be handled as array -> clean it up (trim, unique, sort)
+            $_REQUEST['entry'][$field] = array_map('trim',$_REQUEST['entry'][$field]);
+            $_REQUEST['entry'][$field] = array_unique($_REQUEST['entry'][$field]);
+            $_REQUEST['entry'][$field] = array_filter($_REQUEST['entry'][$field]);
+            natcasesort($_REQUEST['entry'][$field]);
+        }
+    }
     $dn = _saveData();
   }
 
@@ -120,11 +120,8 @@ print '</pre>';*/
   function _saveData(){
     global $LDAP_CON;
     global $conf;
-    $entries = namedentries();
-    $entries['mail']='mail';  //special field mail isn't in entries so we add it here
-    if($conf['extended']){
-      $entries['marker']='marker'; //same for marker in extended schema
-    }
+    global $FIELDS;
+    global $OCLASSES;
 
     $entry = $_REQUEST['entry'];
     $dn    = $_REQUEST['dn'];
@@ -137,7 +134,7 @@ print '</pre>';*/
     }else{
       $newdn .= ', '.$conf['publicbook'];
     }
-    $entry['cn']          = $entry['givenname'].' '.$entry['name'];;
+    $entry['displayname'] = $entry['givenname'].' '.$entry['name'];;
     $entry = prepare_ldap_entry($entry);
 
 /*
@@ -153,19 +150,16 @@ print '</pre>';
       tpl_ldaperror();
       return $newdn;
     }else{
-      // in extended mode we have to make sure the right classes are set
-      if($conf['extended']){
-        ldap_store_objectclasses($dn,array('inetOrgPerson','contactPerson'));
-      }
-      // in openxchange mode we have to make sure the right classes are set
-      if ($conf['openxchange']){
-        ldap_store_objectclasses($dn,array('inetOrgPerson','OXUserObject'));
-      }
-      //modify entry (touches only our attributes)
-      foreach (array_keys($entries) as $key){
+      // update the objectClasses
+      ldap_store_objectclasses($dn,$OCLASSES);
+      unset($entry['objectclass']);
+
+      //modify entry attribute by attribute - this ensure we don't delete unknown stuff
+      foreach (array_values($FIELDS) as $key){
         if($key == 'dn'){
           continue;
         }elseif(empty($entry[$key])){
+          // field is empty -> handle deletion (except for photo unless deletion triggered)
           if (empty($_REQUEST['delphoto'])) { $_REQUEST['delphoto']=0; }
           if($key == 'jpegPhoto' && !$_REQUEST['delphoto']){
             continue;
@@ -213,4 +207,4 @@ print '</pre>';
     }
     return '';
   }
-?>
+

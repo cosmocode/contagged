@@ -89,10 +89,10 @@
       {/if}
       </table>
     </td>
-    
+
     <td valign="top" width="50%" align="center">
-      
-      
+
+
       <table>
         <tr>
           <td colspan="2"><b>{$lang.private}</b></td>
@@ -113,7 +113,7 @@
           <td align="right" valign="top" nowrap="nowrap">{$lang.url}:</td>
           <td><input type="text" class="input" name="entry[url]" value="{$entry.url|escape}"></td>
         </tr>
-        
+
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.photo}:<br /><span class="hint">({$lang.msg_jpegonly})</span></td>
           <td>{if $entry.photo}
@@ -124,13 +124,13 @@
             <input type="file" class="input" name="photoupload">
           </td>
         </tr>
-        
+
 
         <tr>
           <td colspan="2"><b>{$lang.mail}</b></td>
         </tr>
 
-        {foreach from=$entry.mail item=mail}      
+        {foreach from=$entry.mail item=mail}
           <tr>
             <td align="right" valign="top" nowrap="nowrap">{counter}:</td>
             <td><input type="text" class="input" name="entry[mail][]" value="{$mail|escape}"></td>
