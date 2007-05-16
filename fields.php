@@ -40,7 +40,7 @@ $FIELDS = array(
     'url'          => 'labeledURI',
     'note'         => 'description',
     'manager'      => 'manager',                     // aka. key account
-    '*mail'        => 'mail',
+    '_mail'        => 'mail',
 );
 
 /**
@@ -49,7 +49,7 @@ $FIELDS = array(
  */
 $OCLASSES[] = 'contactPerson';
 $FIELDS['anniversary']  = 'anniversary';
-$FIELDS['*marker']      = 'marker';                  // aka. tags
+$FIELDS['_marker']      = 'marker';                  // aka. tags
 
 /**
  * If the open exchange schema is used the following fields
@@ -60,11 +60,30 @@ $OCLASSES[] = 'OXUserObject';
 $FIELDS['country']          = 'userCountry';
 $FIELDS['birthday']         = 'birthDay';
 $FIELDS['ipphone']          = 'IPPhone';
-$FIELDS['*marker']          = 'OXUserCategories';
+$FIELDS['_marker']          = 'OXUserCategories';
 $FIELDS['instantmessenger'] = 'OXUserInstantMessenger';
 $FIELDS['timezone']         = 'OXTimeZone';
 $FIELDS['position']         = 'OXUserPosition';
 $FIELDS['certificate']      = 'relClientCert';
+$FIELDS['domain']           = 'domain';
+*/
+
+/**
+ * If the Evolution schema is used the following fields
+ * and object classes are added
+ */
+/* comment in if you want to use it
+$OCLASSES[] = 'evolutionPerson';
+$OCLASSES[] = 'officePerson';
+$FIELDS['department'] = 'ou';
+$FIELDS['state']      = 'st';
+$FIELDS['country']    = 'c';
+$FIELDS['direct']     = 'primaryPhone';
+$FIELDS['swithboard'] = 'companyPhone';
+$FIELDS['note']       = 'note';
+$FIELDS['manager']    = 'seeAlso';
+$FIELDS['birthday']   = 'birthDate';
+$FIELDS['spouse']     = 'spouseName';
 */
 
 

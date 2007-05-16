@@ -102,7 +102,7 @@
         </table>
       </dd></dl>
       {/if}
-              
+
       {if $conf.extended}
         {include file="extended_show.tpl"}
       {/if}

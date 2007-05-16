@@ -18,16 +18,17 @@ if(!empty($_REQUEST['taglookup'])){
 function ajax_addnote($dn,$note){
   global $conf;
   global $LDAP_CON;
+  global $FIELDS;
 
   // fetch the existing note
-  $result = ldap_search($LDAP_CON,$dn,'(objectClass=inetOrgPerson)',array('description'));
+  $result = ldap_search($LDAP_CON,$dn,'(objectClass=inetOrgPerson)',array($FIELDS['note']));
   if(ldap_count_entries($LDAP_CON,$result)){
     $result = ldap_get_binentries($LDAP_CON, $result);
   }
-  $note = $note."\n\n".$result[0]['description'][0];
+  $note = $note."\n\n".$result[0][$FIELDS['note']][0];
   $note = preg_replace("!\n\n\n+!","\n\n",$note);
 
-  $entry['description'] = $note;
+  $entry[$FIELDS['note']] = $note;
   ldap_modify($LDAP_CON,$dn,$entry);
 
 
@@ -41,14 +42,15 @@ function ajax_addnote($dn,$note){
 function ajax_settags($dn,$tags){
   global $conf;
   global $LDAP_CON;
-  if(!$conf['extended']) return;
+  global $FIELDS;
+  if(!$FIELDS['_marker']) return;
 
   $tags = explode(',',$tags);
   $tags = array_map('trim',$tags);
   $tags = array_unique($tags);
   $tags = array_diff($tags, array('')); //strip empty ones
 
-  $entry['marker'] = $tags;
+  $entry[$FIELDS['_marker']] = $tags;
   ldap_mod_replace($LDAP_CON,$dn,$entry);
 
   foreach ($tags as $tag){
@@ -67,18 +69,18 @@ function ajax_settags($dn,$tags){
 function ajax_taglookup($tag){
   global $conf;
   global $LDAP_CON;
-  if(!$conf['extended']) return;
+  if(!$FIELDS['_marker']) return;
 
   $search = ldap_filterescape($tag);
-  $filter = "(&(objectClass=contactPerson)(marker=$search*))";
-  $result = ldap_queryabooks($filter,'marker');
+  $filter = "(&(objectClass=inetOrgPerson)('.$FIELDS['_marker'].'=$search*))";
+  $result = ldap_queryabooks($filter,$FIELDS['_marker']);
 
   if(!count($result)) return;
 
   $tags = array();
   foreach ($result as $entry){
-    if(count($entry['marker'])){
-      foreach($entry['marker'] as $marker){
+    if(count($entry[$FIELDS['_marker']])){
+      foreach($entry[$FIELDS['_marker']] as $marker){
         if(preg_match('/^'.preg_quote($tag,'/').'/i',$marker)){
           array_push($tags, strtolower($marker));
         }

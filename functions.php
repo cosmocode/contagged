@@ -222,12 +222,12 @@ function prepare_ldap_entry($in){
     if($FIELDS[$key]){
         // normal mapped field
         $out[$FIELDS[$key]][] = $value;
-    }elseif($FIELDS["*$key"]){
+    }elseif($FIELDS["_$key"]){
         // mapped multi field
         if(is_array($value)){
-            $out[$FIELDS["*$key"]] = $value;
+            $out[$FIELDS["_$key"]] = $value;
         }else{
-            $out[$FIELDS["*$key"]][] = $value; //shouldn't happen, but to be sure
+            $out[$FIELDS["_$key"]][] = $value; //shouldn't happen, but to be sure
         }
     }else{
         // no mapping found - assume it to be a LDAP attribute (shouldn't happen)

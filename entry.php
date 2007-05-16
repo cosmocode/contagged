@@ -30,7 +30,7 @@
     unset($_REQUEST['entry']['markers']);
 
     foreach(array_keys($_REQUEST['entry']) as $field){
-        if($FIELDS['*'.$field]){
+        if($FIELDS['_'.$field]){
             // entry has to be handled as array -> clean it up (trim, unique, sort)
             $_REQUEST['entry'][$field] = array_map('trim',$_REQUEST['entry'][$field]);
             $_REQUEST['entry'][$field] = array_unique($_REQUEST['entry'][$field]);

@@ -115,7 +115,7 @@
       $marker = explode(',',$marker);
       foreach($marker as $m){
         $m = trim($m);
-        $ldapfilter .= '('.$FIELDS['*marker'].'='.$m.')';
+        $ldapfilter .= '('.$FIELDS['_marker'].'='.$m.')';
       }
       $ldapfilter .= ')';
     }elseif(!empty($search)){

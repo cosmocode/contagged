@@ -43,8 +43,8 @@ function tpl_entry($in){
   foreach($RFIELDS as $key => $name){
     if(empty($in[$key])) continue;
 
-    // keep arrays for starred fields
-    if($name{0} == '*'){
+    // keep arrays for multi fields
+    if($name{0} == '_'){
         $name  = substr($name,1);
         if(is_array($in[$key])){
             $out[$name] = $in[$key];

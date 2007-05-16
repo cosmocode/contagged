@@ -15,14 +15,14 @@
     global $FIELDS;
     if(!$conf['extended']) return;
 
-    $result = ldap_queryabooks('(objectClass=inetOrgPerson)',$FIELDS['*marker']);
+    $result = ldap_queryabooks('(objectClass=inetOrgPerson)',$FIELDS['_marker']);
 
     $max = 0;
     $min = 999999999;
     $tags = array();
     foreach ($result as $entry){
-      if(!empty($entry[$FIELDS['*marker']]) && count($entry[$FIELDS['*marker']])){
-        foreach($entry[$FIELDS['*marker']] as $marker){
+      if(!empty($entry[$FIELDS['_marker']]) && count($entry[$FIELDS['_marker']])){
+        foreach($entry[$FIELDS['_marker']] as $marker){
           $marker = strtolower($marker);
           if (empty($tags[$marker])) { $tags[$marker]=0; }
           $tags[$marker] += 1;
