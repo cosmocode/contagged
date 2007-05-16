@@ -75,15 +75,15 @@ $FIELDS['domain']           = 'domain';
 /* comment in if you want to use it
 $OCLASSES[] = 'evolutionPerson';
 $OCLASSES[] = 'officePerson';
-$FIELDS['department'] = 'ou';
-$FIELDS['state']      = 'st';
-$FIELDS['country']    = 'c';
-$FIELDS['direct']     = 'primaryPhone';
-$FIELDS['swithboard'] = 'companyPhone';
-$FIELDS['note']       = 'note';
-$FIELDS['manager']    = 'seeAlso';
-$FIELDS['birthday']   = 'birthDate';
-$FIELDS['spouse']     = 'spouseName';
+$FIELDS['department']  = 'ou';
+$FIELDS['state']       = 'st';
+$FIELDS['country']     = 'c';
+$FIELDS['phone']       = 'primaryPhone';
+$FIELDS['switchboard'] = 'companyPhone';
+$FIELDS['note']        = 'note';
+$FIELDS['manager']     = 'seeAlso';
+$FIELDS['birthday']    = 'birthDate';
+$FIELDS['spouse']      = 'spouseName';
 */
 
 
