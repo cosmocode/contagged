@@ -15,7 +15,9 @@ $lang['office']           = 'Office';
 $lang['street']           = 'Street No.';
 $lang['zip']              = 'Postal Code';
 $lang['location']         = 'City';
+$lang['state']            = 'State';
 $lang['phone']            = 'Phone';
+$lang['switchboard']      = 'Switchboard';
 $lang['fax']              = 'FAX';
 $lang['mobile']           = 'Mobile';
 $lang['pager']            = 'Pager';
@@ -27,13 +29,14 @@ $lang['note']             = 'Notes';
 $lang['mail']             = 'E-Mail';
 $lang['manager']          = 'Key Account';
 
-$lang['anniversary']      = 'Birthday';
+$lang['anniversary']      = 'Anniversary';
 $lang['marker']           = 'Tags';
 $lang['tagcloud']         = 'All used tags, sorted alphabetically. Frequently used tags are shown bigger.';
 
 $lang['business']         = 'Business';
 $lang['private']          = 'Private';
 $lang['extended']         = 'Additional Information';
+$lang['communication']    = 'Communication';
 
 $lang['delphoto']         = 'Delete existing photo';
 
@@ -85,5 +88,7 @@ $lang['country']          = 'Country';
 $lang['certificate']      = 'x.509 Cert';
 $lang['timezone']         = 'Time Zone';
 $lang['position']         = 'Position';
+$lang['department']       = 'Department';
 $lang['ipphone']          = 'IP Phone';
+$lang['spouse']           = 'Spouse';
 ?>

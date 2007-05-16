@@ -27,7 +27,7 @@ $lang['note']           = 'Notizen';
 $lang['mail']           = 'E-Mail';
 $lang['manager']        = 'Key Account';
 
-$lang['anniversary']    = 'Geburtstag';
+$lang['anniversary']    = 'Jubiläum';
 $lang['marker']         = 'Tags';
 $lang['tagcloud']       = 'Alle verwendeten Tags, alphabetisch sortiert. Häufig verwendete Tags werden größer dargestellt.';
 
