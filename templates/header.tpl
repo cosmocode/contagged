@@ -6,10 +6,14 @@
   <link rel="stylesheet" type="text/css" href="templates/layout.css" />
   <link rel="stylesheet" type="text/css" href="templates/style.css" />
 
-  <script src="js/prototype.js" type="text/javascript"></script>
-  <script src="js/scriptaculous.js" type="text/javascript"></script>
-  <script src="js/formatDate.js" type="text/javascript"></script>
-  <script src="js/gui.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="styles/scripted.css" />
+  <script src="scripts/jquery.js" type="text/javascript"></script>
+
+  <script src="scripts/interface/iutil.js" type="text/javascript"></script>
+  <script src="scripts/interface/iautocompleter.js" type="text/javascript"></script>
+  <script src="scripts/interface/imagebox.js" type="text/javascript"></script>
+
+  <script src="scripts/gui.js" type="text/javascript"></script>
 
   {if $LDAPERRORS != ''}
   <script>

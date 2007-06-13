@@ -6,6 +6,8 @@
   require_once('template.php');
   require_once('smarty/Smarty.class.php');
 
+  define('NL',"\n");
+
   //init session
   session_name("ldapab");
   session_start();

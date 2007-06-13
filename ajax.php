@@ -2,15 +2,35 @@
 require_once('init.php');
 ldap_login();
 
-header('Content-Type: text/html; charset=utf-8');
+header('Content-Type: text/xml; charset=utf-8');
 
+/*
+echo '<bla><[!CDATA[';
+print_r($_REQUEST);
+echo ']]></bla>';
+*/
+
+$FIELD = preg_replace('/entry\[/','',$_REQUEST['field']);
+$FIELD = preg_replace('/\W+/','',$FIELD);
+
+if($FIELD == 'marker'||$FIELD == 'markers'){
+  ajax_taglookup($_REQUEST['value']);
+}else{
+  ajax_lookup($FIELD,$_REQUEST['value']);
+}
+
+/*
 if(!empty($_REQUEST['taglookup'])){
   ajax_taglookup($_REQUEST['taglookup']);
+}elseif(!empty($_REQUEST['lookup']) && !empty($_REQUEST['s'])){
+  ajax_lookup($_REQUEST['lookup'],$_REQUEST['s']);
 }elseif(!empty($_REQUEST['addnote'])){
   ajax_addnote($_REQUEST['addnote'],$_REQUEST['note']);
 }elseif(!empty($_REQUEST['settags'])){
   ajax_settags($_REQUEST['settags'],$_REQUEST['tags']);
 }
+*/
+
 
 /**
  * Add a note to the existing notes
@@ -69,10 +89,11 @@ function ajax_settags($dn,$tags){
 function ajax_taglookup($tag){
   global $conf;
   global $LDAP_CON;
+  global $FIELDS;
   if(!$FIELDS['_marker']) return;
 
   $search = ldap_filterescape($tag);
-  $filter = "(&(objectClass=inetOrgPerson)('.$FIELDS['_marker'].'=$search*))";
+  $filter = "(&(objectClass=inetOrgPerson)(".$FIELDS['_marker']."=$search*))";
   $result = ldap_queryabooks($filter,$FIELDS['_marker']);
 
   if(!count($result)) return;
@@ -91,11 +112,52 @@ function ajax_taglookup($tag){
   $tags = array_unique($tags);
   sort($tags,SORT_STRING);
 
-  print '<ul>';
+  echo '<?xml version="1.0"?>'.NL;
+  echo '<ajaxresponse>'.NL;
   foreach($tags as $out){
-    print '<li>'.htmlspecialchars($out).'</li>';
+    echo '<item>'.NL;
+    echo '<value>'.htmlspecialchars($out).'</value>'.NL;
+    echo '<text>'.htmlspecialchars($out).'</text>'.NL;
+    echo '</item>'.NL;
   }
-  print '</ul>';
+  echo '</ajaxresponse>'.NL;
+}
+
+/**
+ * Do a simple lookup in any simple field
+ */
+function ajax_lookup($field,$search){
+    global $conf;
+    global $LDAP_CON;
+    global $FIELDS;
+
+    if(!$FIELDS[$field]) return;
+    $field = $FIELDS[$field];
+
+    $search = ldap_filterescape($search);
+    $filter = "(&(objectClass=inetOrgPerson)($field=$search*))";
+    $result = ldap_queryabooks($filter,$field);
+    if(!count($result)) return;
+
+    $items = array();
+    foreach ($result as $entry){
+        if(isset($entry[$field]) && !empty($entry[$field])){
+            $items[] = $entry[$field][0];
+        }
+    }
+
+    $items = array_unique($items);
+    sort($items,SORT_STRING);
+
+    echo '<?xml version="1.0"?>'.NL;
+    echo '<ajaxresponse>'.NL;
+    foreach($items as $out){
+        echo '<item>'.NL;
+        echo '<value>'.htmlspecialchars($out).'</value>'.NL;
+        echo '<text>'.htmlspecialchars($out).'</text>'.NL;
+        echo '</item>'.NL;
+    }
+    echo '</ajaxresponse>'.NL;
 }
 
 ?>
