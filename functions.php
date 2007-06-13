@@ -348,10 +348,16 @@ function ldap_store_objectclasses($dn,$classes){
 }
 
 /**
- * escape parenthesises in given string
+ * Escape a string to be used in a LDAP filter
+ *
+ * Ported from Perl's Net::LDAP::Util escape_filter_value
+ *
+ * @author Andreas Gohr <andi@splitbrain.org>
  */
 function ldap_filterescape($string){
-  return strtr($string,array('('=>'\(', ')'=>'\)'));
+  return preg_replace('/([\x00-\x1F\*\(\)\\\\])/e',
+                            '"\\\\\".join("",unpack("H2","$1"))',
+                            $string);
 }
 
 /**

@@ -139,7 +139,7 @@
         $other .= '(!('.$FIELDS['name'].'='.chr($i).'*))';
       }
       $ldapfilter = "(&(objectClass=inetOrgPerson)$other)";
-    }elseif($filter=='*'){
+    }elseif($filter=='\2a'){ //escaped asterisk
       // List all
       $ldapfilter = "(objectClass=inetOrgPerson)";
     }else{
