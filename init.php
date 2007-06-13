@@ -37,4 +37,5 @@
   $smarty->use_sub_dirs  = 0;
   $smarty->template_dir  = './templates';
   $smarty->force_compile = $conf['smartycompile'];
+  $smarty->default_modifiers = 'escape:"htmlall":"UTF-8"';
 ?>

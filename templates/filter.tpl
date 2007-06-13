@@ -29,19 +29,7 @@
   <li><a href="index.php?filter=*">*</a></li>
 </ul>
 
-{if $conf.openxchange}
-  <div class="categories x">
-    <form method="get" action="index.php">
-      <select name="categories" class="searchfield">
-        <option value="">--- {$lang.categories} ---</option>
-        {html_options values=$categories output=$categories selected=$smarty.request.categories}
-      </select>
-      <input type="submit" value="{$lang.search}" class="searchbutton" />
-    </form>
-  </div>
-{/if}
-
-{if $conf.extended}
+{if $fields._marker}
   <div class="tags x">
     <form method="get" action="index.php" accept-charset="utf-8">
       <a href="tags.php" class="tag">{$lang.marker}</a>:
@@ -51,7 +39,6 @@
       <input type="submit" value="{$lang.search}" class="searchbutton" />
     </form>
   </div>
-  <div id="tagresult" class="autocomplete"></div>
 {/if}
 
 <div class="search x">

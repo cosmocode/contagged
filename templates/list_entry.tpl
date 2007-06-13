@@ -17,7 +17,7 @@
   </td>
   <td class="result" width="16">
     {if $entry.photo}
-      <a href="img.php?dn={$entry.dn|escape:url}" target="_blank" title="{$lang.photo}"><img src="pix/image.png" border="0" width="16" height="16" align="middle" title="{$lang.photo}"></a>
+      <a href="img.php?dn={$entry.dn|escape:url}&amp;.jpg" rel="imagebox" target="_blank" title="{$entry.givenname|escape} {$entry.name|escape}"><img src="pix/image.png" border="0" width="16" height="16" align="middle" title="{$lang.photo}"></a>
     {else}
       &nbsp;
     {/if}

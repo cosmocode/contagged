@@ -4,7 +4,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
   <link rel="stylesheet" type="text/css" href="templates/layout.css" />
-
   <link rel="stylesheet" type="text/css" href="templates/style.css" />
 
   <script src="js/prototype.js" type="text/javascript"></script>

@@ -9,7 +9,7 @@
 
 <form action="entry.php" method="post" enctype="multipart/form-data" accept-charset="utf-8">
 <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
-<input type="hidden" name="dn" value="{$entry.dn|escape}" />
+<input type="hidden" name="dn" value="{$entry.dn}" />
 <input type="hidden" name="save" value="1" />
 
 <table width="100%">
@@ -20,19 +20,19 @@
 {* always required ... if $fields.name *}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.name}:</td>
-          <td><input type="text" class="input" name="entry[name]" value="{$entry.name|escape}" id="firstfield"></td>
+          <td><input type="text" class="input" name="entry[name]" value="{$entry.name}" id="firstfield"></td>
         </tr>
 {* /if *}
 {if $fields.givenname}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.givenname}:</td>
-          <td><input type="text" class="input" name="entry[givenname]" value="{$entry.givenname|escape}"></td>
+          <td><input type="text" class="input" name="entry[givenname]" value="{$entry.givenname}"></td>
         </tr>
 {/if}
 {if $fields.title}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.title}:</td>
-          <td><input type="text" class="input" name="entry[title]" value="{$entry.title|escape}"></td>
+          <td><input type="text" class="input" name="entry[title]" value="{$entry.title}"></td>
         </tr>
 {/if}
       </table>
@@ -56,70 +56,70 @@
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.organization}:</td>
           <td>
-            <input type="text" class="input" name="entry[organization]" value="{$entry.organization|escape}">
+            <input type="text" class="input ac" name="entry[organization]" value="{$entry.organization}">
           </td>
         </tr>
 {/if}
 {if $fields.office}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.office}:</td>
-          <td><input type="text" class="input" name="entry[office]" value="{$entry.office|escape}"></td>
+          <td><input type="text" class="input" name="entry[office]" value="{$entry.office}"></td>
         </tr>
 {/if}
 {if $fields.street}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.street}:</td>
-          <td><input type="text" class="input" name="entry[street]" value="{$entry.street|escape}"></td>
+          <td><input type="text" class="input ac" name="entry[street]" value="{$entry.street}"></td>
         </tr>
 {/if}
 {if $fields.zip}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.zip}:</td>
-          <td><input type="text" class="input" name="entry[zip]" value="{$entry.zip|escape}"></td>
+          <td><input type="text" class="input" name="entry[zip]" value="{$entry.zip}"></td>
         </tr>
 {/if}
 {if $fields.location}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.location}:</td>
-          <td><input type="text" class="input" name="entry[location]" value="{$entry.location|escape}"></td>
+          <td><input type="text" class="input ac" name="entry[location]" value="{$entry.location}"></td>
         </tr>
 {/if}
 {if $fields.state}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.state}:</td>
-          <td><input type="text" class="input" name="entry[state]" value="{$entry.state|escape}"></td>
+          <td><input type="text" class="input ac" name="entry[state]" value="{$entry.state}"></td>
         </tr>
 {/if}
 {if $fields.country}
         <tr>
           <td align="right" valign="top">{$lang.country}:</td>
           <td>
-            <input type="text" class="inputbr" name="entry[country]" value="{$entry.country|escape}"><br>
+            <input type="text" class="input ac" name="entry[country]" value="{$entry.country}"><br>
           </td>
         </tr>
 {/if}
 {if $fields.phone}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.phone}:</td>
-          <td><input type="text" class="input" name="entry[phone]" value="{$entry.phone|escape}"></td>
+          <td><input type="text" class="input" name="entry[phone]" value="{$entry.phone}"></td>
         </tr>
 {/if}
 {if $fields.switchboard}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.switchboard}:</td>
-          <td><input type="text" class="input" name="entry[switchboard]" value="{$entry.switchboard|escape}"></td>
+          <td><input type="text" class="input" name="entry[switchboard]" value="{$entry.switchboard}"></td>
         </tr>
 {/if}
 {if $fields.fax}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.fax}:</td>
-          <td><input type="text" class="input" name="entry[fax]" value="{$entry.fax|escape}"></td>
+          <td><input type="text" class="input" name="entry[fax]" value="{$entry.fax}"></td>
         </tr>
 {/if}
 {if $fields.pager}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.pager}:</td>
-          <td><input type="text" class="input" name="entry[pager]" value="{$entry.pager|escape}"></td>
+          <td><input type="text" class="input" name="entry[pager]" value="{$entry.pager}"></td>
         </tr>
 {/if}
 {if $fields.manager}
@@ -136,13 +136,13 @@
 {if $fields.position}
         <tr>
           <td align="right" valign="top">{$lang.position}:</td>
-          <td><input type="text" class="input" name="entry[position]" value="{$entry.position|escape}"></td>
+          <td><input type="text" class="input ac" name="entry[position]" value="{$entry.position}"></td>
         </tr>
 {/if}
 {if $fields.department}
         <tr>
           <td align="right" valign="top">{$lang.department}:</td>
-          <td><input type="text" class="input" name="entry[department]" value="{$entry.department|escape}"></td>
+          <td><input type="text" class="input ac" name="entry[department]" value="{$entry.department}"></td>
         </tr>
 {/if}
 
@@ -158,25 +158,25 @@
 {if $fields.homestreet}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.homestreet}:</td>
-          <td><textarea name="entry[homestreet]" class="input" rows="2" cols="30">{$entry.homestreet|escape}</textarea></td>
+          <td><textarea name="entry[homestreet]" class="input" rows="2" cols="30">{$entry.homestreet}</textarea></td>
         </tr>
 {/if}
 {if $fields.homephone}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.homephone}:</td>
-          <td><input type="text" class="input" name="entry[homephone]" value="{$entry.homephone|escape}"></td>
+          <td><input type="text" class="input" name="entry[homephone]" value="{$entry.homephone}"></td>
         </tr>
 {/if}
 {if $fields.mobile}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.mobile}:</td>
-          <td><input type="text" class="input" name="entry[mobile]" value="{$entry.mobile|escape}"></td>
+          <td><input type="text" class="input" name="entry[mobile]" value="{$entry.mobile}"></td>
         </tr>
 {/if}
 {if $fields.url}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.url}:</td>
-          <td><input type="text" class="input" name="entry[url]" value="{$entry.url|escape}"></td>
+          <td><input type="text" class="input ac" name="entry[url]" value="{$entry.url}"></td>
         </tr>
 {/if}
 {if $fields.photo}
@@ -194,19 +194,19 @@
 {if $fields.birthday}
         <tr>
           <td align="right" valign="top">{$lang.birthday}:<br><span class="hint">({$lang.msg_dateformat})</span></td>
-          <td><input type="text" class="input" name="entry[birthday]" value="{$entry.birthday|escape}" maxlength="10"></td>
+          <td><input type="text" class="input" name="entry[birthday]" value="{$entry.birthday}" maxlength="10"></td>
         </tr>
 {/if}
 {if $fields.anniversary}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.anniversary}:<br><span class="hint">({$lang.msg_dateformat})</span></td>
-          <td><input type="text" class="input" name="entry[anniversary]" value="{$entry.anniversary|escape}" maxlength="10"></td>
+          <td><input type="text" class="input" name="entry[anniversary]" value="{$entry.anniversary}" maxlength="10"></td>
         </tr>
 {/if}
 {if $fields.spouse}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.spouse}:</td>
-          <td><input type="text" class="input" name="entry[spouse]" value="{$entry.spouse|escape}"></td>
+          <td><input type="text" class="input" name="entry[spouse]" value="{$entry.spouse}"></td>
         </tr>
 {/if}
 
@@ -217,7 +217,7 @@
         {foreach from=$entry.mail item=mail}
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.mail} {counter}:</td>
-          <td><input type="text" class="input" name="entry[mail][]" value="{$mail|escape}"></td>
+          <td><input type="text" class="input" name="entry[mail][]" value="{$mail}"></td>
         </tr>
         {/foreach}
         <tr>
@@ -232,13 +232,13 @@
 {if $fields.instantmessenger}
         <tr>
           <td align="right" valign="top">{$lang.instantmessenger}:</td>
-          <td><input type="text" class="input" name="entry[instantmessenger]" value="{$entry.instantmessenger|escape}"></td>
+          <td><input type="text" class="input" name="entry[instantmessenger]" value="{$entry.instantmessenger}"></td>
         </tr>
 {/if}
 {if $fields.ipphone}
         <tr>
           <td align="right" valign="top">{$lang.ipphone}:</td>
-          <td><input type="text" class="input" name="entry[ipphone]" value="{$entry.ipphone|escape}"></td>
+          <td><input type="text" class="input" name="entry[ipphone]" value="{$entry.ipphone}"></td>
         </tr>
 {/if}
 
@@ -260,14 +260,14 @@
         <tr>
           <td align="right" valign="top" nowrap="nowrap">{$lang.marker}:<br><span class="hint">({$lang.msg_tagsep})</span></td>
           <td>
-            <textarea class="input" name="entry[markers]" id="tageditlookup">{$entry.markers|escape}</textarea><div id="tageditresult" class="autocomplete"></div>
+            <textarea class="input" name="entry[markers]" id="tageditlookup">{$entry.markers}</textarea>
           </td>
         </tr>
 {/if}
 {if $fields.note}
         <tr>
           <td align="right" valign="top">{$lang.note}:</td>
-          <td align="right"><textarea class="input" rows="6" cols="30" name="entry[note]" class="note">{$entry.note|escape}</textarea></td>
+          <td align="right"><textarea class="input" rows="6" cols="30" name="entry[note]" class="note">{$entry.note}</textarea></td>
         </tr>
 {/if}
 
@@ -279,7 +279,7 @@
         <tr>
           <td align="right" valign="top">{$lang.certificate}:</td>
           <td>
-            <textarea name="entry[certificate]" class="input" rows="6" cols="28" onClick="this.form.elements['entry[certificate]'].select();">{$entry.certificate|escape}</textarea>
+            <textarea name="entry[certificate]" class="input" rows="6" cols="28" onClick="this.form.elements['entry[certificate]'].select();">{$entry.certificate}</textarea>
             <br><input type="button" name="clearCert" value="Clear" onClick="if (confirm('Are you sure?')) this.form.elements['entry[certificate]'].value='';">
           </td>
         </tr>
@@ -287,14 +287,14 @@
 {if $fields.domain}
         <tr>
           <td align="right" valign="top">{$lang.domain}:</td>
-          <td><input type="text" class="input" name="entry[domain]" value="{$entry.domain|escape}"></td>
+          <td><input type="text" class="input" name="entry[domain]" value="{$entry.domain}"></td>
         </tr>
 {/if}
 {if $fields.timezone}
         <tr>
           <td align="right" valign="top">{$lang.timezone}:</td>
           <td>
-            <input type="text" class="inputbr" name="entry[timezone]" value="{$entry.timezone|escape}"><br>
+            <input type="text" class="inputbr" name="entry[timezone]" value="{$entry.timezone}"><br>
           </td>
         </tr>
 {/if}

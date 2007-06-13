@@ -1,7 +1,7 @@
 {include file="header.tpl"}
 
 {if $entry.photo != ''}
-  <a href="img.php?dn={$entry.dn|escape:url}"><img src="img.php?dn={$entry.dn|escape:url}" align="right" class="photo" width="130" /></a>
+  <a href="img.php?dn={$entry.dn|escape:url}&amp;.jpg" rel="imagebox" title="{$entry.givenname} {$entry.name}"><img src="img.php?dn={$entry.dn|escape:url}" align="right" class="photo" width="130" /></a>
 {/if}
 <h1>
   <img src="pix/{$entry.type}.png" border="0" width="22" height="22" align="middle" title="{$entry.type}" />
