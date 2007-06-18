@@ -4,7 +4,7 @@
   {if $conf.userlogreq == 1 && $user == ''}
     <tr>
       <td align="center">
-      {* include un truc *} {$lang.msg_login}
+      {$lang.msg_login}
       </td>
     </tr>
   {else}
