@@ -54,6 +54,6 @@
   $conf['dateformat']  = '%d.%m.%Y';
 
   // Force recompilation of smarty templates?
-  $conf['smartycompile'] = 0;
+  $conf['smartycompile'] = 1;
 
 

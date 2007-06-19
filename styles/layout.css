@@ -1,0 +1,209 @@
+/* body */
+body {
+    padding: 0.5em;
+}
+
+/* top row */
+
+div#titlerow {
+    overflow: hidden;
+    height: 3em;
+    margin-bottom: 1em;
+}
+
+div#titlerow div.logo {
+    float: left;
+    margin-left: 2em;
+}
+
+div#titlerow div.search {
+    float: right;
+    margin-top: 1em;
+}
+
+div#titlerow div.search form {
+    float: left;
+}
+
+div#titlerow div.search form.tags {
+    margin-left: 1em;
+}
+
+
+/* Editing buttons */
+
+div#toolbar {
+    overflow: hidden;
+    padding-left: 2em;
+}
+
+div#toolbar ul li {
+    list-style-type: none;
+    float: left;
+    border-left: 1px solid #999;
+    border-top: 1px solid #999;
+    border-right: 1px solid #999;
+    margin: 0 0.2em 0 0.2em;
+    text-align: center;
+    -moz-border-radius: 50% 50% 0 0;
+    padding: 0.2em 0.4em 0.1em 0.4em;
+}
+
+div#toolbar ul li.sep {
+    border: none;
+    width: 1em;
+}
+
+/* A-Z filters */
+
+div#filterrow {
+    float: left;
+    overflow: hidden;
+    clear: left;
+    width: 2em;
+}
+
+div#filterrow ul li {
+    list-style-type: none;
+    border-left: 1px solid #999;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    margin: 0.2em 0 0.2em 0.6em;
+    text-align: center;
+    -moz-border-radius: 50% 0 0 50%;
+    margin-right: -1px;
+}
+
+/* content */
+
+div#content {
+    margin-left: 2em;
+    border: 1px solid #999;
+    padding: 1em;
+    height: auto !important;
+    min-height: 45em;
+    height: 45em;
+}
+
+/* list of contacts or organizations */
+table.list tr:hover {
+    background-color: #DCDCDC !important;
+}
+
+table.list tr.even {
+    background-color: #F5F5F5;
+}
+
+table.list td {
+    padding: 0.1em;
+}
+
+/* contact view */
+div#show table.show table {
+    margin-left: 2em;
+}
+
+div#show table.show table th {
+    font-weight: normal;
+    text-align: right;
+    padding-right: 1em;
+    width: 20%;
+}
+
+div#show table th,
+div#show table td {
+    vertical-align: top;
+}
+
+div#show h3 {
+    margin: 1em 0 0.6em 0;
+}
+
+/* contact edit */
+div#edit table th,
+div#edit table td {
+    vertical-align: top;
+    padding: 0.2em;
+}
+
+div#edit table th {
+    font-weight: normal;
+    text-align: right;
+    padding-right: 1em;
+    width: 35%;
+}
+
+div#edit textarea.input,
+div#edit input.input {
+    width: 95%;
+}
+
+div#edit span.hint {
+    font-size: 75%;
+}
+
+/* tagcloud */
+div#tagcloud {
+    margin: 2em;
+}
+
+/* login form */
+
+form#login {
+    width: 30em;
+    margin: 7em auto;
+}
+
+form#login fieldset {
+    padding: 1em 2em;
+    border: 1px solid #999;
+}
+
+form#login legend {
+    background: transparent url(../pix/key.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 20px;
+}
+
+form#login div.msg {
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+form#login div.row {
+    margin: 0.6em;
+}
+
+form#login input.input {
+    width: 12em;
+}
+
+form#login input.button {
+    display: block;
+    margin: 1em auto;
+}
+
+/* import */
+
+form#import {
+    width: 30em;
+    margin: 2em auto;
+}
+
+form#import fieldset {
+    padding: 1em 2em;
+    border: 1px solid #999;
+}
+
+form#import legend {
+    background: transparent url(../pix/page_in.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 20px;
+}
+
+/* footer */
+div#footrow {
+    margin-left: 2em;
+}
+
+div#footrow div.login{
+    float: right;
+}

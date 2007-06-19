@@ -1,0 +1,140 @@
+/* some general setups */
+
+* { padding: 0; margin: 0; }
+
+body {
+    font: 80% "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+    background-color: #fff;
+    color: #333;
+}
+
+img {
+    border: 0;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+/* genral link setup */
+
+a:link,
+a:visited {
+    text-decoration: none;
+    color: #06c;
+}
+
+a:hover,
+a:active {
+    text-decoration: underline;
+    color: #06c;
+}
+
+.click {
+    cursor: pointer;
+}
+
+/* logo */
+
+div#titlerow div.logo a {font-size:25px; font-weight:bolder}
+div#titlerow div.logo span {font-size:16px; font-weight:bold}
+
+/* photo */
+
+img.photo {
+    border: 1px solid #999;
+    padding: 0.5em;
+}
+
+/* forms */
+
+input, select, textarea {
+    border: 1px solid #999;
+    background-color: #F5F5F5;
+}
+
+input:focus, select:focus, textarea:focus {
+    border: 1px solid #06c;
+}
+
+/* editing and other link icons */
+
+a.ed_help {
+    background: transparent url(../pix/help.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
+a.ed_orgs {
+    background: transparent url(../pix/book_open.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
+a.ed_new {
+    background: transparent url(../pix/page_add.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
+a.ed_show {
+    background: transparent url(../pix/page_red.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
+a.ed_edit {
+    background: transparent url(../pix/page_edit.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
+a.ed_copy {
+    background: transparent url(../pix/page_copy.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
+a.ed_delete {
+    background: transparent url(../pix/page_delete.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
+a.ed_vcfexport {
+    background: transparent url(../pix/vcard.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
+a.ed_csvexport {
+    background: transparent url(../pix/page_white_excel.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
+a.ed_vcfimport {
+    background: transparent url(../pix/page_in.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
+a.ed_login {
+    background: transparent url(../pix/key.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 18px;
+}
+
+a.ed_logout {
+    background: transparent url(../pix/key_go.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 18px;
+}
+
+a.tag {
+    background: transparent url(../pix/tag_blue.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 18px;
+    white-space: nowrap;
+}
+
+
+/* TagCloud */
+div#tagcloud {text-align: justify}
+div#tagcloud a {white-space: nowrap;}
+a.cloud_0 {font-size: 90%; }
+a.cloud_1 {font-size: 110%; }
+a.cloud_2 {font-size: 140%; }
+a.cloud_3 {font-size: 150%; }
+a.cloud_4 {font-size: 160%; }
+a.cloud_5 {font-size: 180%; }
+a.cloud_6 {font-size: 200%; }
+

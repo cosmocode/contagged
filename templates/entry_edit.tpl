@@ -1,5 +1,7 @@
 {include file="header.tpl"}
 
+<div id="edit">
+
 <h1>
   {if $entry.type != ''}
   <img src="pix/{$entry.type|h}.png" border="0" width="22" height="22" align="middle" title="{$entry.type|h}">
@@ -16,22 +18,22 @@
 <!--  -->
   <tr>
     <td valign="top" width="50%" align="center">
-      <table>
+      <table width="100%">
 {* always required ... if $fields.name *}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.name}:</td>
+          <th>{$lang.name}:</th>
           <td><input type="text" class="input" name="entry[name]" value="{$entry.name|h}" id="firstfield"></td>
         </tr>
 {* /if *}
 {if $fields.givenname}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.givenname}:</td>
+          <th>{$lang.givenname}:</th>
           <td><input type="text" class="input" name="entry[givenname]" value="{$entry.givenname|h}"></td>
         </tr>
 {/if}
 {if $fields.title}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.title}:</td>
+          <th>{$lang.title}:</th>
           <td><input type="text" class="input" name="entry[title]" value="{$entry.title|h}"></td>
         </tr>
 {/if}
@@ -43,18 +45,18 @@
   </tr>
 
   <tr>
-    <td colspan="2"><hr /></td>
+    <td colspan="2">&nbsp;</td>
   </tr>
 
   <tr>
     <td valign="top" width="50%" align="center">
-      <table>
+      <table width="100%">
         <tr>
-          <td colspan="2"><b>{$lang.business}</b></td>
+          <td colspan="2"><h3>{$lang.business}</h3></td>
         </tr>
 {if $fields.organization}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.organization}:</td>
+          <th>{$lang.organization}:</th>
           <td>
             <input type="text" class="input ac" name="entry[organization]" value="{$entry.organization|h}">
           </td>
@@ -62,31 +64,31 @@
 {/if}
 {if $fields.office}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.office}:</td>
+          <th>{$lang.office}:</th>
           <td><input type="text" class="input" name="entry[office]" value="{$entry.office|h}"></td>
         </tr>
 {/if}
 {if $fields.street}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.street}:</td>
+          <th>{$lang.street}:</th>
           <td><input type="text" class="input ac" name="entry[street]" value="{$entry.street|h}"></td>
         </tr>
 {/if}
 {if $fields.zip}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.zip}:</td>
+          <th>{$lang.zip}:</th>
           <td><input type="text" class="input" name="entry[zip]" value="{$entry.zip|h}"></td>
         </tr>
 {/if}
 {if $fields.location}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.location}:</td>
+          <th>{$lang.location}:</th>
           <td><input type="text" class="input ac" name="entry[location]" value="{$entry.location|h}"></td>
         </tr>
 {/if}
 {if $fields.state}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.state}:</td>
+          <th>{$lang.state}:</th>
           <td><input type="text" class="input ac" name="entry[state]" value="{$entry.state|h}"></td>
         </tr>
 {/if}
@@ -94,37 +96,37 @@
         <tr>
           <td align="right" valign="top">{$lang.country}:</td>
           <td>
-            <input type="text" class="input ac" name="entry[country]" value="{$entry.country|h}"><br>
+            <input type="text" class="input ac" name="entry[country]" value="{$entry.country|h}"><br />
           </td>
         </tr>
 {/if}
 {if $fields.phone}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.phone}:</td>
+          <th>{$lang.phone}:</th>
           <td><input type="text" class="input" name="entry[phone]" value="{$entry.phone|h}"></td>
         </tr>
 {/if}
 {if $fields.switchboard}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.switchboard}:</td>
+          <th>{$lang.switchboard}:</th>
           <td><input type="text" class="input" name="entry[switchboard]" value="{$entry.switchboard|h}"></td>
         </tr>
 {/if}
 {if $fields.fax}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.fax}:</td>
+          <th>{$lang.fax}:</th>
           <td><input type="text" class="input" name="entry[fax]" value="{$entry.fax|h}"></td>
         </tr>
 {/if}
 {if $fields.pager}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.pager}:</td>
+          <th>{$lang.pager}:</th>
           <td><input type="text" class="input" name="entry[pager]" value="{$entry.pager|h}"></td>
         </tr>
 {/if}
 {if $fields.manager}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.manager}:</td>
+          <th>{$lang.manager}:</th>
           <td>
             <select name="entry[manager]" class="input">
               <option value="">--- {$lang.select} ---</option>
@@ -151,37 +153,31 @@
 
     <td valign="top" width="50%" align="center">
 
-      <table>
+      <table width="100%">
         <tr>
-          <td colspan="2"><b>{$lang.private}</b></td>
+          <td colspan="2"><h3>{$lang.private}</b></h3>
         </tr>
 {if $fields.homestreet}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.homestreet}:</td>
+          <th>{$lang.homestreet}:</th>
           <td><textarea name="entry[homestreet]" class="input" rows="2" cols="30">{$entry.homestreet|h}</textarea></td>
         </tr>
 {/if}
 {if $fields.homephone}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.homephone}:</td>
+          <th>{$lang.homephone}:</th>
           <td><input type="text" class="input" name="entry[homephone]" value="{$entry.homephone|h}"></td>
         </tr>
 {/if}
 {if $fields.mobile}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.mobile}:</td>
+          <th>{$lang.mobile}:</th>
           <td><input type="text" class="input" name="entry[mobile]" value="{$entry.mobile|h}"></td>
-        </tr>
-{/if}
-{if $fields.url}
-        <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.url}:</td>
-          <td><input type="text" class="input ac" name="entry[url]" value="{$entry.url|h}"></td>
         </tr>
 {/if}
 {if $fields.photo}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.photo}:<br /><span class="hint">({$lang.msg_jpegonly})</span></td>
+          <th>{$lang.photo}:<br /><span class="hint">({$lang.msg_jpegonly})</span></th>
           <td>{if $entry.photo}
                 <input type="checkbox" class="radio" name="delphoto" id="delphoto" value="1">
                 <label for="delphoto">{$lang.delphoto}</label>
@@ -193,39 +189,45 @@
 {/if}
 {if $fields.birthday}
         <tr>
-          <td align="right" valign="top">{$lang.birthday}:<br><span class="hint">({$lang.msg_dateformat})</span></td>
+          <td align="right" valign="top">{$lang.birthday}:<br /><span class="hint">({$lang.msg_dateformat})</span></td>
           <td><input type="text" class="input" name="entry[birthday]" value="{$entry.birthday|h}" maxlength="10"></td>
         </tr>
 {/if}
 {if $fields.anniversary}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.anniversary}:<br><span class="hint">({$lang.msg_dateformat})</span></td>
+          <th>{$lang.anniversary}:<br /><span class="hint">({$lang.msg_dateformat})</span></th>
           <td><input type="text" class="input" name="entry[anniversary]" value="{$entry.anniversary|h}" maxlength="10"></td>
         </tr>
 {/if}
 {if $fields.spouse}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.spouse}:</td>
+          <th>{$lang.spouse}:</th>
           <td><input type="text" class="input" name="entry[spouse]" value="{$entry.spouse|h}"></td>
         </tr>
 {/if}
 
         <tr>
-          <td colspan="2"><b>{$lang.communication}</b></td>
+          <td colspan="2"><h3>{$lang.communication}</h3></td>
         </tr>
+{if $fields.url}
+        <tr>
+          <th>{$lang.url}:</th>
+          <td><input type="text" class="input ac" name="entry[url]" value="{$entry.url|h}"></td>
+        </tr>
+{/if}
 {if $fields._mail}
         {foreach from=$entry.mail|smarty:nodefaults item=mail}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.mail} {counter}:</td>
+          <th>{$lang.mail} {counter}:</th>
           <td><input type="text" class="input" name="entry[mail][]" value="{$mail}"></td>
         </tr>
         {/foreach}
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.mail} {counter}:</td>
+          <th>{$lang.mail} {counter}:</th>
           <td><input type="text" class="input" name="entry[mail][]" value=""></td>
         </tr>
         <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.mail} {counter}:</td>
+          <th>{$lang.mail} {counter}:</th>
           <td><input type="text" class="input" name="entry[mail][]" value=""></td>
         </tr>
 {/if}
@@ -247,23 +249,16 @@
   </tr>
 
   <tr>
-    <td colspan="2"><hr /></td>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><h3>{$lang.extended}</h3></td>
   </tr>
 
   <tr>
     <td width="50%" valign="top" align="center">
-      <table>
-        <tr>
-          <td colspan="2"><b>{$lang.extended}</b></td>
-        </tr>
-{if $fields._marker}
-        <tr>
-          <td align="right" valign="top" nowrap="nowrap">{$lang.marker}:<br><span class="hint">({$lang.msg_tagsep})</span></td>
-          <td>
-            <textarea class="input" name="entry[markers]" id="tageditlookup">{$entry.markers|h}</textarea>
-          </td>
-        </tr>
-{/if}
+      <table width="100%">
 {if $fields.note}
         <tr>
           <td align="right" valign="top">{$lang.note}:</td>
@@ -274,13 +269,21 @@
       </table>
     </td>
     <td width="50%" valign="top" align="center">
-      <table>
+      <table width="100%">
+{if $fields._marker}
+        <tr>
+          <th>{$lang.marker}:<br /><span class="hint">({$lang.msg_tagsep})</span></th>
+          <td>
+            <textarea class="input" name="entry[markers]" id="tageditlookup">{$entry.markers|h}</textarea>
+          </td>
+        </tr>
+{/if}
 {if $fields.certificate}
         <tr>
           <td align="right" valign="top">{$lang.certificate}:</td>
           <td>
             <textarea name="entry[certificate]" class="input" rows="6" cols="28" onClick="this.form.elements['entry[certificate]'].select();">{$entry.certificate|h}</textarea>
-            <br><input type="button" name="clearCert" value="Clear" onClick="if (confirm('Are you sure?')) this.form.elements['entry[certificate]'].value='';">
+            <br /><input type="button" name="clearCert" value="Clear" onClick="if (confirm('Are you sure?')) this.form.elements['entry[certificate]'].value='';">
           </td>
         </tr>
 {/if}
@@ -294,7 +297,7 @@
         <tr>
           <td align="right" valign="top">{$lang.timezone}:</td>
           <td>
-            <input type="text" class="inputbr" name="entry[timezone]" value="{$entry.timezone|h}"><br>
+            <input type="text" class="inputbr" name="entry[timezone]" value="{$entry.timezone|h}"><br />
           </td>
         </tr>
 {/if}
@@ -305,10 +308,10 @@
   {if $entry.dn == ''}
   <tr>
     <td colspan="2" align="center">
-      {$lang.msg_addto}<br>
+      {$lang.msg_addto}<br />
       <table><tr><td>
       <input type="radio" name="type" value="public" id="typepublic" class="radio" checked="checked">
-      <label for="typepublic"><img src="pix/public.png" border="0" width="16" height="16" align="middle">{$lang.publicbook}</label><br>
+      <label for="typepublic"><img src="pix/public.png" border="0" width="16" height="16" align="middle">{$lang.publicbook}</label><br />
       <input type="radio" name="type" value="private" id="typeprivate" class="radio">
       <label for="typeprivate"><img src="pix/private.png" border="0" width="16" height="16" align="middle">{$lang.privatebook}</label>
       </td></tr></table>
@@ -317,10 +320,12 @@
   {/if}
 
   <tr>
-    <td colspan="2" align="center"><br><input type="submit" class="input" value="{$lang.submit}"></td>
+    <td colspan="2" align="center"><br /><input type="submit" class="button" value="{$lang.submit}"></td>
   </tr>
 </table>
 
 </form>
+
+</div>
 
 {include file="footer.tpl"}

@@ -2,7 +2,6 @@
 require_once('init.php');
 ldap_login();
 
-header('Content-Type: text/xml; charset=utf-8');
 
 /*
 echo '<bla><[!CDATA[';
@@ -13,24 +12,17 @@ echo ']]></bla>';
 $FIELD = preg_replace('/entry\[/','',$_REQUEST['field']);
 $FIELD = preg_replace('/\W+/','',$FIELD);
 
-if($FIELD == 'marker'||$FIELD == 'markers'){
+if($_REQUEST['dn'] && $_REQUEST['addnote']){
+  ajax_addnote($_REQUEST['dn'],$_REQUEST['addnote']);
+}elseif($_REQUEST['dn'] && $_REQUEST['settags']){
+  ajax_settags($_REQUEST['dn'],$_REQUEST['settags']);
+}elseif($_REQUEST['dn'] && $_REQUEST['loadtags']){
+  ajax_loadtags($_REQUEST['dn'],$_REQUEST['loadtags']);
+}elseif($FIELD == 'marker'||$FIELD == 'markers'){
   ajax_taglookup($_REQUEST['value']);
 }else{
   ajax_lookup($FIELD,$_REQUEST['value']);
 }
-
-/*
-if(!empty($_REQUEST['taglookup'])){
-  ajax_taglookup($_REQUEST['taglookup']);
-}elseif(!empty($_REQUEST['lookup']) && !empty($_REQUEST['s'])){
-  ajax_lookup($_REQUEST['lookup'],$_REQUEST['s']);
-}elseif(!empty($_REQUEST['addnote'])){
-  ajax_addnote($_REQUEST['addnote'],$_REQUEST['note']);
-}elseif(!empty($_REQUEST['settags'])){
-  ajax_settags($_REQUEST['settags'],$_REQUEST['tags']);
-}
-*/
-
 
 /**
  * Add a note to the existing notes
@@ -39,6 +31,8 @@ function ajax_addnote($dn,$note){
   global $conf;
   global $LDAP_CON;
   global $FIELDS;
+
+  header('Content-Type: text/html; charset=utf-8');
 
   // fetch the existing note
   $result = ldap_search($LDAP_CON,$dn,'(objectClass=inetOrgPerson)',array($FIELDS['note']));
@@ -57,13 +51,15 @@ function ajax_addnote($dn,$note){
 }
 
 /**
- * Sett tags for a contact
+ * Set tags for a contact
  */
 function ajax_settags($dn,$tags){
   global $conf;
   global $LDAP_CON;
   global $FIELDS;
   if(!$FIELDS['_marker']) return;
+
+  header('Content-Type: text/html; charset=utf-8');
 
   $tags = explode(',',$tags);
   $tags = array_map('trim',$tags);
@@ -83,10 +79,40 @@ function ajax_settags($dn,$tags){
 }
 
 /**
+ * Load current tags of an entry
+ */
+function ajax_loadtags($dn,$type='plain'){
+  global $conf;
+  global $LDAP_CON;
+  global $FIELDS;
+  if(!$FIELDS['_marker']) return;
+
+  header('Content-Type: text/html; charset=utf-8');
+
+  $sr = ldap_search($LDAP_CON,$dn,'(objectClass=inetOrgPerson)',array($FIELDS['_marker']));
+  if(!ldap_count_entries($LDAP_CON,$sr)) return false;
+  $result = ldap_get_binentries($LDAP_CON, $sr);
+  $entry  = $result[0];
+
+  if($type == 'plain'){
+    echo join(', ',$entry[$FIELDS['_marker']]);
+  }else{
+    foreach ($entry[$FIELDS['_marker']] as $tag){
+      echo '<a href="index.php?marker=';
+      echo rawurlencode($tag);
+      echo '" class="tag">';
+      echo htmlspecialchars($tag);
+      echo '</a> ';
+    }
+  }
+}
+
+/**
  * Find all tags (markers) starting with the given
  * string
  */
 function ajax_taglookup($tag){
+  header('Content-Type: text/xml; charset=utf-8');
   global $conf;
   global $LDAP_CON;
   global $FIELDS;
@@ -127,6 +153,7 @@ function ajax_taglookup($tag){
  * Do a simple lookup in any simple field
  */
 function ajax_lookup($field,$search){
+    header('Content-Type: text/xml; charset=utf-8');
     global $conf;
     global $LDAP_CON;
     global $FIELDS;

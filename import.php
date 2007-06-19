@@ -99,9 +99,6 @@ function zaurus_entry($cnct){
   $entry['mobile']       = empty($cnct['HomeMobile']) ? $cnct['BusinessMobile'] : $cnct['HomeMobile'];
   $entry['fax']          = empty($cnct['BusinessFax']) ? $cnct['HomeFax'] : $cnct['BusinessFax'];
 
-#  $entry['anniversary'] = $cnt[''];
-
-  utf8_decode_array($entry);
   return $entry;
 }
 

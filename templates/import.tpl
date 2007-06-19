@@ -1,25 +1,22 @@
-<table cellspacing="0" cellpadding="0" width="100%">
-<tr>
-<td class="filterrow">
-  <form action="import.php" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-    {$lang.msg_uploadvcf}: <input name="userfile" type="file" class="upload" />
-    <input type="submit" value="{$lang.upload}" class="searchbutton"/>
-  </form>
-</td>
-</tr>
-</table>
 
-<br><br>
-<table cellspacing="0" cellpadding="0" width="100%" align="center">
-  {if $list == ''}
+<form action="import.php" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="import">
+    <fieldset>
+        <legend>{$lang.upload}</legend>
+        <label for="upload">{$lang.msg_uploadvcf}:</label>
+        <input name="userfile" type="file" class="upload" id="upload" />
+        <input type="submit" value="{$lang.upload}" />
+    </fieldset>
+</form>
+
+<table cellspacing="0" cellpadding="0" width="100%" align="center" class="list">
+{if $list == ''}
     <tr>
       <td align="center">
-        {$error}
+          {$error}
       </td>
     </tr>
-  {else}
+{else}
     {* $list is a concatenation of multiple importVCF_entry.tpl *}
     {$list}
-  {/if}
+{/if}
 </table>
-<br><br><br>

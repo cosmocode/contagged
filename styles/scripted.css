@@ -1,0 +1,61 @@
+
+/**
+ * Autocompletion
+ */
+.autocompleter {
+    background-color: #fff;
+    border: 1px solid #999;
+    font-size: 80%;
+}
+
+.autocompleterSelect {
+    background-color: #06c;
+    color: #fff;
+}
+
+/**
+ * ImageBox effects
+ */
+
+#ImageBoxOverlay {
+    background-color: #000;
+}
+#ImageBoxCaption {
+    background-color: #F4F4EC;
+}
+#ImageBoxContainer {
+    width: 250px;
+    height: 250px;
+    background-color: #F4F4EC;
+}
+#ImageBoxCaptionText {
+    font-weight: bold;
+    padding-bottom: 5px;
+    font-size: 13px;
+}
+#ImageBoxCaptionImages {
+    margin: 0;
+}
+#ImageBoxNextImage {
+    background-image: url(pix/imagebox/spacer.gif);
+    background-color: transparent;
+}
+#ImageBoxPrevImage {
+    background-image: url(pix/imagebox/spacer.gif);
+    background-color: transparent;
+}
+#ImageBoxNextImage:hover {
+    background-image: url(pix/imagebox/next_image.jpg);
+    background-repeat:  no-repeat;
+    background-position: right top;
+}
+#ImageBoxPrevImage:hover {
+    background-image: url(pix/imagebox/prev_image.jpg);
+    background-repeat:  no-repeat;
+    background-position: left bottom;
+}
+
+textarea.ipe {
+    width: 95%;
+    height: 5em;
+}

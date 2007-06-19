@@ -1,6 +1,6 @@
 {include file="header.tpl"}
 
-<table cellspacing="0" cellpadding="0" width="100%" align="center">
+<table cellspacing="0" cellpadding="0" width="100%" align="center" class="list">
   {if $conf.userlogreq == 1 && $user == ''}
     <tr>
       <td align="center">

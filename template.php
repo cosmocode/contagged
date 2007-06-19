@@ -152,17 +152,7 @@ function tpl_orgs(){
   global $FIELDS;
 
   $orgs = array();
-
-  $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=inetOrgPerson",array($FIELDS['organization']));
-  $result1 = ldap_get_binentries($LDAP_CON, $sr);
-  //check users private addressbook
-  if(!empty($_SESSION['ldapab']['binddn'])){
-    $sr = @ldap_list($LDAP_CON,
-                    $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
-                    "ObjectClass=inetOrgPerson",array($FIELDS['organization']));
-    $result2 = ldap_get_binentries($LDAP_CON, $sr);
-  }
-  $result = array_merge((array)$result1,(array)$result2);
+  $result = ldap_queryabooks("ObjectClass=inetOrgPerson",array($FIELDS['organization']));
 
   if(count($result)){
     foreach ($result as $entry){
