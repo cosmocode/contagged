@@ -22,19 +22,19 @@
 {* always required ... if $fields.name *}
         <tr>
           <th>{$lang.name}:</th>
-          <td><input type="text" class="input" name="entry[name]" value="{$entry.name|h}" id="firstfield"></td>
+          <td><input type="text" class="input ac" name="entry[name]" value="{$entry.name|h}" id="firstfield"></td>
         </tr>
 {* /if *}
 {if $fields.givenname}
         <tr>
           <th>{$lang.givenname}:</th>
-          <td><input type="text" class="input" name="entry[givenname]" value="{$entry.givenname|h}"></td>
+          <td><input type="text" class="input ac" name="entry[givenname]" value="{$entry.givenname|h}"></td>
         </tr>
 {/if}
 {if $fields.title}
         <tr>
           <th>{$lang.title}:</th>
-          <td><input type="text" class="input" name="entry[title]" value="{$entry.title|h}"></td>
+          <td><input type="text" class="input ac" name="entry[title]" value="{$entry.title|h}"></td>
         </tr>
 {/if}
       </table>
@@ -65,7 +65,7 @@
 {if $fields.office}
         <tr>
           <th>{$lang.office}:</th>
-          <td><input type="text" class="input" name="entry[office]" value="{$entry.office|h}"></td>
+          <td><input type="text" class="input ac" name="entry[office]" value="{$entry.office|h}"></td>
         </tr>
 {/if}
 {if $fields.street}
@@ -77,7 +77,7 @@
 {if $fields.zip}
         <tr>
           <th>{$lang.zip}:</th>
-          <td><input type="text" class="input" name="entry[zip]" value="{$entry.zip|h}"></td>
+          <td><input type="text" class="input ac" name="entry[zip]" value="{$entry.zip|h}"></td>
         </tr>
 {/if}
 {if $fields.location}
@@ -212,7 +212,7 @@
 {if $fields.url}
         <tr>
           <th>{$lang.url}:</th>
-          <td><input type="text" class="input ac" name="entry[url]" value="{$entry.url|h}"></td>
+          <td><input type="text" class="input" name="entry[url]" value="{$entry.url|h}"></td>
         </tr>
 {/if}
 {if $fields._mail}
