@@ -54,6 +54,10 @@ div#toolbar ul li.sep {
     width: 1em;
 }
 
+div#toolbar ul li.right {
+    float: right;
+}
+
 /* A-Z filters */
 
 div#filterrow {
@@ -83,6 +87,29 @@ div#content {
     height: auto !important;
     min-height: 45em;
     height: 45em;
+}
+
+/* help screen */
+
+div#help h2,
+div#help h3 {
+    margin-bottom: 1em;
+}
+
+div#help p {
+    margin: 0.5em 0;
+}
+
+div#help dl {
+    margin: 0.5em 2em;
+}
+
+div#help dd {
+    margin: 0.3em 1em;
+}
+
+div#help code {
+    font-size: 14px;
 }
 
 /* list of contacts or organizations */

@@ -1,10 +1,5 @@
 <ul>
 
-  <!-- help -->
-  <li>
-    <a href="help.php" class="ed_help">{$lang.help}</a>
-  </li>
-
   <!-- company list -->
   <li>
     <a href="orgs.php" class="ed_orgs">{$lang.orgs}</a>
@@ -64,6 +59,12 @@
       <a href="import.php" class="ed_vcfimport">{$lang.vcfimport}</a>
     </li>
   {/if}
+
+
+  <!-- help -->
+  <li class="right">
+    <a href="help.php" class="ed_help">{$lang.help}</a>
+  </li>
 
 
 
