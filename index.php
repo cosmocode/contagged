@@ -1,5 +1,6 @@
-<?
-  require_once('init.php');
+<?php
+
+  require_once('inc/init.php');
   ldap_login();
 
   //prepare filter
@@ -43,10 +44,6 @@
 
   //prepare templates
   tpl_std();
-  tpl_markers(); //FIXME not needed anymore!?
-  tpl_categories();
-  tpl_timezone();
-  tpl_country();
   if (empty($_REQUEST['filter'])) $_REQUEST['filter']='';
   if (empty($_REQUEST['marker'])) $_REQUEST['marker']='';
   if (empty($_REQUEST['search'])) $_REQUEST['search']='';

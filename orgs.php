@@ -1,5 +1,5 @@
 <?
-  require_once('init.php');
+  require_once('inc/init.php');
   ldap_login();
 
   //prepare templates

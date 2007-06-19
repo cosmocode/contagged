@@ -1,11 +1,11 @@
-<?
-  require_once('init.php');
-  ldap_login();
+<?php
+require_once('inc/init.php');
+ldap_login();
 
-  //prepare templates
-  tpl_std();
-  //display templates
-  header('Content-Type: text/html; charset=utf-8');
-  $smarty->display('help.tpl');
+//prepare templates
+tpl_std();
+//display templates
+header('Content-Type: text/html; charset=utf-8');
+$smarty->display('help.tpl');
 
 ?>

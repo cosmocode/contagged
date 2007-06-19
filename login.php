@@ -3,7 +3,7 @@
  * Do the login/logout process
  */
 
-require_once('init.php');
+require_once('inc/init.php');
 
 $msg = $lang['msg_login'];
 if(isset($_REQUEST['username'])){

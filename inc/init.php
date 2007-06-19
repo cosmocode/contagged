@@ -1,10 +1,10 @@
 <?
-  require_once('config.php');
-  require_once('fields.php');
-  require_once('lang/'.$conf['lang'].'.php');
-  require_once('functions.php');
-  require_once('template.php');
-  require_once('smarty/Smarty.class.php');
+  require_once(dirname(__FILE__).'/config.php');
+  require_once(dirname(__FILE__).'/fields.php');
+  require_once(dirname(__FILE__).'/lang/'.$conf['lang'].'.php');
+  require_once(dirname(__FILE__).'/functions.php');
+  require_once(dirname(__FILE__).'/template.php');
+  require_once(dirname(__FILE__).'/smarty/Smarty.class.php');
 
   define('NL',"\n");
 
@@ -35,8 +35,8 @@
 
   //prepare SMARTY object
   $smarty = new Smarty;
-  $smarty->compile_dir   = './cache';
+  $smarty->compile_dir   = dirname(__FILE__).'/../cache';
   $smarty->use_sub_dirs  = 0;
-  $smarty->template_dir  = './templates';
+  $smarty->template_dir  = dirname(__FILE__).'/../templates';
   $smarty->force_compile = $conf['smartycompile'];
 ?>

@@ -1,13 +1,6 @@
 <?
-require_once('init.php');
+require_once('inc/init.php');
 ldap_login();
-
-
-/*
-echo '<bla><[!CDATA[';
-print_r($_REQUEST);
-echo ']]></bla>';
-*/
 
 $FIELD = preg_replace('/entry\[/','',$_REQUEST['field']);
 $FIELD = preg_replace('/\W+/','',$FIELD);
@@ -46,7 +39,7 @@ function ajax_addnote($dn,$note){
   ldap_modify($LDAP_CON,$dn,$entry);
 
 
-  require_once(dirname(__FILE__).'/smarty/plugins/modifier.noteparser.php');
+  require_once(dirname(__FILE__).'/inc/smarty/plugins/modifier.noteparser.php');
   print smarty_modifier_noteparser($note);
 }
 
