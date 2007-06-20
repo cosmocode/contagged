@@ -88,9 +88,9 @@ function ajax_loadtags($dn,$type='plain'){
   $entry  = $result[0];
 
   if($type == 'plain'){
-    echo join(', ',$entry[$FIELDS['_marker']]);
+    echo join(', ',(array) $entry[$FIELDS['_marker']]);
   }else{
-    foreach ($entry[$FIELDS['_marker']] as $tag){
+    foreach ((array) $entry[$FIELDS['_marker']] as $tag){
       echo '<a href="index.php?marker=';
       echo rawurlencode($tag);
       echo '" class="tag">';
