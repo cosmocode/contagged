@@ -153,7 +153,7 @@ function set_session($user,$pass,$dn){
  * cookies; the string is stored inside the cache dir
  */
 function get_cookie_secret(){
-  $file = dirname(__FILE__).'/cache/.htcookiesecret.php';
+  $file = dirname(__FILE__).'/../cache/.htcookiesecret.php';
   if(@file_exists($file)){
     return md5(trim(file($file)));
   }
