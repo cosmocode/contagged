@@ -21,6 +21,7 @@
         <table width="100%">
           <tr>
             <td colspan="2">
+
               {$entry.title|h} {$entry.givenname|h} {$entry.name|h}<br />
 {if $entry.organization}
               <a href="index.php?org={$entry.organization|escape:url}">{$entry.organization|h}</a><br />
@@ -32,7 +33,7 @@
               {$entry.street|h}<br />
 {/if}
 {if $entry.location}
-              {$entry.zip} {$entry.location|h}<br />
+              {$entry.zip|h} {$entry.location|h}<br />
 {/if}
 {if $entry.state}
               {$entry.state|h}
@@ -40,7 +41,7 @@
 {if $entry.country}
               {$entry.country|h}
 {/if}
-              <br /><br />
+              </br /><br />
             </td>
           </tr>
 {if $entry.phone}

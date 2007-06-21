@@ -110,6 +110,11 @@ a.ed_vcfimport {
     padding: 1px 0px 1px 16px;
 }
 
+a.ed_map {
+    background: transparent url(../pix/map.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 18px;
+}
+
 a.ed_login {
     background: transparent url(../pix/key.png) 0px 1px no-repeat;
     padding: 1px 0px 1px 18px;

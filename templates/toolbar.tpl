@@ -16,6 +16,7 @@
   <li class="sep">&nbsp;</li>
 
   {if $dn} <!-- begin contact page functions -->
+
     {if $user} <!-- begin editing functions -->
 
       <!-- edit/show, copy, delete -->
@@ -43,11 +44,27 @@
       <a href="entry.php?dn={$dn|escape:url}&amp;mode=vcf" class="ed_vcfexport">{$lang.vcfexport}</a>
     </li>
 
+    <!-- show on map -->
+    {if $smarty.request.mode == 'map' && $conf.gmapkey}
+        <li>
+          <a href="entry.php?dn={$dn|escape:url}" class="ed_show">{$lang.show}</a>
+        </li>
+    {elseif $conf.gmapkey}
+        <li>
+          <a href="entry.php?dn={$dn|escape:url}&amp;mode=map" class="ed_map">{$lang.map}</a>
+        </li>
+    {/if}
+
     <li class="sep">&nbsp;</li>
   {/if} <!-- end contact page functions -->
 
 
   {if $list} <!-- export -->
+    {if $smarty.request.export != 'map' && $conf.gmapkey}
+        <li>
+          <a href="index.php?filter={$filter|escape:url}&amp;marker={$marker|escape:url}&amp;search={$search|escape:url}&amp;export=map" class="ed_map">{$lang.map}</a>
+        </li>
+    {/if}
     <li>
       <a href="index.php?filter={$filter|escape:url}&amp;marker={$marker|escape:url}&amp;search={$search|escape:url}&amp;export=csv"
          class="ed_csvexport">{$lang.csvexport}</a>

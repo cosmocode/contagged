@@ -11,6 +11,8 @@ if( $_SESSION['ldapab']['username'] &&
   $template='entry_edit.tpl';
 }elseif($_REQUEST['mode']=='vcf'){
   $template='entry_vcf.tpl';
+}elseif($_REQUEST['mode']=='map'){
+  $template='entry_map.tpl';
 }else{
   $template='entry_show.tpl';
 }

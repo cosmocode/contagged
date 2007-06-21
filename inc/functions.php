@@ -482,5 +482,4 @@ function utf8_encode_array(&$array) {
   }
 }
 
-
 ?>

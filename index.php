@@ -23,7 +23,9 @@
 
   // select entry template
   if(!empty($_REQUEST['export']) && $_REQUEST['export'] == 'csv'){
-    $entrytpl = 'export_list_csv_entry.tpl';
+    $entrytpl = 'list_csv_entry.tpl';
+  }elseif(!empty($_REQUEST['export']) && $_REQUEST['export'] == 'map'){
+    $entrytpl = 'list_map_entry.tpl';
   }else{
     $entrytpl = 'list_entry.tpl';
   }
@@ -52,15 +54,21 @@
   $smarty->assign('marker',$_REQUEST['marker']);
   $smarty->assign('search',$_REQUEST['search']);
   //display templates
-  if(!empty($_REQUEST['export']) && $_REQUEST['export'] == 'csv'){
-    if ($conf['userlogreq'] == 1 && $user == '')
-    {
+  if(!empty($_REQUEST['export'])){
+    if ($conf['userlogreq'] == 1 && $user == ''){
       header("HTTP/1.1 401 ACCESS DENIED");
       exit();
-    } else {
+    }
+
+    if($_REQUEST['export'] == 'csv'){
       header("Content-Type: text/csv");
       header('Content-Disposition: Attachement; filename="contagged_export.csv"');
-      $smarty->display('export_list_csv.tpl');
+      $smarty->display('list_csv.tpl');
+      exit;
+    }elseif($_REQUEST['export'] == 'map'){
+      header('Content-Type: text/html; charset=utf-8');
+      $smarty->display('list_map.tpl');
+      exit;
     }
   }else{
     //save location in session

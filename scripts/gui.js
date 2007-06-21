@@ -101,8 +101,6 @@ function noteedit(type){
     $('#noteedit_editor').focus();
 }
 
-
-
 /**
  * Initialize everything when DOM is ready
  */
@@ -146,7 +144,7 @@ $(document).ready(function() {
     });
 
     // tag editing
-    if($('#tagedit')){
+    if($('#tagedit').length){
         var img       = new Image();
         img.src       = 'pix/tag_blue_edit.png';
         img.className = 'click';
@@ -156,7 +154,7 @@ $(document).ready(function() {
     }
 
     // note editing
-    if($('#noteedit')){
+    if($('#noteedit').length){
         var img;
 
         img           = new Image();
@@ -186,7 +184,10 @@ $(document).ready(function() {
 
 
     // set focus
-    if($('#searchfield')) $('#searchfield').focus();
-    if($('#firstfield')) $('#firstfield').focus();
+    if($('#searchfield').length) $('#searchfield').focus();
+    if($('#firstfield').length) $('#firstfield').focus();
 
+
+    // run google maps loader
+    if($('#google_map').length) gmap_loader();
 });

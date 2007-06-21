@@ -20,6 +20,11 @@
     <script src="scripts/interface/imagebox.js" type="text/javascript"></script>
     <script src="scripts/formatDate.js" type="text/javascript"></script>
 
+    {if $conf.gmapkey}
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={$conf.gmapkey}" type="text/javascript"></script>
+    <script src="scripts/maps.js" type="text/javascript"></script>
+    {/if}
+
     <script src="scripts/gui.js" type="text/javascript"></script>
 
     <script type="text/javascript">

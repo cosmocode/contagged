@@ -169,6 +169,14 @@ div#edit span.hint {
     font-size: 75%;
 }
 
+/* mapping */
+div#map div#google_map {
+    width: 95%;
+    margin: 2em auto;
+    height: 40em;
+}
+
+
 /* tagcloud */
 div#tagcloud {
     margin: 2em;

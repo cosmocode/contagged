@@ -50,8 +50,16 @@
 
   // Dateformat for birthdays when using extended schema
   // see http://www.php.net/manual/en/function.strftime.php
-  #$conf['dateformat']  = '%Y/%m/%d';
-  $conf['dateformat']  = '%d.%m.%Y';
+  $conf['dateformat']  = '%Y/%m/%d';
+  #$conf['dateformat']  = '%d.%m.%Y';
+
+  // Google maps key, you can specify multiple when running the app through different vhosts
+  $conf['gmaps'] = array(
+    'localhost'        => 'ABQIAAAAwcgTzX14Lq48uGhuAgaC-RT2yXp_ZAY8_ufC3CFXhHIE1NvwkxSoniRWQPYZHIWuWPbij8hFqvrEuw',
+    'intranet.cosmo'   => 'ABQIAAAAwcgTzX14Lq48uGhuAgaC-RTxyuybgLnXtMVD7dljhze3zUboVhTqk9yc-rQVvv2YwFFJN20RCNbIVA',
+    'intranet'         => 'ABQIAAAAwcgTzX14Lq48uGhuAgaC-RTjlGRJ-JcA4ENdYSxSTUELqnaldxSOyZdbUNylw_BZHH1bBLrQNGtjZg',
+    'fileserver.cosmo' => 'ABQIAAAAwcgTzX14Lq48uGhuAgaC-RQ2oMD1p7-NjsUZiDyjvzpK3IuhixTXdHGQRp8jtjwAl-P4oPPEB_hGgw',
+  );
 
   // Force recompilation of smarty templates?
   $conf['smartycompile'] = 1;
