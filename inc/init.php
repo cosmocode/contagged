@@ -1,6 +1,7 @@
 <?
   require_once(dirname(__FILE__).'/config.php');
   require_once(dirname(__FILE__).'/fields.php');
+  require_once(dirname(__FILE__).'/lang/en.php');
   require_once(dirname(__FILE__).'/lang/'.$conf['lang'].'.php');
   require_once(dirname(__FILE__).'/functions.php');
   require_once(dirname(__FILE__).'/template.php');
