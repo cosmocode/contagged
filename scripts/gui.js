@@ -189,5 +189,8 @@ $(document).ready(function() {
 
 
     // run google maps loader
-    if($('#google_map').length) gmap_loader();
+    if($('#google_map').length){
+        gmap_loader();
+        $(document).unload(GUnload);
+    }
 });
