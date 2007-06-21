@@ -3,24 +3,6 @@
   require_once('inc/init.php');
   ldap_login();
 
-  //prepare filter
-  $ldapfilter = _makeldapfilter();
-
-  //check public addressbook
-  $sr = ldap_list($LDAP_CON,$conf['publicbook'],$ldapfilter);
-  $result1 = ldap_get_binentries($LDAP_CON, $sr);
-  //check users private addressbook
-  if(!empty($_SESSION['ldapab']['binddn'])){
-    $sr = @ldap_list($LDAP_CON,
-                    $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
-                    $ldapfilter);
-    $result2 = ldap_get_binentries($LDAP_CON, $sr);
-  }else{
-    $result2 = '';
-  }
-
-  $result = array_merge((array)$result1,(array)$result2);
-
   // select entry template
   if(!empty($_REQUEST['export']) && $_REQUEST['export'] == 'csv'){
     $entrytpl = 'list_csv_entry.tpl';
@@ -29,6 +11,16 @@
   }else{
     $entrytpl = 'list_entry.tpl';
   }
+
+  // check which fields are needed
+  $fields = get_fields_from_template($entrytpl);
+
+
+  //prepare filter
+  $ldapfilter = _makeldapfilter();
+
+  // fetch results
+  $result = ldap_queryabooks($ldapfilter,$fields);
 
   $list = '';
   if(count($result)==1 && $_REQUEST['search']){

@@ -482,4 +482,28 @@ function utf8_encode_array(&$array) {
   }
 }
 
+/**
+ * Returns all the fields used in the template
+ *
+ * Returned fields are already decoded to LDAP internals
+ */
+function get_fields_from_template($tpl){
+    global $smarty;
+    global $FIELDS;
+    $tpl  = $smarty->template_dir.'/'.$tpl;
+    $data = @file_get_contents($tpl);
+    $matches = array();
+    preg_match_all('/\$entry\.(\w+)/',$data,$matches);
+    $matches = array_unique((array) $matches[1]);
+    $return  = array();
+    foreach($matches as $f){
+        if($FIELDS[$f]){
+            $return[] = $FIELDS[$f];
+        }elseif($FIELDS["_$f"]){
+            $return[] = $FIELDS["_$f"];
+        }
+    }
+    return $return;
+}
+
 ?>
