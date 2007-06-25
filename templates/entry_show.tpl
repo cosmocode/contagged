@@ -5,7 +5,7 @@
 {if $entry.photo != ''}
     <a href="img.php?dn={$entry.dn|escape:url}&amp;.jpg" rel="imagebox"
        title="{$entry.givenname|h} {$entry.name|h}"><img src="img.php?dn={$entry.dn|escape:url}"
-       align="right" class="photo" width="130" /></a>
+       align="right" class="photo" width="130" alt="" /></a>
 {/if}
 <h1>
     <img src="pix/{$entry.type|h}.png" border="0" width="22" height="22"
@@ -41,7 +41,7 @@
 {if $entry.country}
               {$entry.country|h}
 {/if}
-              </br /><br />
+              <br /><br />
             </td>
           </tr>
 {if $entry.phone}

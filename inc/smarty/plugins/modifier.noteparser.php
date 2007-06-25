@@ -36,7 +36,7 @@ function smarty_modifier_noteparser($string){
     $string = preg_replace('!\n\n+!','</p><p>',$string);
     $string = nl2br($string);
 
-    return '<p>'.$string.'</p>';
+    return '<p>'.$string.'&nbsp;</p>';
 }
 
 /* vim: set expandtab: */

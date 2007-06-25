@@ -10,6 +10,7 @@
   define('NL',"\n");
 
   //init session
+  @ini_set('arg_separator.output', '&amp;');
   session_name("ldapab");
   session_start();
 

@@ -5,11 +5,11 @@
     gmap_data = [
         {ldelim}
             adr: '{$entry.street|escape:javascript}, {$entry.zip|escape:javascript} {$entry.location|escape:javascript}',
-            info: '<h4>{$lang.business|escape:javascript}</h4>{$entry.street|escape:javascript}<br />{$entry.zip|escape:javascript} {$entry.location|escape:javascript}'
+            info: '\x3ch4\x3e{$lang.business|escape:javascript}\x3c/h4\x3e{$entry.street|escape:javascript}\x3cbr /\x3e{$entry.zip|escape:javascript} {$entry.location|escape:javascript}'
         {rdelim},
         {ldelim}
             adr: '{$entry.homestreet|replace:"\n":", "|escape:javascript}',
-            info: '<h4>{$lang.private|escape:javascript}</h4>{$entry.homestreet|replace:"\n":"<br />"|escape:javascript}'
+            info: '\x3ch4\x3c{$lang.private|escape:javascript}\x3c/h4\x3e{$entry.homestreet|replace:"\n":"\x3cbr /\x3e"|escape:javascript}'
         {rdelim}
     ];
 </script>

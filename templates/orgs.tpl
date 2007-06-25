@@ -4,10 +4,10 @@
 {foreach from=$orgs item=org}
     <tr>
         <td class="result" width="20">
-            <img src="pix/cog.png" border="0" width="16" height="16" align="middle" />
+            <img src="pix/cog.png" border="0" width="16" height="16" align="middle" alt="" />
         </td>
         <td class="result">
-            <a href="index.php?org={$org|escape:url}">{$org|h}</a><br>
+            <a href="index.php?org={$org|escape:url}">{$org|h}</a><br />
         </td>
     </tr>
 {foreachelse}
