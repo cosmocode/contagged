@@ -230,12 +230,7 @@ function prepare_ldap_entry($in){
             $out[$FIELDS["_$key"]][] = $value; //shouldn't happen, but to be sure
         }
     }else{
-        // no mapping found - assume it to be a LDAP attribute (shouldn't happen)
-        if(is_array($value)){
-            $out[$key] = $value;
-        }else{
-            $out[$key][] = $value;
-        }
+        // no mapping found we ignore it
     }
   }
 
