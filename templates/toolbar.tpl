@@ -62,11 +62,11 @@
   {if $list} <!-- export -->
     {if $smarty.request.export != 'map' && $conf.gmapkey}
         <li>
-          <a href="index.php?filter={$filter|escape:url}&amp;marker={$marker|escape:url}&amp;search={$search|escape:url}&amp;export=map" class="ed_map">{$lang.map}</a>
+          <a href="index.php?filter={$filter|escape:url}&amp;marker={$marker|escape:url}&amp;search={$search|escape:url}&amp;org={$org|escape:url}&amp;export=map" class="ed_map">{$lang.map}</a>
         </li>
     {/if}
     <li>
-      <a href="index.php?filter={$filter|escape:url}&amp;marker={$marker|escape:url}&amp;search={$search|escape:url}&amp;export=csv"
+      <a href="index.php?filter={$filter|escape:url}&amp;marker={$marker|escape:url}&amp;search={$search|escape:url}&amp;org={$org|escape:url}&amp;export=csv"
          class="ed_csvexport">{$lang.csvexport}</a>
     </li>
   {/if}

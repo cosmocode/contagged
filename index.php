@@ -45,6 +45,7 @@
   $smarty->assign('filter',$_REQUEST['filter']);
   $smarty->assign('marker',$_REQUEST['marker']);
   $smarty->assign('search',$_REQUEST['search']);
+  $smarty->assign('org',$_REQUEST['org']);
   //display templates
   if(!empty($_REQUEST['export'])){
     if ($conf['userlogreq'] == 1 && $user == ''){
