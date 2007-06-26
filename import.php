@@ -67,60 +67,58 @@ $smarty->display('footer.tpl');
 
 
 function vcard_entry($vcf){
-$entry['name']         = $vcf['N'][0]['value'][0][0];
-$entry['givenname']    = trim($vcf['N'][0]['value'][1][0].' '.$vcf['N'][0]['value'][2][0]);
-$entry['title']        = $vcf['N'][0]['value'][3][0];
-$entry['organization'] = $vcf['ORG'][0]['value'][0][0];
-$entry['office']       = $vcf['ORG'][0]['value'][1][0];
-$entry['note']         = $vcf['NOTE'][0]['value'][0][0];
-$entry['url']          = $vcf['URL'][0]['value'][0][0];
-$bday                  = $vcf['BDAY'][0]['value'][0][0];
-$entry['anniversary']  = substr($bday,0,4).'-'.substr($bday,4,2).'-'.substr($bday,6,2);
+    $entry = array();
 
-foreach($vcf['TEL'] as $tel){
-  if(   empty($entry['phone']) &&
-        array_search('WORK',$tel['param']['TYPE']) !== FALSE &&
-        array_search('VOICE',$tel['param']['TYPE']) !== FALSE){
-    // Work phone
-    $entry['phone'] = $tel['value'][0][0];
-  }elseif(empty($entry['fax']) &&
-          array_search('FAX',$tel['param']['TYPE']) !== FALSE){
-    $entry['fax'] = $tel['value'][0][0];
-  }elseif(empty($entry['mobile']) &&
-          array_search('CELL',$tel['param']['TYPE']) !== FALSE){
-    $entry['mobile'] = $tel['value'][0][0];
-  }elseif(empty($entry['pager']) &&
-          array_search('PAGER',$tel['param']['TYPE']) !== FALSE){
-    $entry['pager'] = $tel['value'][0][0];
-  }elseif(empty($entry['homephone']) &&
-          array_search('HOME',$tel['param']['TYPE']) !== FALSE &&
-          array_search('VOICE',$tel['param']['TYPE']) !== FALSE){
-    $entry['homephone'] = $tel['value'][0][0];
-  }
-}
-foreach($vcf['EMAIL'] as $mail){
-  $entry['mail'][] = $mail['value'][0][0];
-}
-foreach($vcf['ADR'] as $adr){
-  if(array_search('HOME',$adr['param']['TYPE']) !== FALSE){
-    $entry['homestreet'] = $adr['value'][2][0]."\n". //str
-                           $adr['value'][5][0]." ". //plz
-                           $adr['value'][3][0];      //ort
+    $entry['name']         = $vcf['N'][0]['value'][0][0];
+    $entry['givenname']    = trim($vcf['N'][0]['value'][1][0].' '.$vcf['N'][0]['value'][2][0]);
+    $entry['title']        = $vcf['N'][0]['value'][3][0];
+    $entry['organization'] = $vcf['ORG'][0]['value'][0][0];
+    $entry['office']       = $vcf['ORG'][0]['value'][1][0];
+    $entry['note']         = $vcf['NOTE'][0]['value'][0][0];
+    $entry['url']          = $vcf['URL'][0]['value'][0][0];
+    $bday                  = $vcf['BDAY'][0]['value'][0][0];
+    $entry['birthday']     = substr($bday,0,4).'-'.substr($bday,4,2).'-'.substr($bday,6,2);
 
-  }elseif(array_search('WORK',$adr['param']['TYPE']) !== FALSE){
-    $entry['street']   = $adr['value'][2][0];
-    $entry['location'] = $adr['value'][3][0];
-    $entry['zip']      = $adr['value'][5][0];
-  }
-}
+    foreach((array) $vcf['TEL'] as $tel){
+      if(   empty($entry['phone']) &&
+            array_search('WORK',(array) $tel['param']['TYPE']) !== false &&
+            array_search('VOICE',(array) $tel['param']['TYPE']) !== false){
+        // Work phone
+        $entry['phone'] = $tel['value'][0][0];
+      }elseif(empty($entry['fax']) &&
+              array_search('FAX',(array) $tel['param']['TYPE']) !== false){
+        $entry['fax'] = $tel['value'][0][0];
+      }elseif(empty($entry['mobile']) &&
+              array_search('CELL',(array) $tel['param']['TYPE']) !== false){
+        $entry['mobile'] = $tel['value'][0][0];
+      }elseif(empty($entry['pager']) &&
+              array_search('PAGER',(array) $tel['param']['TYPE']) !== false){
+        $entry['pager'] = $tel['value'][0][0];
+      }elseif(empty($entry['homephone']) &&
+              array_search('HOME',(array) $tel['param']['TYPE']) !== false &&
+              array_search('VOICE',(array) $tel['param']['TYPE']) !== false){
+        $entry['homephone'] = $tel['value'][0][0];
+      }
+    }
+    foreach((array) $vcf['EMAIL'] as $mail){
+      $entry['mail'][] = $mail['value'][0][0];
+    }
+    foreach((array) $vcf['ADR'] as $adr){
+      if(array_search('HOME',(array)$adr['param']['TYPE']) !== false){
+        $entry['homestreet'] = $adr['value'][2][0]."\n". //str
+                               $adr['value'][5][0]." ". //plz
+                               $adr['value'][3][0];      //ort
 
-/*
-print '<pre>';
-print_r($entry);
-print '</pre>';
-*/
+      }elseif((array) array_search('WORK',(array)$adr['param']['TYPE']) !== false){
+        $entry['street']   = $adr['value'][2][0];
+        $entry['location'] = $adr['value'][3][0];
+        $entry['zip']      = $adr['value'][5][0];
+        $entry['country']  = $adr['value'][6][0];
+        $entry['state']    = $adr['value'][4][0];
+      }
+    }
 
-return $entry;
+    return $entry;
 }
 
 

@@ -5,6 +5,7 @@
  * @subpackage plugins
  */
 
+require_once(dirname(__FILE__).'/modifier.escape.php');
 
 /**
  * Shortcut to the Smarty escape modifier plugin

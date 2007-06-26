@@ -1,39 +1,40 @@
 <tr>
-    <form action="entry.php" method="post" target="_import_" accept-charset="utf-8">
     <td class="result">
-        <b>{$entry.name}, {$entry.givenname}</b>
-    </td>
-    <td>
-        <input type="hidden" name="save" value="1" />
-        <input type="hidden" name="entry[name]" value="{$entry.name|escape}" />
-        <input type="hidden" name="entry[givenname]" value="{$entry.givenname|escape}" />
-        <input type="hidden" name="entry[title]" value="{$entry.title|escape}" />
-        <input type="hidden" name="entry[organization]" value="{$entry.organization|escape}" />
-        <input type="hidden" name="entry[office]" value="{$entry.office|escape}" />
-        <input type="hidden" name="entry[street]" value="{$entry.street|escape}" />
-        <input type="hidden" name="entry[zip]" value="{$entry.zip|escape}" />
-        <input type="hidden" name="entry[location]" value="{$entry.location|escape}" />
-        <input type="hidden" name="entry[phone]" value="{$entry.phone|escape}" />
-        <input type="hidden" name="entry[fax]" value="{$entry.fax|escape}" />
-        <input type="hidden" name="entry[pager]" value="{$entry.pager|escape}" />
-        <input type="hidden" name="entry[homestreet]" value="{$entry.homestreet|escape}" />
-        <input type="hidden" name="entry[homephone]" value="{$entry.homephone|escape}" />
-        <input type="hidden" name="entry[mobile]" value="{$entry.mobile|escape}" />
-        <input type="hidden" name="entry[url]" value="{$entry.url|escape}" />
-        {foreach from=$entry.mail item=mail}
-        <input type="hidden" name="entry[mail][]" value="{$mail|escape}" />
-        {/foreach}
-        <input type="hidden" name="entry[note]" value="{$entry.note|escape}" />
-        <input type="hidden" name="entry[anniversary]" value="{$entry.anniversary|escape}" />
+        <b>{$entry.name|h}, {$entry.givenname|h}</b><br />
+        <i>{$entry.organization|h} {$entry.street|h} {$entry.zip|h} {$entry.location|h}</i>
     </td>
     <td class="result" align="right">
-        <button name="type" value="public">
-            <img src="pix/public.png" border="0" width="16" height="16" align="middle">{$lang.publicbook}
+        <form action="entry.php" method="post" target="import" accept-charset="utf-8">
+        <input type="hidden" name="save" value="1" />
+        <input type="hidden" name="entry[name]" value="{$entry.name|h}" />
+        <input type="hidden" name="entry[givenname]" value="{$entry.givenname|h}" />
+        <input type="hidden" name="entry[title]" value="{$entry.title|h}" />
+        <input type="hidden" name="entry[organization]" value="{$entry.organization|h}" />
+        <input type="hidden" name="entry[office]" value="{$entry.office|h}" />
+        <input type="hidden" name="entry[street]" value="{$entry.street|h}" />
+        <input type="hidden" name="entry[zip]" value="{$entry.zip|h}" />
+        <input type="hidden" name="entry[location]" value="{$entry.location|h}" />
+        <input type="hidden" name="entry[country]" value="{$entry.country|h}" />
+        <input type="hidden" name="entry[state]" value="{$entry.state|h}" />
+        <input type="hidden" name="entry[phone]" value="{$entry.phone|h}" />
+        <input type="hidden" name="entry[fax]" value="{$entry.fax|h}" />
+        <input type="hidden" name="entry[pager]" value="{$entry.pager|h}" />
+        <input type="hidden" name="entry[homestreet]" value="{$entry.homestreet|h}" />
+        <input type="hidden" name="entry[homephone]" value="{$entry.homephone|h}" />
+        <input type="hidden" name="entry[mobile]" value="{$entry.mobile|h}" />
+        <input type="hidden" name="entry[url]" value="{$entry.url|h}" />
+        {foreach from=$entry.mail item=mail}
+        <input type="hidden" name="entry[mail][]" value="{$mail|h}" />
+        {/foreach}
+        <input type="hidden" name="entry[note]" value="{$entry.note|h}" />
+        <input type="hidden" name="entry[birthday]" value="{$entry.birthday|h}" />
+        <button name="type" value="public" class="button">
+            <img src="pix/public.png" border="0" width="16" height="16" align="middle" alt="" />{$lang.publicbook}
         </button>
-        <button name="type" value="private">
-            <img src="pix/private.png" border="0" width="16" height="16" align="middle">{$lang.privatebook}
+        <button name="type" value="private" class="button">
+            <img src="pix/private.png" border="0" width="16" height="16" align="middle" alt="" />{$lang.privatebook}
         </button>
-  </td>
-  </form>
+        </form>
+    </td>
 </tr>
 

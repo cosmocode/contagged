@@ -1,7 +1,7 @@
     <form method="get" action="index.php" accept-charset="utf-8" class="search">
         <input type="text" name="search" class="searchfield" id="searchfield"
                value="{$smarty.request.search|h}" />
-        <input type="submit" value="{$lang.search}" class="searchbutton" />
+        <input type="submit" value="{$lang.search}" class="button" />
     </form>
 
 {if $fields._marker}
@@ -10,7 +10,7 @@
 
         <input name="marker" class="searchfield" type="text" id="taglookup"
                value="{$smarty.request.marker|h}" />
-        <input type="submit" value="{$lang.search}" class="searchbutton" />
+        <input type="submit" value="{$lang.search}" class="button" />
     </form>
 {/if}
 

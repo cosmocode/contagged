@@ -4,7 +4,7 @@
         <legend>{$lang.upload}</legend>
         <label for="upload">{$lang.msg_uploadvcf}:</label>
         <input name="userfile" type="file" class="upload" id="upload" />
-        <input type="submit" value="{$lang.upload}" />
+        <input type="submit" value="{$lang.upload}" class="button" />
     </fieldset>
 </form>
 

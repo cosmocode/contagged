@@ -49,13 +49,18 @@ img.photo {
 
 /* forms */
 
-input, select, textarea {
+input, select, textarea, button {
     border: 1px solid #999;
     background-color: #F5F5F5;
 }
 
 input:focus, select:focus, textarea:focus {
     border: 1px solid #06c;
+}
+
+.button {
+    background-color: #ddd;
+    cursor: pointer;
 }
 
 /* editing and other link icons */
