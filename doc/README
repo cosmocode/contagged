@@ -14,13 +14,13 @@ them to authenticate.
 You need a webserver (peferable Apache) with PHP (4.3 or higher). PHP needs to
 be compiled with LDAP support (compiled in or as extension)
 
-=== SETUP LDAPab ===
+=== SETUP ConTagged ===
 
 Copy the contents of the .tgz file to a directory below your webserver document
 root. Make sure the webserver is able to write to the cache directory which is
 used for the template engine's cache files. A 'chmod 777 cache' will do.
 
-Open the config.php file in your favourite editor and edit the options
+Open the inc/config.php file in your favourite editor and edit the options
 according to your needs. Some knowlege about LDAP may come in handy.
 
 If HTTP auth is wanted have a look at the provided _htaccess file, edit it as
@@ -35,12 +35,13 @@ You need to include the inetOrgPerson schema in you slapd.conf:
 
   include /etc/ldap/schema/inetorgperson.schema
 
-If youwant to use the extended schema (needed for tagging and birthday support)
-you need to copy the ldapab.schema file to /etc/ldap/schema/ and include it, too.
+If you want to use the extended schema (needed for tagging) you need to copy the
+ldapab.schema file to /etc/ldap/schema/ and include it, too.
 
   include         /etc/ldap/schema/ldapab.schema
 
-Be sure to enable the extended option in config.php.
+If you don't use the extended schema you need to edit inc/fields.php as described
+below.
 
 To setup the access rights add the following statement to your slapd.conf. Of
 course you have to replace "o=cosmocode,c=de" with your own root DN. The first
@@ -73,6 +74,25 @@ If you made everything correct you can point your webbrowser to the newly
 installed ConTagged and use it :-) If you encounter problems try to enable
 logging in your LDAP server to see what the problem is.
 
+=== USING DIFFERENT OBJECTCLASSES ===
+
+This new version of ConTagged is very flexible in how your contacts should be
+stored in your LDAP directory. ConTagged uses internal field names which can be
+mapped to arbitrary LDAP attributes.
+
+By default, all contacts are stored with the inetOrgPerson and contactPerson
+object classes. If you want to use different classes and attributes, you can to
+so by changing the arrays $OCLASSES and $FIELDS in inc/fields.php.
+
+Note: your contacts should *always* use the inetOrgPerson objectclass at
+minimum, but you can add any other objectclasses. Examples for OXUserObject
+from OpenExchange and evolutionPerson from the Evolution software are given
+in fields.php already.
+
+If you want to add new internal field names, you need to adjust the templates
+accordingly. If you add support for new schemas, please send your changes to
+us for inclusion in a next release.
+
 === FEEDBACK, PATCHES, SUPPORT ===
 
 This software was developed to satisfy a need in our company. We give it to the
@@ -93,7 +113,7 @@ LDAP Servers.
 === LICENSE ===
 
 ConTagged - An LDAP based Company Address Book
-Copyright 2004 - 2006 - CosmoCode GmbH
+Copyright 2004 - 2007 - CosmoCode GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as

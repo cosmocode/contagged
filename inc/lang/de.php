@@ -15,7 +15,9 @@ $lang['office']         = 'Abteilung';
 $lang['street']         = 'Straße, Nr.';
 $lang['zip']            = 'Postleitzahl';
 $lang['location']       = 'Ort';
+$lang['state']          = 'Bundesland';
 $lang['phone']          = 'Telefon';
+$lang['switchboard']    = 'Zentrale';
 $lang['fax']            = 'FAX';
 $lang['mobile']         = 'Handy';
 $lang['pager']          = 'Pieper';
@@ -34,6 +36,7 @@ $lang['tagcloud']       = 'Alle verwendeten Tags, alphabetisch sortiert. Häufig
 $lang['business']       = 'Geschäftlich';
 $lang['private']        = 'Privat';
 $lang['extended']       = 'Zusätzliche Infos';
+$lang['communication']  = 'Kommunikation';
 
 $lang['delphoto']       = 'Vorhandenes Foto löschen';
 
@@ -46,6 +49,7 @@ $lang['show']           = 'Anzeigen';
 $lang['new']            = 'Neu';
 $lang['delete']         = 'Löschen';
 $lang['copy']           = 'Kopieren';
+$lang['map']            = 'Karte';
 $lang['csvexport']      = 'CSV';
 $lang['vcfexport']      = 'VCard';
 $lang['vcfimport']      = 'Import';
@@ -58,7 +62,6 @@ $lang['upload']         = 'Hochladen';
 
 $lang['publicbook']     = 'Öffentliches Adressbuch';
 $lang['privatebook']    = 'Privates Adressbuch';
-
 
 $lang['username']       = 'Benutzername';
 $lang['password']       = 'Passwort';
@@ -76,4 +79,15 @@ $lang['msg_tagsep']     = 'Durch Komma getrennt';
 $lang['err_noentries']  = 'Keine Einträge';
 $lang['err_ldap']       = 'Der LDAP Server lieferte folgende Fehlermeldungen';
 
-
+$lang['openxchange']      = 'Xchange Information';
+$lang['moreopenxchange']  = 'Xchange Information (Fort.)';
+$lang['instantmessenger'] = 'IM';
+$lang['birthday']         = 'Birthday';
+$lang['domain']           = 'Mail Domain';
+$lang['country']          = 'Land';
+$lang['certificate']      = 'x.509 Cert';
+$lang['timezone']         = 'Zeitzone';
+$lang['position']         = 'Position';
+$lang['department']       = 'Abteilung';
+$lang['ipphone']          = 'IP Tel.';
+$lang['spouse']           = 'Ehepartner';
