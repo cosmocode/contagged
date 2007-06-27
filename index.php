@@ -100,6 +100,7 @@
     if (empty($_REQUEST['search'])) { $_REQUEST['search']=''; }
     if (empty($_REQUEST['org'])) { $_REQUEST['org']=''; }
     if (empty($_REQUEST['marker'])) { $_REQUEST['marker']=''; }
+    if(is_numeric($_REQUEST['search'])) $number = $_REQUEST['search'];
     $filter = ldap_filterescape($_REQUEST['filter']);
     $search = ldap_filterescape($_REQUEST['search']);
     $org    = ldap_filterescape($_REQUEST['org']);
@@ -116,6 +117,25 @@
         $ldapfilter .= '('.$FIELDS['_marker'].'='.$m.')';
       }
       $ldapfilter .= ')';
+    }elseif($number){
+      // Search by telephone number
+      $filter = '';
+      // add wildcards between digits to compensate for any formatting
+      $length = strlen($number);
+      for($i=0; $i <$length; $i++){
+        $filter .= '*'.$number{$i};
+      }
+      $filter .= '*';
+      $ldapfilter = '(&'.
+                        '(objectClass=inetOrgPerson)'.
+                        '(|'.
+                            '(|'.
+                                '('.$FIELDS['phone'].'='.$filter.')'.
+                                '('.$FIELDS['homephone'].'='.$filter.')'.
+                            ')'.
+                            '('.$FIELDS['homephone'].'='.$filter.')'.
+                        ')'.
+                    ')';
     }elseif(!empty($search)){
       // Search name and organization
       $search = trim($search);
