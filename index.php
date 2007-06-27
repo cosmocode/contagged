@@ -133,7 +133,7 @@
                                 '('.$FIELDS['phone'].'='.$filter.')'.
                                 '('.$FIELDS['homephone'].'='.$filter.')'.
                             ')'.
-                            '('.$FIELDS['homephone'].'='.$filter.')'.
+                            '('.$FIELDS['mobile'].'='.$filter.')'.
                         ')'.
                     ')';
     }elseif(!empty($search)){
