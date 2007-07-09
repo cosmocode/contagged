@@ -25,7 +25,7 @@
   $list = '';
   if(count($result)==1 && $_REQUEST['search']){
     //only one result on a search -> display page
-    header("Location: entry.php?dn=".$result[0]['dn']);
+    header("Location: entry.php?dn=".rawurlencode($result[0]['dn']));
     exit;
   }elseif(count($result)){
     $keys = array_keys($result);
