@@ -141,7 +141,7 @@
 {if $entry.url}
           <tr>
             <th>{$lang.url}:</th>
-            <td><a href="{$entry.url|http}" target="_blank">{$entry.url|h}</a></td>
+            <td>{$entry.url|http}</td>
           </tr>
 {/if}
 {if $entry.mail}

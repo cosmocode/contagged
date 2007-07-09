@@ -10,9 +10,7 @@
  * Smarty plugin
  *
  * Type:     modifier
- * Name:     noteparser
  * Date:     2007-06-19
- * Purpose:  Add the http:// protocol if missing
  * Example:  {$foo|http}
  * @author   Andreas Gohr <gohr@cosmocode.de>
  * @param string
@@ -21,11 +19,16 @@
 function smarty_modifier_http($string){
     if(!$string) return '';
 
-    if(!preg_match('#^\w+://#',$string)){
-        $string = 'http://'.$string;
+    list($url,$name) = explode(' ',$string,2);
+
+
+    if(!preg_match('#^\w+://#',$url)){
+        $url = 'http://'.$url;
     }
 
-    return $string;
+    if(!$name) $name = $url;
+
+    return '<a href="'.htmlspecialchars($url).'" target="_blank">'.htmlspecialchars($name).'</a>';
 }
 
 /* vim: set expandtab: */
