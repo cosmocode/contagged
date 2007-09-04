@@ -28,7 +28,8 @@ if (empty($_REQUEST['dn'])) {
 if($_SESSION['ldapab']['username'] && !empty($_REQUEST['save']) && $_REQUEST['save']){
   // prepare special data
   $_REQUEST['entry']['photo']  = _getUploadData();
-  $_REQUEST['entry']['marker'] = explode(',',$_REQUEST['entry']['markers']);
+  if($_REQUEST['entry']['markers'])
+    $_REQUEST['entry']['marker'] = explode(',',$_REQUEST['entry']['markers']);
   unset($_REQUEST['entry']['markers']);
 
   foreach(array_keys($_REQUEST['entry']) as $field){
