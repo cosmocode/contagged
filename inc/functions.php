@@ -67,7 +67,7 @@ function do_ldap_bind($user,$pass,$dn=""){
   if(empty($dn)){
     //anonymous bind to lookup users
     //blank binddn or blank bindpw will result in anonymous bind
-    if(!ldap_bind($LDAP_CON,$conf['anonbinddn'],$conf['anonbindpw'])){
+    if(!@ldap_bind($LDAP_CON,$conf['anonbinddn'],$conf['anonbindpw'])){
       die("can not bind for user lookup");
     }
 
@@ -89,7 +89,7 @@ function do_ldap_bind($user,$pass,$dn=""){
   }
 
   //bind with dn
-  if(ldap_bind($LDAP_CON,$dn,$pass)){
+  if(@ldap_bind($LDAP_CON,$dn,$pass)){
     //bind successful -> set up session
     set_session($user,$pass,$dn);
     return true;
