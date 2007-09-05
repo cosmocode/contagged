@@ -173,6 +173,27 @@ print '</pre>';
         tpl_ldaperror("mod $key");
       }
     }
+
+    // special tag handling for Thunderbird
+    if($conf['tbtaghack'] && in_array('contactPerson',$OCLASSES)){
+        for($i=1;$i<5;$i++){
+            if(empty($entry["custom$i"])){
+                // deletion
+                unset($del);
+                $del["custom$i"]=array();
+                $r = @ldap_mod_replace($LDAP_CON,$dn,$del);
+                tpl_ldaperror("del custom$i");
+            }else{
+                // modification
+                unset($add);
+                $add["custom$i"]=$entry["custom$i"];
+                $r = @ldap_mod_replace($LDAP_CON,$dn,$add);
+                tpl_ldaperror("mod custom$i");
+            }
+        }
+    }
+
+
     return $dn;
   }
 }

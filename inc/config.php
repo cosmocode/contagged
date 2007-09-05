@@ -37,18 +37,13 @@
   // Should the public address book be viewable by logged in users only? (0|1)
   $conf['userlogreq']  = 0;
 
-  // Should the additional schema ldapab.schema be used? (0|1)
-  // Note: openxchange and extended are currently exclusive, do not use both at the same time!
-  $conf['extended']    = 1;
-
-  // Should we use some parts of the openxchange.schema? (0|1)
-  // Note: openxchange and extended are currently exclusive, do not use both at the same time!
-  $conf['openxchange'] = 0;
-
   // Should we try to login using the username and password provided by httpd? (0|1)
   $conf['httpd_auth']  = 0;
 
-  // Dateformat for birthdays when using extended schema
+  // Store the first 4 tags in Thunderbird's custom fields when using ldapab.schema
+  $conf['tbtaghack']   = 1;
+
+  // Dateformat for birthdays and anniversary
   // see http://www.php.net/manual/en/function.strftime.php
   $conf['dateformat']  = '%Y/%m/%d';
   #$conf['dateformat']  = '%d.%m.%Y';

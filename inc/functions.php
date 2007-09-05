@@ -234,6 +234,15 @@ function prepare_ldap_entry($in){
     }
   }
 
+  // special tag handling for Thunderbird
+  if($conf['tbtaghack'] && in_array('contactPerson',$OCLASSES)){
+    if($in['marker'][0]) $out['custom1'][] = $in['marker'][0];
+    if($in['marker'][1]) $out['custom2'][] = $in['marker'][1];
+    if($in['marker'][2]) $out['custom3'][] = $in['marker'][2];
+    if($in['marker'][3]) $out['custom4'][] = $in['marker'][3];
+  }
+
+
   // add the Objectclasses
   $out['objectclass'] = $OCLASSES;
 

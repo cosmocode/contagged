@@ -6,11 +6,7 @@ include         /etc/ldap/schema/core.schema
 include         /etc/ldap/schema/cosine.schema
 include         /etc/ldap/schema/nis.schema
 include         /etc/ldap/schema/inetorgperson.schema
-include		/etc/ldap/schema/samba.schema
-include		/etc/ldap/schema/courierimap.schema
-include		/etc/ldap/schema/phpgwaccount.schema
-include		/etc/ldap/schema/phpgwcontact.schema
-include		/etc/ldap/schema/ldapab.schema
+include         /etc/ldap/schema/ldapab.schema
 
 
 # Schema check allows for forcing entries to
@@ -25,11 +21,11 @@ pidfile         /var/run/slapd.pid
 argsfile        /var/run/slapd.args
 
 # Where to store the replica logs
-replogfile	/var/lib/ldap/replog
+replogfile  /var/lib/ldap/replog
 
 # Read slapd.conf(5) for possible values
 #loglevel        256
-loglevel	0
+loglevel    0
 
 #######################################################################
 # ldbm database definitions
@@ -87,7 +83,7 @@ access to attribute=ntPassword
         by * none
 
 # private LDAP Addressbook is readable and writable for the owner only
-access	to dn="(.*,)?ou=contacts,cn=([^,]+),ou=people,(.*)$"
+access  to dn="(.*,)?ou=contacts,cn=([^,]+),ou=people,(.*)$"
         by dn="cn=$2,ou=people,$3" write
         by * none
 
@@ -95,8 +91,8 @@ access	to dn="(.*,)?ou=contacts,cn=([^,]+),ou=people,(.*)$"
 # This entry has to be _before_ any other entry that matches the contact
 # tree eg. the * entry
 access to dn.subtree="ou=contacts,o=cosmocode,c=de"
-	by users write
-	by * read
+    by users write
+    by * read
 
 # The admin dn has full write access
 access to *

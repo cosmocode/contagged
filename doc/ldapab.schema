@@ -29,7 +29,7 @@ objectIdentifier LDAPab       cosmocodeOID:2.2
 
 
 attributetype ( 1.3.6.1.4.1.16331.2.2.1.1 NAME 'anniversary'
-                DESC 'Holds Birthdays etc.'
+                DESC 'Holds Marriage dates etc.'
                 EQUALITY caseIgnoreMatch
                 ORDERING caseIgnoreOrderingMatch
                 SUBSTR caseIgnoreSubstringsMatch
@@ -37,15 +37,60 @@ attributetype ( 1.3.6.1.4.1.16331.2.2.1.1 NAME 'anniversary'
                 SINGLE-VALUE )
 
 attributetype ( 1.3.6.1.4.1.16331.2.2.1.2 NAME 'marker'
-                DESC 'marking flag'
+                DESC 'For tagging support'
                 EQUALITY caseIgnoreMatch
                 ORDERING caseIgnoreOrderingMatch
                 SUBSTR caseIgnoreSubstringsMatch
                 SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
                )
 
+attributetype ( 1.3.6.1.4.1.16331.2.2.1.3 NAME 'birthday'
+                DESC 'Date of birth'
+                EQUALITY caseIgnoreMatch
+                ORDERING caseIgnoreOrderingMatch
+                SUBSTR caseIgnoreSubstringsMatch
+                SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+                SINGLE-VALUE )
+
+attributetype ( 1.3.6.1.4.1.16331.2.2.1.51 NAME 'custom1'
+                DESC 'Thunderbird compatible custom field 1'
+                EQUALITY caseIgnoreMatch
+                ORDERING caseIgnoreOrderingMatch
+                SUBSTR caseIgnoreSubstringsMatch
+                SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+              )
+
+attributetype ( 1.3.6.1.4.1.16331.2.2.1.52 NAME 'custom2'
+                DESC 'Thunderbird compatible custom field 2'
+                EQUALITY caseIgnoreMatch
+                ORDERING caseIgnoreOrderingMatch
+                SUBSTR caseIgnoreSubstringsMatch
+                SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+              )
+
+attributetype ( 1.3.6.1.4.1.16331.2.2.1.53 NAME 'custom3'
+                DESC 'Thunderbird compatible custom field 3'
+                EQUALITY caseIgnoreMatch
+                ORDERING caseIgnoreOrderingMatch
+                SUBSTR caseIgnoreSubstringsMatch
+                SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+              )
+
+attributetype ( 1.3.6.1.4.1.16331.2.2.1.54 NAME 'custom4'
+                DESC 'Thunderbird compatible custom field 4'
+                EQUALITY caseIgnoreMatch
+                ORDERING caseIgnoreOrderingMatch
+                SUBSTR caseIgnoreSubstringsMatch
+                SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{256}
+              )
+
+
+
+
 objectclass ( 1.3.6.1.4.1.16331.2.2.2.1 NAME 'contactPerson'
           DESC 'Contact - Addressbook entry'
               AUXILIARY
-              MAY  ( anniversary $ marker )
+              MAY  ( anniversary $ marker $ birthday $ custom1 $ custom2 $ custom3 $ custom4 )
             )
+
+
