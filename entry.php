@@ -2,6 +2,11 @@
 require_once('inc/init.php');
 ldap_login();
 
+if ($conf['userlogreq'] && $user == ''){
+  header('Location: login.php');
+  exit();
+}
+
 $users = get_users();
 
 //select template to use

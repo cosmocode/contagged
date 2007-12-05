@@ -2,6 +2,11 @@
   require_once('inc/init.php');
   ldap_login();
 
+  if ($conf['userlogreq'] && $user == ''){
+    header('Location: login.php');
+    exit();
+  }
+
   //prepare templates
   tpl_std();
   $smarty->assign('tagcloud',tag_cloud());

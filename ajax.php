@@ -2,6 +2,13 @@
 require_once('inc/init.php');
 ldap_login();
 
+if ($conf['userlogreq'] && $user == ''){
+  header("HTTP/1.1 401 Access Denied");
+  echo '<h1>Access Denied</h1>';
+  exit();
+}
+
+
 $FIELD = preg_replace('/entry\[/','',$_REQUEST['field']);
 $FIELD = preg_replace('/\W+/','',$FIELD);
 
