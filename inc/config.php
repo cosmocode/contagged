@@ -1,4 +1,4 @@
-<?
+<?php
 
   // LDAP URL; if set, takes precedence over ldapserver and ldapport
   #$conf['ldapurl']     = 'ldaps://ldap.example.com/';

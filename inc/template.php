@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * assigns some standard variables to smarty templates

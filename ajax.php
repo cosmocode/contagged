@@ -1,4 +1,4 @@
-<?
+<?php
 require_once('inc/init.php');
 ldap_login();
 

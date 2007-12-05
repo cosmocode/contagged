@@ -1,4 +1,4 @@
-<?
+<?php
   require_once(dirname(__FILE__).'/config.php');
   require_once(dirname(__FILE__).'/fields.php');
   require_once(dirname(__FILE__).'/lang/en.php');
