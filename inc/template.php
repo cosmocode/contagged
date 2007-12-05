@@ -96,7 +96,10 @@ function tpl_ldaperror($message=""){
     $__LDAPERROR__ .= ldap_err2str($errno);
     if(!empty($message)){
       $__LDAPERROR__ .= "($message)";
+    }elseif($errno == 4){
+      $__LDAPERROR__ .= "(You need to increase this limit in your server config)";
     }
+    $__LDAPERROR__ .= '<br />';
   }
   $smarty->assign("LDAPERRORS",$__LDAPERROR__);
 }

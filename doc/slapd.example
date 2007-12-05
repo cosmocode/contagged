@@ -27,6 +27,9 @@ replogfile  /var/lib/ldap/replog
 #loglevel        256
 loglevel    0
 
+# Don't set a limit n returned result sets
+sizelimit -1
+
 #######################################################################
 # ldbm database definitions
 #######################################################################

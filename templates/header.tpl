@@ -42,7 +42,7 @@
     {if $LDAPERRORS != ''}
         <div class="ldaperror" onclick="this.style.display = 'none'">
             <h3>{$lang.err_ldap}</h3>
-            <p>{$LDAPERRORS|escape}</p>
+            <p>{$LDAPERRORS}</p>
         </div>
     {/if}
 
