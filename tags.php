@@ -6,7 +6,6 @@
     header('Location: login.php');
     exit();
   }
-
   //prepare templates
   tpl_std();
   $smarty->assign('tagcloud',tag_cloud());
@@ -18,10 +17,9 @@
     global $conf;
     global $LDAP_CON;
     global $FIELDS;
-    if(!$conf['extended']) return;
+    if(!$FIELDS['_marker']) return;
 
     $result = ldap_queryabooks('(objectClass=inetOrgPerson)',$FIELDS['_marker']);
-
     $max = 0;
     $min = 999999999;
     $tags = array();
