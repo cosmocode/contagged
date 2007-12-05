@@ -89,8 +89,9 @@ function _fetchData($dn){
   global $smarty;
   global $users; //contains the users for manager role
 
-  $sr = ldap_search($LDAP_CON,$dn,'(objectClass=inetOrgPerson)');
-  if(!ldap_count_entries($LDAP_CON,$sr)){
+  $sr = @ldap_search($LDAP_CON,$dn,'(objectClass=inetOrgPerson)');
+  tpl_ldaperror();
+  if(!@ldap_count_entries($LDAP_CON,$sr)){
     return false;
   }
   $result = ldap_get_binentries($LDAP_CON, $sr);

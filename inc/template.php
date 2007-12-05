@@ -97,7 +97,6 @@ function tpl_ldaperror($message=""){
     if(!empty($message)){
       $__LDAPERROR__ .= "($message)";
     }
-    $__LDAPERROR__ .= '\n';
   }
   $smarty->assign("LDAPERRORS",$__LDAPERROR__);
 }

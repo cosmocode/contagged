@@ -28,9 +28,6 @@
     <script src="scripts/gui.js" type="text/javascript"></script>
 
     <script type="text/javascript">
-        {if $LDAPERRORS != ''}
-            window.alert('{$lang.err_ldap}:\n\n{$LDAPERRORS|escape:quotes}');
-        {/if}
         {if $entry.dn}
             DN = '{$entry.dn|escape:javascript}';
         {/if}
@@ -42,6 +39,13 @@
 <body>
 
 <div id="ldapab">
+    {if $LDAPERRORS != ''}
+        <div class="ldaperror" onclick="this.style.display = 'none'">
+            <h3>{$lang.err_ldap}</h3>
+            <p>{$LDAPERRORS|escape}</p>
+        </div>
+    {/if}
+
 
     <div id="titlerow">
         <div class="logo">

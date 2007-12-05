@@ -386,8 +386,9 @@ function ldap_queryabooks($filter,$types){
   $result2 = array();
 
   // public addressbook
-  $sr      = ldap_list($LDAP_CON,$conf['publicbook'],
-                       $filter,$types);
+  $sr      = @ldap_list($LDAP_CON,$conf['publicbook'],
+                        $filter,$types);
+  tpl_ldaperror();
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   ldap_free_result($sr);
 
@@ -396,6 +397,7 @@ function ldap_queryabooks($filter,$types){
     $sr      = @ldap_list($LDAP_CON,$conf['privatebook'].
                           ','.$_SESSION['ldapab']['binddn'],
                           $filter,$types);
+    tpl_ldaperror();
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
   }
 

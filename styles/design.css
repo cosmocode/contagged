@@ -148,3 +148,20 @@ a.cloud_4 {font-size: 160%; }
 a.cloud_5 {font-size: 180%; }
 a.cloud_6 {font-size: 200%; }
 
+
+div.ldaperror {
+  border: 1px solid #c33;
+  background: #fcc url(../pix/ldaperror.png) 10px 10px no-repeat;
+  width: 50%;
+  position: absolute;
+  z-index: 555;
+  top: 20%;
+  left: 25%;
+  padding: 0.5em 0.5em 1em 80px;
+  height: auto !important;
+  height: 60px;
+  min-height: 60px;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
