@@ -397,7 +397,7 @@ function ldap_queryabooks($filter,$types){
     $sr      = @ldap_list($LDAP_CON,$conf['privatebook'].
                           ','.$_SESSION['ldapab']['binddn'],
                           $filter,$types);
-    tpl_ldaperror();
+    if(ldap_errno($LDAP_CON) != 32) tpl_ldaperror(); // ignore missing address book
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
   }
 
