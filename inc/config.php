@@ -63,6 +63,6 @@
   );
 
   // Force recompilation of smarty templates?
-  $conf['smartycompile'] = 1;
+  $conf['smartycompile'] = 0;
 
 
