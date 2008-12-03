@@ -393,7 +393,7 @@ function ldap_queryabooks($filter,$types){
   ldap_free_result($sr);
 
   // private addressbook
-  if(!empty($_SESSION['ldapab']['binddn'])){
+  if(!empty($_SESSION['ldapab']['binddn']) && $conf['privatebook']){
     $sr      = @ldap_list($LDAP_CON,$conf['privatebook'].
                           ','.$_SESSION['ldapab']['binddn'],
                           $filter,$types);

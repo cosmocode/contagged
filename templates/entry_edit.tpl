@@ -310,7 +310,7 @@
     </td>
   </tr>
 
-  {if $entry.dn == ''}
+  {if $entry.dn == '' && $conf.privatebook}
   <tr>
     <td colspan="2" align="center">
       {$lang.msg_addto}<br />
@@ -322,6 +322,8 @@
       </td></tr></table>
     </td>
   </tr>
+  {else}
+      <input type="hidden" name="type" value="public" id="typepublic"/>
   {/if}
 
   <tr>

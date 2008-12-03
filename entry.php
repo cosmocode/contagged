@@ -133,7 +133,7 @@ function _saveData(){
   $now    = time();
   $newdn  = 'uid='.$now;
   if (empty($_REQUEST['type'])) { $_REQUEST['type']='public'; }
-  if($_REQUEST['type'] == 'private'){
+  if($_REQUEST['type'] == 'private' && $conf['privatebook']){
     $newdn .= ', '.$conf['privatebook'].', '.$_SESSION['ldapab']['binddn'];
   }else{
     $newdn .= ', '.$conf['publicbook'];
@@ -231,7 +231,7 @@ function _getUploadData(){
       unlink($file['tmp_name']);
       return $data;
     } else {
-      $smarty->assign('jpegError',$lang['err_wrongFileType']); 
+      $smarty->assign('jpegError',$lang['err_wrongFileType']);
     }
   } else {
     $smarty->assign('jpegError',$lang['err_fileNotUploaded']);

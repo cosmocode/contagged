@@ -119,7 +119,7 @@ function tpl_markers(){
   $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=inetOrgPerson",array("marker"));
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
-  if(!empty($_SESSION['ldapab']['binddn'])){
+  if(!empty($_SESSION['ldapab']['binddn']) && $conf['privatebook']){
     $sr = @ldap_list($LDAP_CON,
                     $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     "ObjectClass=inetOrgPerson",array("marker"));
@@ -183,7 +183,7 @@ function tpl_categories(){
   $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=OXUserObject",array("OXUserCategories"));
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
-  if(!empty($_SESSION['ldapab']['binddn'])){
+  if(!empty($_SESSION['ldapab']['binddn']) && $conf['privatebook']){
     $sr = @ldap_list($LDAP_CON,
                     $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     "ObjectClass=OXUserObject",array("OXUserCategories"));
@@ -221,7 +221,7 @@ function tpl_timezone(){
   $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=OXUserObject",array("OXTimeZone"));
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
-  if(!empty($_SESSION['ldapab']['binddn'])){
+  if(!empty($_SESSION['ldapab']['binddn']) && $conf['privatebook']){
     $sr = @ldap_list($LDAP_CON,
                     $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     "ObjectClass=OXUserObject",array("OXTimeZone"));
@@ -259,7 +259,7 @@ function tpl_country(){
   $sr = ldap_list($LDAP_CON,$conf['publicbook'],"ObjectClass=OXUserObject",array("userCountry"));
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
   //check users private addressbook
-  if(!empty($_SESSION['ldapab']['binddn'])){
+  if(!empty($_SESSION['ldapab']['binddn']) && $conf['privatebook']){
     $sr = @ldap_list($LDAP_CON,
                     $conf['privatebook'].','.$_SESSION['ldapab']['binddn'],
                     "ObjectClass=OXUserObject",array("userCountry"));

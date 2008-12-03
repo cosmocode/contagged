@@ -22,7 +22,7 @@
 
 <h3>Private Addressbook</h3>
 
-{if $binddn}
+{if $binddn && $conf.privatebook}
 <p>To access your personal address data use these settings:</p>
 <dl>
   <dt>LDAP-Server</dt>
