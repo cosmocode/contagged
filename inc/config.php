@@ -21,6 +21,9 @@
   // How to match users? %u is replaced by the given login
   $conf['userfilter']  = '(&(uid=%u)(objectClass=posixAccount))';
 
+  // Show the users as contacts, too?
+  $conf['displayusertree'] = 0;
+
   // Use these values to bind to the ldap directory when not logged in (leave blank for anonymous bind)
   $conf['anonbinddn']  = '';
   $conf['anonbindpw']  = '';

@@ -384,6 +384,7 @@ function ldap_queryabooks($filter,$types){
   $results = array();
   $result1 = array();
   $result2 = array();
+  $result3 = array();
 
   // public addressbook
   $sr      = @ldap_list($LDAP_CON,$conf['publicbook'],
@@ -401,8 +402,19 @@ function ldap_queryabooks($filter,$types){
     $result2 = ldap_get_binentries($LDAP_CON, $sr);
   }
 
+  // user account entries
+  if ($conf['displayusertree']) {
+    $sr      = @ldap_list($LDAP_CON,$conf['usertree'],
+                        $filter,$types);
+    tpl_ldaperror();
+    $result3 = ldap_get_binentries($LDAP_CON, $sr);
+    ldap_free_result($sr);
+  }
+
+
+
   // return merged results
-  return array_merge((array)$result1,(array)$result2);
+  return array_merge((array)$result1,(array)$result2,(array)$result3);
 }
 
 /**
