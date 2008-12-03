@@ -2,7 +2,7 @@
 require_once('inc/init.php');
 ldap_login();
 
-if ($conf['userlogreq'] && $user == ''){
+if ($conf['userlogreq'] && !isset($_SESSION['ldapab']['username'])){
   header("HTTP/1.0 401 Access Denied");
   echo '<h1>Access Denied</h1>';
   exit();
