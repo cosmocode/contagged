@@ -113,7 +113,7 @@ $(document).ready(function() {
         helperClass: 'autocompleter',
         selectClass: 'autocompleterSelect',
         inputWidth: true,
-        minchars: 1,
+        minchars: 1
         //multiple: true,
         //multipleSeperator: ','
     });
@@ -134,7 +134,7 @@ $(document).ready(function() {
         helperClass: 'autocompleter',
         selectClass: 'autocompleterSelect',
         inputWidth: true,
-        minchars: 1,
+        minchars: 1
     });
 
     // nice images
@@ -150,7 +150,7 @@ $(document).ready(function() {
         img.className = 'click';
         img.id        = 'tagedit_start';
         $('#tagedit').empty().after(img);
-        $(img).click(tagedit)
+        $(img).click(tagedit);
     }
 
     // note editing

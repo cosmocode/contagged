@@ -7,6 +7,7 @@
     ];
 </script>
 
+
 <div id="map">
 
 <div id="google_map"></div>
