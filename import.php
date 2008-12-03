@@ -3,7 +3,7 @@ require_once('inc/init.php');
 require_once('inc/Contact_Vcard_Parse.php');
 ldap_login();
 
-if(!$user){
+if(!$_SESSION['ldapab']['username']){
   header("Location: login.php");
   exit;
 }
