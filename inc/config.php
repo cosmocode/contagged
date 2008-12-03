@@ -34,6 +34,9 @@
   // Where to store private contacts (relative to $conf['usertree'])
   $conf['privatebook'] = 'ou=contacts';
 
+  // What fields to look at when searching?
+  $conf['searchfields'] = array('uid','mail','name','givenname','o');
+
   // Should the public address book be viewable by logged in users only? (0|1)
   $conf['userlogreq']  = 0;
 

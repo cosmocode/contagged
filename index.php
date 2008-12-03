@@ -94,6 +94,7 @@
    */
   function _makeldapfilter(){
     global $FIELDS;
+    global $conf;
 
     //handle given filter
 
@@ -143,9 +144,14 @@
       $words=preg_split('/\s+/',$search);
       $filter='';
       foreach($words as $word){
-        $filter .= '(|(|('.$FIELDS['name'].'=*'.$word.'*)('.
-                   $FIELDS['givenname'].'=*'.$word.'*))('.
-                   $FIELDS['organization'].'=*'.$word.'*))';
+	$wordfilter='';
+        foreach($conf['searchfields'] as $field) {
+          $wordfilter .= '('.$field.'=*'.$word.'*)';
+	}
+        for($i=0; $i <count($conf['searchfields']); $i++){
+          $wordfilter = '(|'.$wordfilter.')';
+	}
+        $filter .= '(&'.$wordfilter.')';
       }
       $ldapfilter = "(&(objectClass=inetOrgPerson)$filter)";
     }elseif(!empty($org)){
