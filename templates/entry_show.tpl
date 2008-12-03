@@ -47,7 +47,7 @@
 {if $entry.phone}
           <tr>
             <th>{$lang.phone}:</th>
-            <td>{$entry.phone|h}</td>
+            <td><a href="callto://{$entry.phone|escape:phone}">{$entry.phone|h}</a></td>
           </tr>
 {/if}
 {if $entry.switchboard}
@@ -106,13 +106,13 @@
 {if $entry.homephone}
           <tr>
             <th>{$lang.homephone}:</th>
-            <td>{$entry.homephone|h}</td>
+            <td><a href="callto://{$entry.homephone|escape:phone}">{$entry.homephone|h}</a></td>
           </tr>
 {/if}
 {if $entry.mobile}
           <tr>
             <th>{$lang.mobile}:</th>
-            <td>{$entry.mobile|h}</td>
+            <td><a href="callto://{$entry.mobile|escape:phone}">{$entry.mobile|h}</a></td>
           </tr>
 {/if}
 {if $entry.birthday}

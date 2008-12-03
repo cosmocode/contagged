@@ -11,7 +11,7 @@
         <a href="index.php?org={$entry.organization|escape:url}">{$entry.organization|h}</a>&nbsp;
     </td>
     <td>
-        {$entry.phone|h}&nbsp;
+        <a href="callto://{$entry.phone|escape:phone}">{$entry.phone|h}</a>&nbsp;
     </td>
     <td>
         <a href="mailto:{$entry.mail[0]|h}">{$entry.mail[0]|h}</a>&nbsp;
