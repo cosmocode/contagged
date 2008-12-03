@@ -76,8 +76,10 @@ $lang['msg_dateformat']   = 'YYYY-MM-DD';
 $lang['msg_uploadvcf']    = 'Upload VCard File';
 $lang['msg_tagsep']       = 'Comma separated';
 
-$lang['err_noentries']    = 'No entries';
-$lang['err_ldap']         = 'The LDAP server returned the following errors';
+$lang['err_noentries']       = 'No entries';
+$lang['err_ldap']            = 'The LDAP server returned the following errors';
+$lang['err_wrongFileType']   = 'The file is no image.';
+$lang['err_fileNotUploaded'] = 'The file cannot be uploaded, may its to huge?';
 
 $lang['openxchange']      = 'Xchange Information';
 $lang['moreopenxchange']  = 'Xchange Information Cont\'d';

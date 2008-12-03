@@ -67,17 +67,18 @@ $lang['username']       = 'Benutzername';
 $lang['password']       = 'Passwort';
 $lang['remember']       = 'Auf diesem Computer angemeldet bleiben';
 
-$lang['msg_login']      = 'Bitte melden sie sich an!';
-$lang['msg_loginfail']  = 'Anmeldung fehlgeschlagen!';
-$lang['msg_reallydel']  = 'Eintrag wirklich löschen?';
-$lang['msg_addto']      = 'Zu welchem Adressbuch soll der Eintrag hinzugefügt werden?';
-$lang['msg_jpegonly']   = 'Nur JPEG';
-$lang['msg_dateformat'] = 'JJJJ-MM-TT';
-$lang['msg_uploadvcf']  = 'Upload VCard File';
-$lang['msg_tagsep']     = 'Durch Komma getrennt';
-
-$lang['err_noentries']  = 'Keine Einträge';
-$lang['err_ldap']       = 'Der LDAP Server lieferte folgende Fehlermeldungen';
+$lang['msg_login']           = 'Bitte melden sie sich an!';
+$lang['msg_loginfail']       = 'Anmeldung fehlgeschlagen!';
+$lang['msg_reallydel']       = 'Eintrag wirklich löschen?';
+$lang['msg_addto']           = 'Zu welchem Adressbuch soll der Eintrag hinzugefügt werden?';
+$lang['msg_jpegonly']        = 'Nur JPEG';
+$lang['msg_dateformat']      = 'JJJJ-MM-TT';
+$lang['msg_uploadvcf']       = 'Upload VCard File';
+$lang['msg_tagsep']          = 'Durch Komma getrennt';
+$lang['err_noentries']       = 'Keine Einträge';
+$lang['err_ldap']            = 'Der LDAP Server lieferte folgende Fehlermeldungen';
+$lang['err_wrongFileType']   = 'Die Datei ist kein bild.';
+$lang['err_fileNotUploaded'] = 'Die Datei konnte nicht hochgeladen werden, ist sie vielleicht zu groß?';
 
 $lang['openxchange']      = 'Xchange Information';
 $lang['moreopenxchange']  = 'Xchange Information (Fort.)';

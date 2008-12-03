@@ -187,6 +187,11 @@
           </td>
         </tr>
 {/if}
+{if $jpegError}
+        <tr>
+          <th></th><td>{$jpegError}</td>
+        </tr>
+{/if}
 {if $fields.birthday}
         <tr>
           <td align="right" valign="top">{$lang.birthday}:<br /><span class="hint">({$lang.msg_dateformat})</span></td>

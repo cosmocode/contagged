@@ -219,6 +219,8 @@ function _delEntry($dn){
  * gets the binary data from an uploaded file
  */
 function _getUploadData(){
+  global $smarty;
+  global $lang;
   $file = $_FILES['photoupload'];
 
   if (is_uploaded_file($file['tmp_name'])) {
@@ -228,7 +230,11 @@ function _getUploadData(){
       fclose($fh);
       unlink($file['tmp_name']);
       return $data;
+    } else {
+      $smarty->assign('jpegError',$lang['err_wrongFileType']); 
     }
+  } else {
+    $smarty->assign('jpegError',$lang['err_fileNotUploaded']);
   }
   return '';
 }
