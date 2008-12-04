@@ -26,6 +26,7 @@ function tpl_std(){
   $smarty->assign('conf',$conf);
   $smarty->assign('lang',$lang);
   $smarty->assign('fields',$FIELDS);
+  $smarty->assign('lettertabs',explode(' ',$lang['lettertabs']));
 }
 
 /**

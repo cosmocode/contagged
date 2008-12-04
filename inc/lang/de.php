@@ -92,3 +92,6 @@ $lang['position']         = 'Position';
 $lang['department']       = 'Abteilung';
 $lang['ipphone']          = 'IP Tel.';
 $lang['spouse']           = 'Ehepartner';
+
+$lang['lettertabs'] = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Ä Ö Ü';
+

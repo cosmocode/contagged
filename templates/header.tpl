@@ -65,58 +65,13 @@
 
     <div id="filterrow">
         <ul>
-            <li><a href="index.php?filter=a">A</a></li>
-            <li><a href="index.php?filter=b">B</a></li>
-            <li><a href="index.php?filter=c">C</a></li>
-            <li><a href="index.php?filter=d">D</a></li>
-            <li><a href="index.php?filter=e">E</a></li>
-            <li><a href="index.php?filter=f">F</a></li>
-            <li><a href="index.php?filter=g">G</a></li>
-            <li><a href="index.php?filter=h">H</a></li>
-            <li><a href="index.php?filter=i">I</a></li>
-            <li><a href="index.php?filter=j">J</a></li>
-            <li><a href="index.php?filter=k">K</a></li>
-            <li><a href="index.php?filter=l">L</a></li>
-            <li><a href="index.php?filter=m">M</a></li>
-            <li><a href="index.php?filter=n">N</a></li>
-            <li><a href="index.php?filter=o">O</a></li>
-            <li><a href="index.php?filter=p">P</a></li>
-            <li><a href="index.php?filter=q">Q</a></li>
-            <li><a href="index.php?filter=r">R</a></li>
-            <li><a href="index.php?filter=s">S</a></li>
-            <li><a href="index.php?filter=t">T</a></li>
-            <li><a href="index.php?filter=u">U</a></li>
-            <li><a href="index.php?filter=v">V</a></li>
-            <li><a href="index.php?filter=w">W</a></li>
-            <li><a href="index.php?filter=x">X</a></li>
-            <li><a href="index.php?filter=y">Y</a></li>
-            <li><a href="index.php?filter=z">Z</a></li>
+            {foreach from=$lettertabs item=letter}
+            <li><a href="index.php?filter={$letter}">{$letter}</a></li>
+            {/foreach}
             <li><a href="index.php?filter=other">#</a></li>
             <li><a href="index.php?filter=*">*</a></li>
         </ul>
     </div>
 
-
-
-
   <div id="content">
 
-
-<!--
-<table width="100%">
-<tr>
-  <td class="headrow" colspan="2">
-    <table width="100%"><tr>
-      <td align="left" valign="bottom">
-      </td>
-      <td align="right" valign="bottom">
-        <a href="help.php"><img src="pix/help.png" border="0" width="16" height="16" align="middle">{$lang.help}</a>
-      </td>
-    </tr></table>
-  </td>
-</tr>
-<tr>
-  <td width="30">
-  </td>
-  <td>
--->
