@@ -66,7 +66,7 @@ function tpl_entry($in){
   $out['dn']          = normalize_dn($out['dn']);
   $conf['publicbook'] = normalize_dn($conf['publicbook']);
   if($out['dn']){
-      if(strstr($out['dn'],$conf['publicbook'])){
+      if(stristr($out['dn'],$conf['publicbook'])){
           $out['type'] = 'public';
       }else{
           $out['type'] = 'private';
