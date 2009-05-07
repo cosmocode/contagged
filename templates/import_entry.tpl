@@ -23,6 +23,7 @@
         <input type="hidden" name="entry[homephone]" value="{$entry.homephone|h}" />
         <input type="hidden" name="entry[mobile]" value="{$entry.mobile|h}" />
         <input type="hidden" name="entry[url]" value="{$entry.url|h}" />
+        <input type="hidden" name="photo" value="{$entry.photo|h}" />
         {foreach from=$entry.mail item=mail}
         <input type="hidden" name="entry[mail][]" value="{$mail|h}" />
         {/foreach}
@@ -38,6 +39,7 @@
 	{else}
            <input type="hidden" name="type" value="public" />
 	{/if}
+           <input type="submit" name="save" value="save" />
         </form>
     </td>
 </tr>

@@ -233,6 +233,14 @@ function _getUploadData(){
     } else {
       $smarty->assign('jpegError',$lang['err_wrongFileType']);
     }
+  } elseif (preg_match('/http:\/\//', $_REQUEST["photo"])) {
+    $fd = fopen($_REQUEST["photo"], "rb");
+    $data = '';
+    while (!feof($fd)) {
+      $data .= fread($fd, 8192);
+    }
+    fclose($fd);
+    return $data;
   } else {
     $smarty->assign('jpegError',$lang['err_fileNotUploaded']);
   }
