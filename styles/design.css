@@ -105,6 +105,11 @@ a.ed_vcfexport {
     padding: 1px 0px 1px 16px;
 }
 
+a.ed_qrcode {
+    background: transparent url(../pix/qrcode.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
 a.ed_csvexport {
     background: transparent url(../pix/page_white_excel.png) 0px 1px no-repeat;
     padding: 1px 0px 1px 16px;

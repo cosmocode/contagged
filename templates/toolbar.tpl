@@ -45,6 +45,11 @@
           <a href="entry.php?dn={$dn|escape:url}&amp;mode=vcf" class="ed_vcfexport">{$lang.vcfexport}</a>
         </li>
 
+        <!-- qr code -->
+        <li>
+          <a href="{$entry.qrcode}" rel="imagebox" class="ed_qrcode" title="{$lang.qrcode}">{$lang.qrcode}</a>
+        </li>
+
         <!-- show on map -->
         {if $smarty.request.mode == 'map' && $conf.gmapkey}
             <li>

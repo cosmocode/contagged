@@ -59,6 +59,7 @@ $lang['help']             = 'Help';
 $lang['select']           = 'Select';
 $lang['orgs']             = 'Companies';
 $lang['upload']           = 'Upload';
+$lang['qrcode']           = 'QR Code';
 
 $lang['publicbook']       = 'Public Addressbook';
 $lang['privatebook']      = 'Private Addressbook';

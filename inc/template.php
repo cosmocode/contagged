@@ -76,6 +76,8 @@ function tpl_entry($in){
   // join marker field to markers
   if(is_array($out['marker'])) $out['markers'] = join(', ',$out['marker']);
 
+  $out['qrcode'] = tpl_qrcode($out);
+
 /*
 print '<pre>';
 print_r($out);
@@ -84,6 +86,20 @@ print '</pre>';
 
   $smarty->assign('entry',$out);
 }
+
+function tpl_qrcode($in){
+    $data = "BEGIN:VCARD\n";
+    $data .= "N:{$in['name']};{$in['givenname']}\n";
+    if($in['mobile'])    $data .= "TEL;CELL:{$in['mobile']}\n";
+    if($in['phone'])     $data .= "TEL;WORK:{$in['phone']}\n";
+    if($in['homephone']) $data .= "TEL;HOME:{$in['homephone']}\n";
+    if($in['mail'][0])   $data .= "EMAIL:{$in['mail'][0]}\n";
+    $data .= "END:VCARD";
+    $data = rawurlencode($data);
+
+    return 'http://chart.apis.google.com/chart?cht=qr&chld=L|5&chs=500x500&chl='.$data.'&.png';
+}
+
 
 /**
  * assigns the last LDAP error to the template
