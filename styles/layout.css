@@ -72,10 +72,11 @@ div#filterrow ul li {
     border-left: 1px solid #999;
     border-top: 1px solid #999;
     border-bottom: 1px solid #999;
-    margin: 0.2em 0 0.2em 0.6em;
+    margin: 0.2em 0 0.1em 0.6em;
     text-align: center;
     -moz-border-radius: 50% 0 0 50%;
     margin-right: -1px;
+    font-size: 85%;
 }
 
 /* content */
@@ -85,8 +86,8 @@ div#content {
     border: 1px solid #999;
     padding: 1em;
     height: auto !important;
-    min-height: 55em;
-    height: 55em;
+    min-height: 60em;
+    height: 60em;
 }
 
 /* help screen */
