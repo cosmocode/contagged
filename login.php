@@ -30,6 +30,9 @@ if(!empty($_REQUEST['username'])){
     }else{
         $msg = $lang['msg_loginfail'];;
     }
+}else{
+    //logout
+    unset($_SESSION['ldapab']);
 }
 
 //prepare templates
