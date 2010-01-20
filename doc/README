@@ -102,7 +102,9 @@ but we can't promise to answer, to fix bugs or include feature wishes. However
 don't hesitate to contact us but understand that our core business has priority
 over this project.
 
-To contact us send a mail to ldapab@cosmocode.de or visit our homepage at
+We prefer to receive bug reports and features wishes through the issue tracker
+at http://github.com/cosmocode/contagged/issues. If you want to otherwise
+contact us, send a mail to ldapab@cosmocode.de or visit our homepage at
 http://www.cosmocode.de
 
 === KNOWN BUGS ===
@@ -113,7 +115,7 @@ LDAP Servers.
 === LICENSE ===
 
 ConTagged - An LDAP based Company Address Book
-Copyright 2004 - 2007 - CosmoCode GmbH
+Copyright 2004 - 2010 - CosmoCode GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
