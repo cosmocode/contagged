@@ -130,8 +130,8 @@ function _saveData(){
   $entry = $_REQUEST['entry'];
   $dn    = $_REQUEST['dn'];
   //construct new dn
-  $now    = time();
-  $newdn  = 'uid='.$now;
+  $new_uid = time().str_pad(mt_rand(0,99999999),8,"0", STR_PAD_LEFT);
+  $newdn   = 'uid='.$new_uid;
   if (empty($_REQUEST['type'])) { $_REQUEST['type']='public'; }
   if($_REQUEST['type'] == 'private' && $conf['privatebook']){
     $newdn .= ', '.$conf['privatebook'].', '.$_SESSION['ldapab']['binddn'];
@@ -149,7 +149,7 @@ print '</pre>';
 
   if(empty($dn)){
     //new entry
-    $entry['uid'][] = $now;
+    $entry['uid'][] = $new_uid;
     $r = ldap_add($LDAP_CON,$newdn,$entry);
     tpl_ldaperror();
     return $newdn;
