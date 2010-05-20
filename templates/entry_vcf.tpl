@@ -12,7 +12,7 @@ TEL;WORK;PAGER;ENCODING=QUOTED-PRINTABLE:{$entry.pager|escape:qp}
 {foreach from=$entry.mail item=mail}
 EMAIL;INTERNET:{$mail}
 {/foreach}
-ADR;WORK;ENCODING=QUOTED-PRINTABLE:;;{$entry.street|escape:qp};{$entry.location|escape:qp};;{$entry.plz|escape:qp};
+ADR;WORK;ENCODING=QUOTED-PRINTABLE:;;{$entry.street|escape:qp};{$entry.location|escape:qp};;{$entry.plz|escape:qp};{$entry.country|escape:qp}
 ADR;HOME;ENCODING=QUOTED-PRINTABLE:;;{$entry.homestreet|escape:qp}
 URL;WORK:{$entry.url}
 BDAY:{$entry.birthday}

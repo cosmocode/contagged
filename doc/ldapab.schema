@@ -85,12 +85,12 @@ attributetype ( 1.3.6.1.4.1.16331.2.2.1.54 NAME 'custom4'
               )
 
 
-
-
+# The c attribute is defined in core.schema!
 objectclass ( 1.3.6.1.4.1.16331.2.2.2.1 NAME 'contactPerson'
           DESC 'Contact - Addressbook entry'
               AUXILIARY
-              MAY  ( anniversary $ marker $ birthday $ custom1 $ custom2 $ custom3 $ custom4 )
+              MAY  ( anniversary $ marker $ birthday $ custom1 $
+                     custom2 $ custom3 $ custom4 $ c)
             )
 
 

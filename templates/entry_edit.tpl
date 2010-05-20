@@ -96,7 +96,9 @@
         <tr>
           <td align="right" valign="top">{$lang.country}:</td>
           <td>
-            <input type="text" class="input ac" name="entry[country]" value="{$entry.country|h}" /><br />
+            <select class="input" name="entry[country]">
+                {html_options options=$iso3166 selected=$entry.country|default:$conf.country|upper}
+            </select>
           </td>
         </tr>
 {/if}

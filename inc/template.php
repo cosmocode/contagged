@@ -27,6 +27,11 @@ function tpl_std(){
   $smarty->assign('lang',$lang);
   $smarty->assign('fields',$FIELDS);
   $smarty->assign('lettertabs',explode(' ',$lang['lettertabs']));
+
+  if(isset($FIELDS['country'])){
+      include dirname(__FILE__).'/iso3166.php';
+      $smarty->assign('iso3166',$iso3166);
+  }
 }
 
 /**

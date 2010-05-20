@@ -50,6 +50,7 @@ $FIELDS = array(
 $OCLASSES[] = 'contactPerson';
 $FIELDS['anniversary']  = 'anniversary';
 $FIELDS['_marker']      = 'marker';                  // aka. tags
+$FIELDS['country']      = 'c';
 
 /**
  * If the open exchange schema is used the following fields

@@ -31,6 +31,9 @@
   // Which language to use (see lang directory)
   $conf['lang']        = 'en';
 
+  // Default Country for new entries (ISO3166)
+  $conf['country'] = 'US';
+
   // Where to store public contacts?
   $conf['publicbook']  = 'ou=contacts, '.$conf['ldaprootdn'];
 

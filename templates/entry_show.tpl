@@ -39,7 +39,7 @@
               {$entry.state|h}
 {/if}
 {if $entry.country}
-              {$entry.country|h}
+              {$iso3166[$entry.country]}
 {/if}
               <br /><br />
             </td>
