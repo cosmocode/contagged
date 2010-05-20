@@ -23,7 +23,7 @@
     if (!empty($_SESSION)) remove_magic_quotes($_SESSION);
     ini_set('magic_quotes_gpc', 0);
   }
-  set_magic_quotes_runtime(0);
+  @set_magic_quotes_runtime(0);
 
   function remove_magic_quotes(&$array) {
     foreach (array_keys($array) as $key) {
