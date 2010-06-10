@@ -1,6 +1,7 @@
 
 var gmap_data = Array();
 var gmap_centered = false;
+var gmap_bounds = new GLatLngBounds();
 
 function gmap_loader(){
     if (!GBrowserIsCompatible()) {
@@ -29,10 +30,11 @@ function gmap_add(map,gc,adr,info,t){
                 if (!point) {
                     //alert(address + " not found");
                 } else {
-                    if(!gmap_centered){
-                        map.setCenter(point, 5);
-                        gmap_centered = true;
-                    }
+                    gmap_bounds.extend(point);
+                    var zoom = map.getBoundsZoomLevel(gmap_bounds);
+                    if (zoom > 17) zoom = 17;
+                    map.setCenter(gmap_bounds.getCenter(), zoom);
+
                     var marker = new GMarker(point);
                     map.addOverlay(marker);
                     GEvent.addListener(marker, "click", function(){
