@@ -134,9 +134,9 @@ function _saveData(){
   $newdn   = 'uid='.$new_uid;
   if (empty($_REQUEST['type'])) { $_REQUEST['type']='public'; }
   if($_REQUEST['type'] == 'private' && $conf['privatebook']){
-    $newdn .= ', '.$conf['privatebook'].', '.$_SESSION['ldapab']['binddn'];
+    $newdn .= ','.$conf['privatebook'].','.$_SESSION['ldapab']['binddn'];
   }else{
-    $newdn .= ', '.$conf['publicbook'];
+    $newdn .= ','.$conf['publicbook'];
   }
   $entry['displayname'] = $entry['givenname'].' '.$entry['name'];;
   $entry = prepare_ldap_entry($entry);
@@ -150,7 +150,7 @@ print '</pre>';
   if(empty($dn)){
     //new entry
     $entry['uid'][] = $new_uid;
-    $r = ldap_add($LDAP_CON,$newdn,$entry);
+    $r = @ldap_add($LDAP_CON,$newdn,$entry);
     tpl_ldaperror();
     return $newdn;
   }else{

@@ -13,8 +13,8 @@ if(!empty($_REQUEST['username'])){
         //create private address book if simple enough
         if(preg_match('/ou=([^,]+)$/',$conf['privatebook'],$match)){
             $privatedn = $conf['privatebook'].', '.$_SESSION['ldapab']['binddn'];
-            if(!ldap_read($LDAP_CON,$privatedn,'')){
-                ldap_add($LDAP_CON,$privatedn,
+            if(!@ldap_read($LDAP_CON,$privatedn,'')){
+                @ldap_add($LDAP_CON,$privatedn,
                          array('objectClass' => array ('organizationalUnit','top'),
                                'ou' => $match[1]));
             }
