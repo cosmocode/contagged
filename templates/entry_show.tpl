@@ -101,6 +101,10 @@
 {if $entry.homestreet}
               {$entry.homestreet|h|nl2br}<br /><br />
 {/if}
+{if $entry.homelocation}
+              {$entry.homezip|h} {$entry.homelocation|h|nl2br}<br /><br />
+{/if}
+
             </td>
           </tr>
 {if $entry.homephone}
