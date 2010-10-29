@@ -74,6 +74,10 @@
         <li>
           <a href="index.php?filter={$filter|escape:url}&amp;marker={$marker|escape:url}&amp;search={$search|escape:url}&amp;org={$org|escape:url}&amp;export=csv"
              class="ed_csvexport">{$lang.csvexport}</a>
+        <li>
+          <a href="index.php?filter={$filter|escape:url}&amp;marker={$marker|escape:url}&amp;search={$search|escape:url}&amp;org={$org|escape:url}&amp;export=print"
+             class="ed_printexport">{$lang.printexport}</a>
+
         </li>
       {/if}
 

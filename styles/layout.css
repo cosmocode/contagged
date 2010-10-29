@@ -243,3 +243,8 @@ div#footrow {
 div#footrow div.login{
     float: right;
 }
+
+/* print export */
+div.print h2 {
+    border-bottom: 1px solid #999;
+}

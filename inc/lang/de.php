@@ -53,6 +53,7 @@ $lang['delete']         = 'Löschen';
 $lang['copy']           = 'Kopieren';
 $lang['map']            = 'Karte';
 $lang['csvexport']      = 'CSV';
+$lang['printexport']    = 'Drucken';
 $lang['vcfexport']      = 'VCard';
 $lang['vcfimport']      = 'Import';
 $lang['search']         = 'Suchen';
