@@ -18,6 +18,26 @@
   <tr>
     <td valign="top" width="50%">
       <h3>{$lang.business}</h3>
+      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+              width="110"
+              height="14"
+              id="clippy" >
+      <embed src="{$conf.clippyurl}"
+             width="110"
+             height="14"
+             name="clippy"
+             quality="high"
+             allowScriptAccess="always"
+             type="application/x-shockwave-flash"
+             pluginspage="http://www.macromedia.com/go/getflashplayer"
+             flashvars="text={$entry.title} {$entry.givenname} {$entry.name}
+{$entry.organization}
+{$entry.street}
+{$entry.zip} {$entry.location}
+{$entry.state}
+"
+      />
+      </object>
         <table width="100%">
           <tr>
             <td colspan="2">
@@ -94,6 +114,26 @@
 
     <td valign="top" width="50%">
       <h3>{$lang.private}</h3>
+      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+              width="110"
+              height="14"
+              id="clippy_home" >
+      <embed src="{$conf.clippyurl}"
+             width="110"
+             height="14"
+             name="clippy_home"
+             quality="high"
+             allowScriptAccess="always"
+             type="application/x-shockwave-flash"
+             pluginspage="http://www.macromedia.com/go/getflashplayer"
+             flashvars="text={$entry.title} {$entry.givenname} {$entry.name}
+{$entry.homestreet}
+{$entry.homezip} {$entry.homelocation}
+{$entry.homestate}
+"
+      />
+      </object>
+
         <table width="100%">
           <tr>
             <td colspan="2">

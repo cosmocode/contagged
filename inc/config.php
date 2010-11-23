@@ -68,4 +68,5 @@
   // Force recompilation of smarty templates?
   $conf['smartycompile'] = 0;
 
-
+  // load clipboard flash widget from this URL:
+  $conf['clippyurl'] = 'http://github.com/mojombo/clippy/raw/master/build/clippy.swf';
