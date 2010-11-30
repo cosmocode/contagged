@@ -44,6 +44,9 @@
         <li>
           <a href="entry.php?dn={$dn|escape:url}&amp;mode=vcf" class="ed_vcfexport">{$lang.vcfexport}</a>
         </li>
+        <li>
+          <a href="entry.php?dn={$dn|escape:url}&amp;mode=print" class="ed_printexport">{$lang.printexport}</a>
+        </li>
 
         <!-- qr code -->
         <li>
