@@ -1,4 +1,10 @@
 <?php
+  if(defined('E_DEPRECATED')){ // since php 5.3
+    error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+  }else{
+    error_reporting(E_ALL ^ E_NOTICE);
+  }
+
   require_once(dirname(__FILE__).'/config.php');
   require_once(dirname(__FILE__).'/fields.php');
   require_once(dirname(__FILE__).'/lang/en.php');
