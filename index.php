@@ -151,13 +151,13 @@
       $words=preg_split('/\s+/',$search);
       $filter='';
       foreach($words as $word){
-	$wordfilter='';
+        $wordfilter='';
         foreach($conf['searchfields'] as $field) {
           $wordfilter .= '('.$field.'=*'.$word.'*)';
-	}
+        }
         for($i=0; $i <count($conf['searchfields']); $i++){
           $wordfilter = '(|'.$wordfilter.')';
-	}
+        }
         $filter .= '(&'.$wordfilter.')';
       }
       $ldapfilter = "(&(objectClass=inetOrgPerson)$filter)";

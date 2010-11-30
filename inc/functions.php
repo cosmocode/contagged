@@ -519,6 +519,8 @@ function get_fields_from_template($tpl){
             $return[] = $FIELDS[$f];
         }elseif($FIELDS["_$f"]){
             $return[] = $FIELDS["_$f"];
+        }elseif($f = 'markers'){
+            $return[] = 'marker';
         }
     }
     return $return;
