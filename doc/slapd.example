@@ -46,8 +46,6 @@ directory       "/var/lib/ldap"
 # Indexing options
 index objectClass eq
 
-# Folgende Indizies sind im samba-LDAP-HOWTO empfohlen;
-
 ## support pbb_getsampwnam()
 index uid           pres,eq
 ## support pdb_getsampwrid()
@@ -67,28 +65,34 @@ lastmod on
 # by the entry owning it if they are authenticated.
 # Others should not be able to see it, except the
 # admin entry below
-access to attribute=userPassword
+access to attrs=userPassword
         by dn="cn=admin,o=cosmocode,c=de" write
         by anonymous auth
         by self write
         by * none
 
-access to attribute=lmPassword
+access to attrs=lmPassword
         by dn="cn=admin,o=cosmocode,c=de" write
         by anonymous auth
         by self write
         by * none
 
-access to attribute=ntPassword
+access to attrs=ntPassword
         by dn="cn=admin,o=cosmocode,c=de" write
         by anonymous auth
         by self write
         by * none
 
 # private LDAP Addressbook is readable and writable for the owner only
-access  to dn="(.*,)?ou=contacts,cn=([^,]+),ou=people,(.*)$"
-        by dn="cn=$2,ou=people,$3" write
+access  to dn.regex="(.*,)?ou=contacts,cn=([^,]+),ou=people,(.*)$"
+        by dn.regex="cn=$2,ou=people,$3" write
         by * none
+
+# user entry is writable for the owner only, but readable for all
+access  to dn.regex="(.*,)?cn=([^,]+),ou=people,(.*)$"
+        by dn.regex="cn=ldapadmin,o=cosmocode,c=de" write
+        by dn.regex="cn=$2,ou=people,$3" write
+        by * read
 
 # global LDAP Addressbook is writable for all authenticated users
 # This entry has to be _before_ any other entry that matches the contact
@@ -102,9 +106,4 @@ access to *
         by dn="cn=admin,o=cosmocode,c=de" write
         by * read
 
-# For Netscape Roaming support, each user gets a roaming
-# profile for which they have write access to
-#access to dn=".*,ou=Roaming,o=morsnet"
-#        by dn="cn=admin,o=cosmocode,c=de" write
-#        by dnattr=owner write
 
