@@ -19,7 +19,6 @@
   $conf['usertree']    = 'ou=people, '.$conf['ldaprootdn'];
 
   // How to match users? %u is replaced by the given login
-  // To match non-account entries try: (&(ou=%u)(objectClass=organizationalUnit))
   $conf['userfilter']  = '(&(uid=%u)(objectClass=posixAccount))';
 
   // Construct new entries with a DN including the CN rather than the UID
