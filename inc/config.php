@@ -22,12 +22,6 @@
   // To match non-account entries try: (&(ou=%u)(objectClass=organizationalUnit))
   $conf['userfilter']  = '(&(uid=%u)(objectClass=posixAccount))';
 
-  // Bind with the provided username instead of the matched DN
-  $conf['bindwithusername'] = FALSE;
-
-  // Append this string to usernames when binding (if bindwithusername is set)
-  $conf['userrealm'] = '@example.ad';
-
   // Construct new entries with a DN including the CN rather than the UID
   $conf['cnasuid'] = FALSE;
 

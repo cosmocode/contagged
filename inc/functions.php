@@ -89,11 +89,7 @@ function do_ldap_bind($user,$pass,$dn=""){
   }
 
   //bind with dn or username
-  $bindstring = $dn;
-  if ($conf['bindwithusername']) {
-    $bindstring = $user.$conf['userrealm'];
-  }
-  if(@ldap_bind($LDAP_CON,$bindstring,$pass)){
+  if(@ldap_bind($LDAP_CON,$dn,$pass)){
     //bind successful -> set up session
     set_session($user,$pass,$dn);
     return true;
