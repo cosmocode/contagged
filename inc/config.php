@@ -21,8 +21,8 @@
   // How to match users? %u is replaced by the given login
   $conf['userfilter']  = '(&(uid=%u)(objectClass=posixAccount))';
 
-  // Construct new entries with a DN including the CN rather than the UID
-  $conf['cnasuid'] = FALSE;
+  // Construct entries with a DN including the CN rather than the UID
+  $conf['cnindn'] = FALSE;
 
   // Show the users as contacts, too?
   $conf['displayusertree'] = 0;
