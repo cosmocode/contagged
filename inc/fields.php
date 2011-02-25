@@ -22,7 +22,8 @@ $OCLASSES[] = 'inetOrgPerson';
 $FIELDS = array(
     'dn'           => 'dn',                          // don't touch!
     'name'         => 'sn',
-    'displayname'  => 'cn',
+    // For AD use displayName instead of CN -- AD requires CN in the DN so the CN must not change
+    'displayname'  => 'displayname',
     'givenname'    => 'givenName',
     'title'        => 'title',
     'organization' => 'o',                           // aka. company
@@ -40,7 +41,8 @@ $FIELDS = array(
     'url'          => 'labeledURI',
     'note'         => 'description',
     'manager'      => 'manager',                     // aka. key account
-    '_mail'        => 'mail',
+    // For AD use proxyAddresses instead of mail -- AD only supports a single mail address per inetOrgPerson
+    '_mail'        => 'proxyAddresses',
 );
 
 /**

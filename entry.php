@@ -131,10 +131,14 @@ function _saveData(){
   $dn    = $_REQUEST['dn'];
   //construct new dn
   $new_uid = time().str_pad(mt_rand(0,99999999),8,"0", STR_PAD_LEFT);
-  $newdn   = 'uid='.$new_uid;
+  $newdn = 'uid=';
+  if ($conf['cnasuid']) {
+    $newdn = 'cn=';
+  }
+  $newdn   .= $new_uid;
   if (empty($_REQUEST['type'])) { $_REQUEST['type']='public'; }
-  if($_REQUEST['type'] == 'private' && $conf['privatebook']){
-    $newdn .= ','.$conf['privatebook'].','.$_SESSION['ldapab']['binddn'];
+  if($_REQUEST['type'] == 'private' && $_SESSION['ldapab']['privatedn']){
+    $newdn .= ','.$_SESSION['ldapab']['privatedn'];
   }else{
     $newdn .= ','.$conf['publicbook'];
   }

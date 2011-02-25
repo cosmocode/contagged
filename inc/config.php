@@ -19,7 +19,17 @@
   $conf['usertree']    = 'ou=people, '.$conf['ldaprootdn'];
 
   // How to match users? %u is replaced by the given login
+  // To match non-account entries try: (&(ou=%u)(objectClass=organizationalUnit))
   $conf['userfilter']  = '(&(uid=%u)(objectClass=posixAccount))';
+
+  // Bind with the provided username instead of the matched DN
+  $conf['bindwithusername'] = FALSE;
+
+  // Append this string to usernames when binding (if bindwithusername is set)
+  $conf['userrealm'] = '@example.ad';
+
+  // Construct new entries with a DN including the CN rather than the UID
+  $conf['cnasuid'] = FALSE;
 
   // Show the users as contacts, too?
   $conf['displayusertree'] = 0;
@@ -39,6 +49,9 @@
 
   // Where to store private contacts (relative to $conf['usertree'])
   $conf['privatebook'] = 'ou=contacts';
+
+  // If set, takes precedence over the relative privatebook path (%u is replaced with the provided username)
+  #$conf['privatebook_absolute'] = 'ou=%u,'.$conf['publicbook'];
 
   // What fields to look at when searching?
   $conf['searchfields'] = array('uid','mail','name','givenname','o');
