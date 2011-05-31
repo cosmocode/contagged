@@ -47,7 +47,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'ISO-88
             return $return;
 
         case 'phone':
-            $return = str_replace('+','0',$string);
+            $return = str_replace('+','00',$string);
             $return = preg_replace('/[^0-9]+/','',$return);
             return $return;
 
