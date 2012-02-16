@@ -1,43 +1,13 @@
-{include file="header.tpl"}
+<div class="show">
 
-<div id="show">
-
-{if $entry.photo != ''}
-    <a href="img.php?dn={$entry.dn|escape:url}&amp;.jpg" rel="imagebox"
-       title="{$entry.givenname|h} {$entry.name|h}"><img src="img.php?dn={$entry.dn|escape:url}"
-       align="right" class="photo" width="130" alt="" /></a>
-{/if}
-<h1>
-    <img src="pix/{$entry.type|h}.png" border="0" width="22" height="22"
-    align="middle" title="{$entry.type|h}" alt="" />
+<h2>
     {$entry.givenname|h} {$entry.name|h}
-</h1>
+</h2>
 
-<table width="100%" class="show"
-       {if $user}ondblclick="window.location.href='entry.php?dn={$entry.dn|escape:url}&amp;mode=edit'"{/if}>
+<table width="100%" class="show">
   <tr>
     <td valign="top" width="50%">
       <h3>{$lang.business}</h3>
-      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-              width="110"
-              height="14"
-              id="clippy" >
-      <embed src="{$conf.clippyurl}"
-             width="110"
-             height="14"
-             name="clippy"
-             quality="high"
-             allowScriptAccess="always"
-             type="application/x-shockwave-flash"
-             pluginspage="http://www.macromedia.com/go/getflashplayer"
-             flashvars="text={$entry.title} {$entry.givenname} {$entry.name}
-{$entry.organization}
-{$entry.street}
-{$entry.zip} {$entry.location}
-{$entry.state}
-"
-      />
-      </object>
         <table width="100%">
           <tr>
             <td colspan="2">
@@ -114,26 +84,6 @@
 
     <td valign="top" width="50%">
       <h3>{$lang.private}</h3>
-      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
-              width="110"
-              height="14"
-              id="clippy_home" >
-      <embed src="{$conf.clippyurl}"
-             width="110"
-             height="14"
-             name="clippy_home"
-             quality="high"
-             allowScriptAccess="always"
-             type="application/x-shockwave-flash"
-             pluginspage="http://www.macromedia.com/go/getflashplayer"
-             flashvars="text={$entry.title} {$entry.givenname} {$entry.name}
-{$entry.homestreet}
-{$entry.homezip} {$entry.homelocation}
-{$entry.homestate}
-"
-      />
-      </object>
-
         <table width="100%">
           <tr>
             <td colspan="2">
@@ -283,5 +233,3 @@
 </table>
 
 </div>
-
-{include file="footer.tpl"}

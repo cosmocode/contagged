@@ -44,6 +44,9 @@
         <li>
           <a href="entry.php?dn={$dn|escape:url}&amp;mode=vcf" class="ed_vcfexport">{$lang.vcfexport}</a>
         </li>
+        <li>
+          <a href="entry.php?dn={$dn|escape:url}&amp;mode=print" class="ed_printexport">{$lang.printexport}</a>
+        </li>
 
         <!-- qr code -->
         <li>
@@ -74,6 +77,10 @@
         <li>
           <a href="index.php?filter={$filter|escape:url}&amp;marker={$marker|escape:url}&amp;search={$search|escape:url}&amp;org={$org|escape:url}&amp;export=csv"
              class="ed_csvexport">{$lang.csvexport}</a>
+        <li>
+          <a href="index.php?filter={$filter|escape:url}&amp;marker={$marker|escape:url}&amp;search={$search|escape:url}&amp;org={$org|escape:url}&amp;export=print"
+             class="ed_printexport">{$lang.printexport}</a>
+
         </li>
       {/if}
 
