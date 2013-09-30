@@ -71,7 +71,9 @@ if($_REQUEST['mode']=='vcf'){
   $filename = $entry['givenname'].'_'.$entry['name'].'.vcf';
   header("Content-Disposition: attachment; filename=\"$filename\"");
   header("Content-type: text/x-vcard; name=\"$filename\"; charset=utf-8");
-  $smarty->display($template);
+  $output = $smarty->fetch($template) . "\n";
+  $output = str_replace("\n", "\r\n", $output);
+  echo $output;
 }else{
   header('Content-Type: text/html; charset=utf-8');
   $smarty->display($template);
