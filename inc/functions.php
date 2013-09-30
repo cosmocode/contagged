@@ -387,7 +387,7 @@ function ldap_queryabooks($filter,$types){
   $result3 = array();
 
   // public addressbook
-  $sr      = @ldap_list($LDAP_CON,$conf['publicbook'],
+  $sr      = @ldap_search($LDAP_CON,$conf['publicbook'],
                         $filter,$types);
   tpl_ldaperror();
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
