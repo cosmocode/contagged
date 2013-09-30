@@ -344,7 +344,7 @@ function ldap_store_objectclasses($dn,$classes){
   $add['objectClass'] = $set;
 
   $r = @ldap_mod_replace($LDAP_CON,$dn,$add);
-  tpl_ldaperror();
+  tpl_ldaperror('store object classes');
 
 /*  print '<pre>';
   print_r($set);
