@@ -75,15 +75,16 @@ if (array_search('OXUserObject', $conf['oclasses']) !== false) {
  * and object classes are added
  */
 if (array_search('evolutionPerson', $conf['oclasses']) !== false) {
+    $FIELDS['anniversary'] = 'anniversary';
     $FIELDS['department']  = 'ou';
     $FIELDS['state']       = 'st';
-    $FIELDS['country']     = 'c';
     $FIELDS['phone']       = 'primaryPhone';
     $FIELDS['switchboard'] = 'companyPhone';
     $FIELDS['note']        = 'note';
     $FIELDS['manager']     = 'seeAlso';
     $FIELDS['birthday']    = 'birthDate';
     $FIELDS['spouse']      = 'spouseName';
+    $FIELDS['_marker']     = 'categories'; // aka. tags
 }
 
 /**
