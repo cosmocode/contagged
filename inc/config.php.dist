@@ -76,3 +76,6 @@ $conf['oclasses'] = array(
     //'evolutionPerson',
     //'officePerson',
 );
+
+//custom LDAP field mappings, see inc/fields.php
+$conf['customFields'] = array();

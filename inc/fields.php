@@ -87,6 +87,9 @@ if (array_search('evolutionPerson', $conf['oclasses']) !== false) {
     $FIELDS['_marker']     = 'categories'; // aka. tags
 }
 
+// add custom fields from config
+$FIELDS = array_merge($FIELDS, $conf['customFields']);
+
 /**
  * Flip the array
  */
