@@ -68,4 +68,11 @@
   // Force recompilation of smarty templates?
   $conf['smartycompile'] = 0;
 
-
+// LDAP classes to store with contacts.
+$conf['oclasses'] = array(
+    'inetOrgPerson',
+    //'contactPerson',
+    //'OXUserObject',
+    //'evolutionPerson',
+    //'officePerson',
+);

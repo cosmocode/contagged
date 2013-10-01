@@ -10,11 +10,12 @@
  * handled by the template as well)
  */
 
+global $conf;
 
 /**
  * The object classes to store with contacts
  */
-$OCLASSES[] = 'inetOrgPerson';
+$OCLASSES = $conf['oclasses'];
 
 /**
  * The standard fields suported by OpenLDAP's default schemas
@@ -47,46 +48,43 @@ $FIELDS = array(
  * If the provided "extended" schema is used the following fields
  * and object classes are added
  */
-$OCLASSES[] = 'contactPerson';
-$FIELDS['anniversary']  = 'anniversary';
-$FIELDS['_marker']      = 'marker';                  // aka. tags
-$FIELDS['country']      = 'c';
+if (array_search('contactPerson', $conf['oclasses']) !== false) {
+    $FIELDS['anniversary']  = 'anniversary';
+    $FIELDS['_marker']      = 'marker';                  // aka. tags
+    $FIELDS['country']      = 'c';
+}
 
 /**
  * If the open exchange schema is used the following fields
  * and object classes are added
  */
-/* comment in if you want to use it
-$OCLASSES[] = 'OXUserObject';
-$FIELDS['country']          = 'userCountry';
-$FIELDS['birthday']         = 'birthDay';
-$FIELDS['ipphone']          = 'IPPhone';
-$FIELDS['_marker']          = 'OXUserCategories';
-$FIELDS['instantmessenger'] = 'OXUserInstantMessenger';
-$FIELDS['timezone']         = 'OXTimeZone';
-$FIELDS['position']         = 'OXUserPosition';
-$FIELDS['certificate']      = 'relClientCert';
-$FIELDS['domain']           = 'domain';
-*/
+if (array_search('OXUserObject', $conf['oclasses']) !== false) {
+    $FIELDS['country']          = 'userCountry';
+    $FIELDS['birthday']         = 'birthDay';
+    $FIELDS['ipphone']          = 'IPPhone';
+    $FIELDS['_marker']          = 'OXUserCategories';
+    $FIELDS['instantmessenger'] = 'OXUserInstantMessenger';
+    $FIELDS['timezone']         = 'OXTimeZone';
+    $FIELDS['position']         = 'OXUserPosition';
+    $FIELDS['certificate']      = 'relClientCert';
+    $FIELDS['domain']           = 'domain';
+}
 
 /**
  * If the Evolution schema is used the following fields
  * and object classes are added
  */
-/* comment in if you want to use it
-$OCLASSES[] = 'evolutionPerson';
-$OCLASSES[] = 'officePerson';
-$FIELDS['department']  = 'ou';
-$FIELDS['state']       = 'st';
-$FIELDS['country']     = 'c';
-$FIELDS['phone']       = 'primaryPhone';
-$FIELDS['switchboard'] = 'companyPhone';
-$FIELDS['note']        = 'note';
-$FIELDS['manager']     = 'seeAlso';
-$FIELDS['birthday']    = 'birthDate';
-$FIELDS['spouse']      = 'spouseName';
-*/
-
+if (array_search('evolutionPerson', $conf['oclasses']) !== false) {
+    $FIELDS['department']  = 'ou';
+    $FIELDS['state']       = 'st';
+    $FIELDS['country']     = 'c';
+    $FIELDS['phone']       = 'primaryPhone';
+    $FIELDS['switchboard'] = 'companyPhone';
+    $FIELDS['note']        = 'note';
+    $FIELDS['manager']     = 'seeAlso';
+    $FIELDS['birthday']    = 'birthDate';
+    $FIELDS['spouse']      = 'spouseName';
+}
 
 /**
  * Flip the array
