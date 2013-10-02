@@ -60,6 +60,16 @@
       $smarty->display('list_csv.tpl');
       exit;
     }elseif($_REQUEST['export'] == 'map'){
+        require_once 'inc/Geocoder.php';
+        $geocoder = new Geocoder();
+        $coords = array();
+        foreach ($result as $ldapEntry) {
+            tpl_entry($ldapEntry);
+            $entry = $smarty->get_template_vars('entry');
+            addCoords($coords, $entry, $geocoder);
+        }
+        $smarty->assign('coords', $coords);
+
       header('Content-Type: text/html; charset=utf-8');
       $smarty->display('list_map.tpl');
       exit;

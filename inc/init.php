@@ -47,8 +47,4 @@
   $smarty->use_sub_dirs  = 0;
   $smarty->template_dir  = dirname(__FILE__).'/../templates';
   $smarty->force_compile = $conf['smartycompile'];
-
-  // select the correct google api key
-  $conf['gmapkey'] = $conf['gmaps'][$_SERVER['HTTP_HOST']];
-
 ?>

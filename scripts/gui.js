@@ -186,11 +186,4 @@ $(document).ready(function() {
     // set focus
     if($('#searchfield').length) $('#searchfield').focus();
     if($('#firstfield').length) $('#firstfield').focus();
-
-
-    // run google maps loader
-    if($('#google_map').length){
-        gmap_loader();
-        $(document).unload(GUnload);
-    }
 });

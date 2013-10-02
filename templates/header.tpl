@@ -20,9 +20,13 @@
     <script src="scripts/interface/imagebox.js" type="text/javascript"></script>
     <script src="scripts/formatDate.js" type="text/javascript"></script>
 
-    {if $conf.gmapkey}
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={$conf.gmapkey}" type="text/javascript"></script>
-    <script src="scripts/maps.js" type="text/javascript"></script>
+    {if $conf.enablemaps}
+    <link rel="stylesheet" href="scripts/leaflet-0.6.4/leaflet.css" />
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="scripts/leaflet-0.6.4/leaflet.ie.css" />
+    <![endif]-->
+    <script type="text/javascript" src="scripts/leaflet-0.6.4/leaflet.js"></script>
+    <script type="text/javascript" src="scripts/maps.js"></script>
     {/if}
 
     <script src="scripts/gui.js" type="text/javascript"></script>

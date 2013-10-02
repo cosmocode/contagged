@@ -1,46 +1,27 @@
+function drawMap(coords) {
+    var map = L.map('map');
+    if (coords.length == 1) {
+        map.setView([coords[0].lat, coords[0].lon], 14);
+    }
 
-var gmap_data = Array();
-var gmap_centered = false;
+    // create the tile layer with correct attribution
+    var osmUrl = "http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg";
+    var subDomains = ['otile1','otile2','otile3','otile4'];
 
-function gmap_loader(){
-    if (!GBrowserIsCompatible()) {
-    	//return;
-    };
+    var osmAttrib = '&copy; <a href="http://open.mapquest.co.uk" target="_blank">MapQuest</a>, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> and contributors.';
+    L.tileLayer(
+        osmUrl,
+        {attribution: osmAttrib, subdomains: subDomains}
+    ).addTo(map);
 
-    var map = new GMap2(document.getElementById("google_map"));
-    var geocoder = new GClientGeocoder();
-    map.addControl(new GLargeMapControl());
-    map.addControl(new GMapTypeControl());
-    map.setCenter(new GLatLng(52.514863,13.381863),10);
-    for (var i=0; i<gmap_data.length; i++){
-        var t = 1;
-        if(i>10) t = 1000;
-        if(i>20) t = 2000;
-        gmap_add(map,geocoder,gmap_data[i].adr,gmap_data[i].info,t);
-
+    var markers = [];
+    $(coords).each(function(key, coord) {
+        var marker = L.marker([coord.lat, coord.lon]).addTo(map);
+        marker.bindPopup(coord.address);
+        markers.push(marker);
+    });
+    if (coords.length > 1) {
+        var group = new L.featureGroup(markers);
+        map.fitBounds(group.getBounds());
     }
 }
-
-function gmap_add(map,gc,adr,info,t){
-    setTimeout(function(){
-        gc.getLatLng(
-            adr,
-            function(point) {
-                if (!point) {
-                    //alert(address + " not found");
-                } else {
-                    if(!gmap_centered){
-                        map.setCenter(point, 5);
-                        gmap_centered = true;
-                    }
-                    var marker = new GMarker(point);
-                    map.addOverlay(marker);
-                    GEvent.addListener(marker, "click", function(){
-                        this.openInfoWindowHtml( info );
-                    });
-                }
-            }
-        );
-    },t);
-}
-

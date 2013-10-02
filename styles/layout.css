@@ -171,7 +171,7 @@ div#edit span.hint {
 }
 
 /* mapping */
-div#map div#google_map {
+#mapcontainer #map {
     width: 95%;
     margin: 2em auto;
     height: 40em;

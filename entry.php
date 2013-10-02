@@ -75,6 +75,16 @@ if($_REQUEST['mode']=='vcf'){
   $output = str_replace("\n", "\r\n", $output);
   echo $output;
 }else{
+  if($_REQUEST['mode']=='map'){
+    $entry = $smarty->get_template_vars('entry');
+
+    require_once 'inc/Geocoder.php';
+    $geocoder = new Geocoder();
+    $coords = array();
+    addCoords($coords, $entry, $geocoder);
+    $smarty->assign('coords', $coords);
+  }
+
   header('Content-Type: text/html; charset=utf-8');
   $smarty->display($template);
 }

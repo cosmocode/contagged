@@ -118,7 +118,7 @@
 {if $entry.birthday}
           <tr>
             <th>{$lang.birthday}:</th>
-            <td>{$entry.birthday|h}</td>
+            <td>{$entry.birthday|date_format:$conf.dateformat|h}</td>
           </tr>
 {/if}
 {if $entry.anniversary}

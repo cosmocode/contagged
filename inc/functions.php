@@ -526,4 +526,24 @@ function get_fields_from_template($tpl){
     return $return;
 }
 
+function addCoords(&$coords, $entry, $geocoder)
+{
+    $priv = $geocoder->getPrivateCoords($entry);
+    if ($priv !== null) {
+        $priv->address = '<b>'
+            . $entry['givenname'] . ' ' . $entry['name'] . '</b><br/>'
+            . str_replace("\n", '<br/>', $entry['homestreet']);
+        $coords[] = $priv;
+    }
+
+    $busi = $geocoder->getBusinessCoords($entry);
+    if ($busi !== null) {
+        $busi->address = '<b>' . $entry['organization'] . '<br/>'
+            . $entry['givenname'] . ' ' . $entry['name'] . '</b><br/>'
+            . $entry['street'] . '<br/>'
+            . $entry['zip'] . $entry['location'];
+        $coords[] = $busi;
+    }
+}
+
 ?>

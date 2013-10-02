@@ -51,11 +51,11 @@
         </li>
 
         <!-- show on map -->
-        {if $smarty.request.mode == 'map' && $conf.gmapkey}
+        {if $smarty.request.mode == 'map' && $conf.enablemaps}
             <li>
               <a href="entry.php?dn={$dn|escape:url}" class="ed_show">{$lang.show}</a>
             </li>
-        {elseif $conf.gmapkey}
+        {elseif $conf.enablemaps}
             <li>
               <a href="entry.php?dn={$dn|escape:url}&amp;mode=map" class="ed_map">{$lang.map}</a>
             </li>
@@ -66,7 +66,7 @@
 
 
       {if $list} <!-- export -->
-        {if $smarty.request.export != 'map' && $conf.gmapkey}
+        {if $smarty.request.export != 'map' && $conf.enablemaps}
             <li>
               <a href="index.php?filter={$filter|escape:url}&amp;marker={$marker|escape:url}&amp;search={$search|escape:url}&amp;org={$org|escape:url}&amp;export=map" class="ed_map">{$lang.map}</a>
             </li>
