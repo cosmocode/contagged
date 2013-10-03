@@ -216,13 +216,20 @@
         <tr>
           <td colspan="2"><h3>{$lang.communication}</h3></td>
         </tr>
-{if $fields.url}
+{if $fields._url}
+        {foreach from=$entry.url|smarty:nodefaults item=url}
         <tr>
-          <th>{$lang.url}:</th>
-          <td><input type="text" class="input" name="entry[url]" value="{$entry.url|h}" /></td>
+          <th>{$lang.url} {counter}:</th>
+          <td><input type="text" class="input" name="entry[url][]" value="{$url|h}" /></td>
+        </tr>
+        {/foreach}
+        <tr>
+          <th>{$lang.url} {counter}:</th>
+          <td><input type="text" class="input" name="entry[url][]" value="" /></td>
         </tr>
 {/if}
 {if $fields._mail}
+        {counter start=0}
         {foreach from=$entry.mail|smarty:nodefaults item=mail}
         <tr>
           <th>{$lang.mail} {counter}:</th>
