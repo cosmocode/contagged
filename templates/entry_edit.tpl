@@ -229,7 +229,7 @@
         </tr>
 {/if}
 {if $fields._mail}
-        {counter start=0}
+        <!--{counter start=0}-->
         {foreach from=$entry.mail|smarty:nodefaults item=mail}
         <tr>
           <th>{$lang.mail} {counter}:</th>
