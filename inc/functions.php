@@ -541,7 +541,7 @@ function addCoords(&$coords, $entry, $geocoder)
         $busi->address = '<b>' . $entry['organization'] . '<br/>'
             . $entry['givenname'] . ' ' . $entry['name'] . '</b><br/>'
             . $entry['street'] . '<br/>'
-            . $entry['zip'] . $entry['location'];
+            . $entry['zip'] . ' ' . $entry['location'];
         $coords[] = $busi;
     }
 }
