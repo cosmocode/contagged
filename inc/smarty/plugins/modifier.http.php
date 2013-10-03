@@ -22,8 +22,8 @@ function smarty_modifier_http($string){
     list($url,$name) = explode(' ',$string,2);
 
 
-    if(!preg_match('#^\w+://#',$url)){
-        $url = 'http://'.$url;
+    if(!parse_url($url, PHP_URL_SCHEME)) {
+        $url = 'http://' . $url;
     }
 
     if(!$name) $name = $url;
