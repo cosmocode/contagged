@@ -115,6 +115,11 @@ a.ed_csvexport {
     padding: 1px 0px 1px 16px;
 }
 
+a.ed_printexport {
+    background: transparent url(../pix/page_white_excel.png) 0px 1px no-repeat;
+    padding: 1px 0px 1px 16px;
+}
+
 a.ed_vcfimport {
     background: transparent url(../pix/page_in.png) 0px 1px no-repeat;
     padding: 1px 0px 1px 16px;

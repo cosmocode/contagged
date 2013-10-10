@@ -51,4 +51,8 @@
   // select the correct google api key
   $conf['gmapkey'] = $conf['gmaps'][$_SERVER['HTTP_HOST']];
 
+  $user = null;
+  if (isset($_SESSION['ldapab']['username'])) {
+      $user = $_SESSION['ldapab']['username'];
+  }
 ?>

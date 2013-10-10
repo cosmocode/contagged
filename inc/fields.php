@@ -53,6 +53,14 @@ $FIELDS['_marker']      = 'marker';                  // aka. tags
 $FIELDS['country']      = 'c';
 
 /**
+ * Mozilla uses a more elaborate schema
+ */
+$OCLASSES[] = 'mozillaAbPersonAlpha';
+$FIELDS['homestreet'] = 'mozillaHomeStreet';
+$FIELDS['homelocation'] = 'mozillaHomeLocalityName';
+$FIELDS['homezip'] = 'mozillaHomePostalCode';
+
+/**
  * If the open exchange schema is used the following fields
  * and object classes are added
  */

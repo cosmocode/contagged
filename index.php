@@ -8,6 +8,8 @@
     $entrytpl = 'list_csv_entry.tpl';
   }elseif(!empty($_REQUEST['export']) && $_REQUEST['export'] == 'map'){
     $entrytpl = 'list_map_entry.tpl';
+  }elseif(!empty($_REQUEST['export']) && $_REQUEST['export'] == 'print'){
+    $entrytpl = 'list_print_entry.tpl';
   }else{
     $entrytpl = 'list_entry.tpl';
   }
@@ -22,6 +24,16 @@
   // fetch results
   $result = ldap_queryabooks($ldapfilter,$fields);
 
+  //prepare templates
+  tpl_std();
+  if (empty($_REQUEST['filter'])) $_REQUEST['filter']='';
+  if (empty($_REQUEST['marker'])) $_REQUEST['marker']='';
+  if (empty($_REQUEST['search'])) $_REQUEST['search']='';
+  $smarty->assign('filter',$_REQUEST['filter']);
+  $smarty->assign('marker',$_REQUEST['marker']);
+  $smarty->assign('search',$_REQUEST['search']);
+  $smarty->assign('org',$_REQUEST['org']);
+
   $list = '';
   if(count($result)==1 && $_REQUEST['search']){
     //only one result on a search -> display page
@@ -35,17 +47,8 @@
       $list .= $smarty->fetch($entrytpl);
     }
   }
-
-  //prepare templates
-  tpl_std();
-  if (empty($_REQUEST['filter'])) $_REQUEST['filter']='';
-  if (empty($_REQUEST['marker'])) $_REQUEST['marker']='';
-  if (empty($_REQUEST['search'])) $_REQUEST['search']='';
   $smarty->assign('list',$list);
-  $smarty->assign('filter',$_REQUEST['filter']);
-  $smarty->assign('marker',$_REQUEST['marker']);
-  $smarty->assign('search',$_REQUEST['search']);
-  $smarty->assign('org',$_REQUEST['org']);
+
   //display templates
   if(!empty($_REQUEST['export'])){
     if ($conf['userlogreq'] && $user == ''){
@@ -62,6 +65,10 @@
     }elseif($_REQUEST['export'] == 'map'){
       header('Content-Type: text/html; charset=utf-8');
       $smarty->display('list_map.tpl');
+      exit;
+    }elseif($_REQUEST['export'] == 'print'){
+      header('Content-Type: text/html; charset=utf-8');
+      $smarty->display('list_print.tpl');
       exit;
     }
   }else{

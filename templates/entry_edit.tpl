@@ -165,6 +165,19 @@
           <td><textarea name="entry[homestreet]" class="input" rows="2" cols="30">{$entry.homestreet|h}</textarea></td>
         </tr>
 {/if}
+{if $fields.homezip}
+        <tr>
+          <th>{$lang.homezip}:</th>
+          <td><input type="text" class="input ac" name="entry[homezip]" value="{$entry.homezip|h}" /></td>
+        </tr>
+{/if}
+{if $fields.homelocation}
+        <tr>
+          <th>{$lang.homelocation}:</th>
+          <td><textarea name="entry[homelocation]" class="input" rows="2" cols="30">{$entry.homelocation|h}</textarea></td>
+        </tr>
+{/if}
+
 {if $fields.homephone}
         <tr>
           <th>{$lang.homephone}:</th>
