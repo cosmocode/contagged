@@ -12,6 +12,8 @@
     $entrytpl = 'list_entry.tpl';
   }
 
+  tpl_std();
+
   // check which fields are needed
   $fields = get_fields_from_template($entrytpl);
 
@@ -37,7 +39,6 @@
   }
 
   //prepare templates
-  tpl_std();
   if (empty($_REQUEST['filter'])) $_REQUEST['filter']='';
   if (empty($_REQUEST['marker'])) $_REQUEST['marker']='';
   if (empty($_REQUEST['search'])) $_REQUEST['search']='';
