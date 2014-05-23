@@ -11,13 +11,18 @@ if(!empty($_REQUEST['username'])){
     if (do_ldap_bind($_REQUEST['username'],$_REQUEST['password'])){
 
         //create private address book if simple enough
-        if(preg_match('/ou=([^,]+)$/',$conf['privatebook'],$match)){
-            $privatedn = $conf['privatebook'].', '.$_SESSION['ldapab']['binddn'];
-            if(!@ldap_read($LDAP_CON,$privatedn,'')){
-                @ldap_add($LDAP_CON,$privatedn,
-                         array('objectClass' => array ('organizationalUnit','top'),
-                               'ou' => $match[1]));
-            }
+        if(!ldap_read($LDAP_CON,$_SESSION['ldapab']['privatedn'],'')){
+          $ou = '';
+          if($conf['privatebook_absolute'] && preg_match('/^ou=%u,/',$conf['privatebook_absolute'])){
+            $ou = $_SESSION['ldapab']['username'];
+          }else if(!$conf['privatebook_absolute'] && preg_match('/ou=([^,]+)$/',$conf['privatebook'],$match)){
+            $ou = $match[1];
+          }
+          if(!empty($ou)) {
+            ldap_add($LDAP_CON,$_SESSION['ldapab']['privatedn'],
+                     array('objectClass' => array ('organizationalUnit','top'),
+                           'ou' => $ou));
+          }
         }
 
         //forward to next page

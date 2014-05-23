@@ -21,6 +21,9 @@
   // How to match users? %u is replaced by the given login
   $conf['userfilter']  = '(&(uid=%u)(objectClass=posixAccount))';
 
+  // Construct entries with a DN including the CN rather than the UID
+  $conf['cnindn'] = FALSE;
+
   // Show the users as contacts, too?
   $conf['displayusertree'] = 0;
 
@@ -39,6 +42,9 @@
 
   // Where to store private contacts (relative to $conf['usertree'])
   $conf['privatebook'] = 'ou=contacts';
+
+  // If set, takes precedence over the relative privatebook path (%u is replaced with the provided username)
+  #$conf['privatebook_absolute'] = 'ou=%u,'.$conf['publicbook'];
 
   // What fields to look at when searching?
   $conf['searchfields'] = array('uid','mail','name','givenname','o');

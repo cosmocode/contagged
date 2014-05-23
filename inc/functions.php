@@ -88,7 +88,7 @@ function do_ldap_bind($user,$pass,$dn=""){
     $dn = $result[0]['dn'];
   }
 
-  //bind with dn
+  //bind with dn or username
   if(@ldap_bind($LDAP_CON,$dn,$pass)){
     //bind successful -> set up session
     set_session($user,$pass,$dn);
@@ -131,10 +131,20 @@ function auth_browseruid(){
 function set_session($user,$pass,$dn){
   global $conf;
 
+  $privatedn = '';
+  if(!empty($dn)){
+    if($conf['privatebook_absolute']){
+      $privatedn = str_replace('%u',$user,$conf['privatebook_absolute']);
+    }elseif($conf['privatebook']){
+      $privatedn = $conf['privatebook'].','.$dn;
+    }
+  }
+
   $rand = rand();
   $_SESSION['ldapab']['username']  = $user;
   $_SESSION['ldapab']['binddn']    = $dn;
   $_SESSION['ldapab']['password']  = $pass;
+  $_SESSION['ldapab']['privatedn'] = $privatedn;
   $_SESSION['ldapab']['browserid'] = auth_browseruid();
 
   // (re)set the persistent auth cookie
@@ -394,9 +404,8 @@ function ldap_queryabooks($filter,$types){
   ldap_free_result($sr);
 
   // private addressbook
-  if(!empty($_SESSION['ldapab']['binddn']) && $conf['privatebook']){
-    $sr      = @ldap_list($LDAP_CON,$conf['privatebook'].
-                          ','.$_SESSION['ldapab']['binddn'],
+  if(!empty($_SESSION['ldapab']['privatedn'])){
+    $sr      = @ldap_list($LDAP_CON,$_SESSION['ldapab']['privatedn'],
                           $filter,$types);
     if(ldap_errno($LDAP_CON) != 32) tpl_ldaperror(); // ignore missing address book
     $result2 = ldap_get_binentries($LDAP_CON, $sr);

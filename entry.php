@@ -131,10 +131,15 @@ function _saveData(){
   $dn    = $_REQUEST['dn'];
   //construct new dn
   $new_uid = time().str_pad(mt_rand(0,99999999),8,"0", STR_PAD_LEFT);
-  $newdn   = 'uid='.$new_uid;
+  $entry['displayname'] = $entry['givenname'].' '.$entry['name'];
+  if ($conf['cnindn']) {
+    $newdn = 'cn='.$entry['displayname'];
+  }else{
+    $newdn = 'uid='.$new_uid;
+  }
   if (empty($_REQUEST['type'])) { $_REQUEST['type']='public'; }
-  if($_REQUEST['type'] == 'private' && $conf['privatebook']){
-    $newdn .= ','.$conf['privatebook'].','.$_SESSION['ldapab']['binddn'];
+  if($_REQUEST['type'] == 'private' && $_SESSION['ldapab']['privatedn']){
+    $newdn .= ','.$_SESSION['ldapab']['privatedn'];
   }else{
     $newdn .= ','.$conf['publicbook'];
   }
@@ -161,6 +166,8 @@ print '</pre>';
     //modify entry attribute by attribute - this ensure we don't delete unknown stuff
     foreach (array_values($FIELDS) as $key){
       if($key == 'dn'){
+        continue;
+      }elseif($key == 'cn' && $conf['cnindn']){
         continue;
       }elseif(empty($entry[$key])){
         // field is empty -> handle deletion (except for photo unless deletion triggered)
@@ -199,7 +206,16 @@ print '</pre>';
         }
     }
 
-
+    if($conf['cnindn'] && !empty($entry['cn'][0])){
+      $newdn = preg_replace('/^(CN=)[^\,]+,/i', '${1}'.$entry['cn'][0].',', $dn);
+      if ($newdn != $dn) {
+        $r = @ldap_rename($LDAP_CON,$dn,'cn='.$entry['cn'][0],NULL,TRUE);
+        tpl_ldaperror("rename cn");
+        if ($r) {
+          $dn = $newdn;
+        }
+      }
+    }
     return $dn;
   }
 }
