@@ -20,8 +20,9 @@ Copy the contents of the .tgz file to a directory below your webserver document
 root. Make sure the webserver is able to write to the cache directory which is
 used for the template engine's cache files. A 'chmod 777 cache' will do.
 
-Open the inc/config.php file in your favourite editor and edit the options
-according to your needs. Some knowlege about LDAP may come in handy.
+Copy the inc/config.phpi.dist file to inc/config.php file and open it in your
+favourite editor and edit the options according to your needs. Some knowlege
+about LDAP may come in handy.
 
 If HTTP auth is wanted have a look at the provided _htaccess file, edit it as
 needed and rename it back to .htaccess
@@ -40,8 +41,8 @@ ldapab.schema file to /etc/ldap/schema/ and include it, too.
 
   include         /etc/ldap/schema/ldapab.schema
 
-If you don't use the extended schema you need to edit inc/fields.php as described
-below.
+If you don't use the extended schema, remove the contactPerson from the object
+classes array in the config.
 
 To setup the access rights add the following statement to your slapd.conf. Of
 course you have to replace "o=cosmocode,c=de" with your own root DN. The first
@@ -81,13 +82,15 @@ stored in your LDAP directory. ConTagged uses internal field names which can be
 mapped to arbitrary LDAP attributes.
 
 By default, all contacts are stored with the inetOrgPerson and contactPerson
-object classes. If you want to use different classes and attributes, you can to
-so by changing the arrays $OCLASSES and $FIELDS in inc/fields.php.
+object classes. If you want to use different classes and attributes, you can
+add objectClasses in the 'oclasses' config option and custom fields in the
+'customFields' option. Also have a look at the inc/fields.php file to understand
+what additional mappings are available.
 
 Note: your contacts should *always* use the inetOrgPerson objectclass at
-minimum, but you can add any other objectclasses. Examples for OXUserObject
-from OpenExchange and evolutionPerson from the Evolution software are given
-in fields.php already.
+minimum, but you can add any other objectclasses. OXUserObject from OpenExchange
+and evolutionPerson from the Evolution software are set up in already and can
+simply be enabled by using the right config class in config.php.
 
 If you want to add new internal field names, you need to adjust the templates
 accordingly. If you add support for new schemas, please send your changes to
@@ -115,7 +118,7 @@ LDAP Servers.
 === LICENSE ===
 
 ConTagged - An LDAP based Company Address Book
-Copyright 2004 - 2010 - CosmoCode GmbH
+Copyright 2004 - 2014 - CosmoCode GmbH
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
