@@ -344,7 +344,7 @@ function ldap_store_objectclasses($dn,$classes){
   $add['objectClass'] = $set;
 
   $r = @ldap_mod_replace($LDAP_CON,$dn,$add);
-  tpl_ldaperror();
+  tpl_ldaperror('store object classes');
 
 /*  print '<pre>';
   print_r($set);
@@ -387,7 +387,7 @@ function ldap_queryabooks($filter,$types){
   $result3 = array();
 
   // public addressbook
-  $sr      = @ldap_list($LDAP_CON,$conf['publicbook'],
+  $sr      = @ldap_search($LDAP_CON,$conf['publicbook'],
                         $filter,$types);
   tpl_ldaperror();
   $result1 = ldap_get_binentries($LDAP_CON, $sr);
