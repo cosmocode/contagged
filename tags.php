@@ -35,7 +35,7 @@
       }
     }
     ksort($tags);
-    tag_cloud_weight(&$tags,$min,$max,6);
+    tag_cloud_weight($tags,$min,$max,6);
 
     $out = '';
     foreach($tags as $tag => $cnt){
