@@ -113,7 +113,7 @@
 
     if(!empty($marker)){
       // Search by tag
-      $ldapfilter = '(&(objectClass=evolutionPerson)';
+      $ldapfilter = '(&( |(objectClass=evolutionPerson)(objectClass=contactPerson) )';
       $marker = explode(',',$marker);
       foreach($marker as $m){
         $m = trim($m);
