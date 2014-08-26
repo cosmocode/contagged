@@ -71,7 +71,7 @@
 // LDAP classes to store with contacts.
 $conf['oclasses'] = array(
     'inetOrgPerson',
-    //'contactPerson',
+    'contactPerson',
     //'OXUserObject',
     //'evolutionPerson',
     //'officePerson',
