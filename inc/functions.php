@@ -526,4 +526,3 @@ function get_fields_from_template($tpl){
     return $return;
 }
 
-?>

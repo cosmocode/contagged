@@ -141,7 +141,11 @@
 {if $entry.url}
           <tr>
             <th>{$lang.url}:</th>
-            <td>{$entry.url|http}</td>
+            <td>
+              {foreach from=$entry.url item=url}
+                {$url|http}<br/>
+              {/foreach}
+            </td>
           </tr>
 {/if}
 {if $entry.mail}
