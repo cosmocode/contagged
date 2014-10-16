@@ -113,11 +113,9 @@ function do_ldap_bind($user,$pass,$dn=""){
 function auth_browseruid(){
   $uid  = '';
   if (empty($_SERVER['HTTP_USER_AGENT']))      { $_SERVER['HTTP_USER_AGENT']='USER_AGENT'; }
-  if (empty($_SERVER['HTTP_ACCEPT_ENCODING'])) { $_SERVER['HTTP_ACCEPT_ENCODING']='ACCEPT_ENCODING'; }
   if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) { $_SERVER['HTTP_ACCEPT_LANGUAGE']='ACCEPT_LANGUAGE'; }
   if (empty($_SERVER['HTTP_ACCEPT_CHARSET']))  { $_SERVER['HTTP_ACCEPT_CHARSET']='ACCEPT_CHARSET'; }
   $uid .= $_SERVER['HTTP_USER_AGENT'];
-  $uid .= $_SERVER['HTTP_ACCEPT_ENCODING'];
   $uid .= $_SERVER['HTTP_ACCEPT_LANGUAGE'];
   $uid .= $_SERVER['HTTP_ACCEPT_CHARSET'];
   $uid .= substr($_SERVER['REMOTE_ADDR'],0,strpos($_SERVER['REMOTE_ADDR'],'.'));
