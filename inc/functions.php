@@ -357,9 +357,13 @@ function ldap_store_objectclasses($dn,$classes){
  * @author Andreas Gohr <andi@splitbrain.org>
  */
 function ldap_filterescape($string){
-  return preg_replace('/([\x00-\x1F\*\(\)\\\\])/e',
-                            '"\\\\\".join("",unpack("H2","$1"))',
-                            $string);
+  return preg_replace_callback(
+    '/([\x00-\x1F\*\(\)\\\\])/',
+    function ($matches) {
+      return "\\" . implode("", unpack("H2", $matches[1]));
+    },
+    $string
+  );
 }
 
 /**
