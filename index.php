@@ -49,7 +49,7 @@
   $smarty->assign('org',$_REQUEST['org']);
   //display templates
   if(!empty($_REQUEST['export'])){
-    if ($conf['userlogreq'] && $user == ''){
+    if ($conf['userlogreq'] && empty($_SESSION['ldapab']['username'])){
       header("HTTP/1.1 401 Access Denied");
       echo '<h1>Access Denied</h1>';
       exit();
