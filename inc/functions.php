@@ -153,7 +153,7 @@ function set_session($user,$pass,$dn){
 function get_cookie_secret(){
   $file = dirname(__FILE__).'/../cache/.htcookiesecret.php';
   if(@file_exists($file)){
-    return md5(trim(file($file)));
+    return md5(trim(file_get_contents($file)));
   }
 
   $secret = '<?php #'.(rand()*time()).'?>';
