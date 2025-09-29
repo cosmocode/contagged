@@ -153,7 +153,7 @@ function set_session($user,$pass,$dn){
 function get_cookie_secret(){
   $file = dirname(__FILE__).'/../cache/.htcookiesecret.php';
   if(@file_exists($file)){
-    return md5(trim(file($file)));
+    return md5(trim(file_get_contents($file)));
   }
 
   $secret = '<?php #'.(rand()*time()).'?>';
@@ -308,7 +308,7 @@ function get_users(){
   $sr = ldap_list($LDAP_CON,$conf['usertree'],"ObjectClass=inetOrgPerson");
   $result = ldap_get_binentries($LDAP_CON, $sr);
   $users = array();
-  if(count($result)){
+  if($result !== null && count($result)){
     foreach ($result as $entry){
       if(!empty($entry['sn'][0])){
         $users[$entry['dn']] = $entry['givenName'][0]." ".$entry['sn'][0];
@@ -527,4 +527,3 @@ function get_fields_from_template($tpl){
     }
     return $return;
 }
-
